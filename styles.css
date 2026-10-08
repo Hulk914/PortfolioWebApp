@@ -124,13 +124,7 @@ body {
 .hero-summary p { margin-bottom: 12px; font-size: 1rem; line-height: 1.6; color: #e0e0e0; }
 .hero-summary strong { color: #00e676; }
 
-@media (max-width: 900px) {
-    .hero-content {
-        flex-direction: column;
-    }
-}
-
-/* Infinite Scrolling Tech Ticker - FIXED FOR SINGLE ROW */
+/* Infinite Scrolling Tech Ticker */
 .tech-ticker-wrap {
     width: 100%;
     overflow: hidden;
@@ -145,7 +139,7 @@ body {
 
 .tech-ticker {
     display: flex;
-    width: max-content; /* Forces the two content blocks to sit side-by-side */
+    width: max-content;
 }
 
 .ticker-content {
@@ -182,7 +176,7 @@ body {
     padding: 40px 0 100px 0;
 }
 
-/* The Fretboard Background */
+/* DESKTOP: The Fretboard Background */
 .guitar-neck {
     position: absolute;
     top: 0;
@@ -207,7 +201,7 @@ body {
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
 }
 
-/* The 6 Strings */
+/* DESKTOP: The 6 Strings */
 .string {
     width: 2px;
     height: 100%;
@@ -314,4 +308,71 @@ body {
 
 .content a:hover {
     text-decoration: underline;
+}
+
+/* =========================================
+   RESPONSIVENESS (< 1300px)
+   Converts Guitar to Railway Track for smaller screens
+   ========================================= */
+@media (max-width: 1300px) {
+    .hero-content {
+        flex-direction: column;
+    }
+
+    .track-container {
+        padding: 40px 15px 100px 15px; 
+    }
+
+    /* Morph Guitar Neck into Narrow Railway Track on the Left */
+    .guitar-neck {
+        left: 20px; 
+        transform: none; 
+        width: 40px; 
+        border-left: 4px solid #8a9597; /* Iron rail */
+        border-right: 4px solid #8a9597; /* Iron rail */
+        background: 
+            repeating-linear-gradient(
+                to bottom,
+                transparent,
+                transparent 40px,
+                #4a3320 40px, /* Wooden sleepers */
+                #4a3320 50px
+            ),
+            linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a);
+    }
+
+    /* Hide guitar strings on smaller screens */
+    .string {
+        display: none;
+    }
+
+    /* Stack Timeline Items on the Right Side */
+    .timeline {
+        gap: 40px;
+    }
+
+    .timeline-item, 
+    .timeline-item.left, 
+    .timeline-item.right {
+        width: 100%;
+        align-self: flex-start;
+        justify-content: flex-start;
+        padding-left: 80px; /* Space for the track on the left */
+        padding-right: 0;
+        margin-top: 0 !important; /* Removes any desktop negative overlapping */
+    }
+
+    /* Realign the targets to act as railway signals */
+    .timeline-item.left .note-target, 
+    .timeline-item.right .note-target {
+        left: 28px; /* Perfectly centered over the 40px left-aligned track */
+        right: auto;
+        width: 24px;
+        height: 12px;
+    }
+
+    .content {
+        max-width: 100%;
+        padding: 20px;
+    }
 }
