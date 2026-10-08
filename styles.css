@@ -374,5 +374,8 @@ body {
     .content {
         max-width: 100%;
         padding: 20px;
+        /* Forces tiles to remain visible on mobile without scroll animations */
+        opacity: 1 !important;
+        transform: translateY(0) !important;
     }
 }

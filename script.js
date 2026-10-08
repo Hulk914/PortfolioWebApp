@@ -1,5 +1,4 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // 1. Intersection Observer for Guitar Hero Notes
     const timelineItems = document.querySelectorAll(".timeline-item");
 
     const observerOptions = {
@@ -22,16 +21,16 @@ document.addEventListener("DOMContentLoaded", () => {
         noteHitObserver.observe(item);
     });
 
-    // 2. Cinematic Auto-Scroll
     let isAutoScrolling = true;
-    const scrollSpeed = 0.6; // Pixels per frame. Lower = slower.
+    
+    // Dynamically set scroll speed: faster for mobile (<1300px), standard for desktop
+    const scrollSpeed = window.innerWidth <= 1300 ? 1.2 : 0.6; 
 
     function autoScroll() {
         if (!isAutoScrolling) return;
         
         window.scrollBy(0, scrollSpeed);
         
-        // Stop scrolling when reaching the absolute bottom
         if (Math.ceil(window.innerHeight + window.scrollY) >= document.body.offsetHeight) {
             isAutoScrolling = false;
         } else {
@@ -39,14 +38,12 @@ document.addEventListener("DOMContentLoaded", () => {
         }
     }
 
-    // Start auto-scroll after a 3-second delay 
     setTimeout(() => {
         if (isAutoScrolling) {
             requestAnimationFrame(autoScroll);
         }
     }, 3000);
 
-    // Cancel auto-scroll the moment the user interacts with the page
     ['wheel', 'touchstart', 'mousedown', 'keydown'].forEach(evt => {
         window.addEventListener(evt, () => {
             isAutoScrolling = false;
