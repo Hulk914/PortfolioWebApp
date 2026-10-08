@@ -1,0 +1,317 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body {
+    background: radial-gradient(circle at center, #1e222d 0%, #0a0a0c 100%);
+    background-image: url('assets/tech-bg.png'); 
+    background-attachment: fixed;
+    background-size: cover;
+    background-position: center;
+    color: #ffffff;
+    overflow-x: hidden;
+}
+
+/* Glassmorphism Header */
+.hero {
+    padding: 60px 20px;
+    background: rgba(10, 10, 12, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 10;
+}
+
+.hero-content {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    max-width: 1200px;
+    width: 100%;
+    gap: 50px;
+}
+
+.hero-profile {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    flex: 1;
+}
+
+.profile-pic {
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #00e676;
+    box-shadow: 0 0 25px rgba(0, 230, 118, 0.4);
+    margin-bottom: 20px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.profile-pic:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 35px rgba(0, 230, 118, 0.7);
+}
+
+.hero-profile h1 { margin-bottom: 8px; font-size: 2.5rem; letter-spacing: 1px; }
+.hero-profile h2 { color: #00e676; font-weight: 400; margin-bottom: 20px; font-size: 1.2rem; }
+
+/* Social Links */
+.social-links {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 25px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.social-btn {
+    padding: 8px 20px;
+    background: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    text-decoration: none;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.social-btn:hover {
+    background: rgba(30, 30, 35, 0.8);
+    border-color: #00e676;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 230, 118, 0.4);
+}
+
+.resume-btn {
+    display: inline-block;
+    padding: 12px 28px;
+    background-color: #00e676;
+    color: #121212;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: bold;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resume-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(0, 230, 118, 0.6);
+}
+
+/* Horizontal Top Summary */
+.hero-summary {
+    flex: 1.2;
+    background: rgba(20, 20, 25, 0.4); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    padding: 30px;
+    border-radius: 12px;
+    border-top: 4px solid #00e676; 
+}
+
+.hero-summary h3 { margin-bottom: 15px; font-size: 1.5rem; color: #fff; }
+.hero-summary p { margin-bottom: 12px; font-size: 1rem; line-height: 1.6; color: #e0e0e0; }
+.hero-summary strong { color: #00e676; }
+
+@media (max-width: 900px) {
+    .hero-content {
+        flex-direction: column;
+    }
+}
+
+/* Infinite Scrolling Tech Ticker - FIXED FOR SINGLE ROW */
+.tech-ticker-wrap {
+    width: 100%;
+    overflow: hidden;
+    background: rgba(10, 10, 12, 0.5);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    padding: 15px 0;
+    position: relative;
+    z-index: 5;
+    backdrop-filter: blur(5px);
+}
+
+.tech-ticker {
+    display: flex;
+    width: max-content; /* Forces the two content blocks to sit side-by-side */
+}
+
+.ticker-content {
+    display: flex;
+    gap: 50px;
+    padding-right: 50px;
+    animation: ticker 35s linear infinite;
+    white-space: nowrap;
+}
+
+.ticker-content span {
+    color: #aaaaaa;
+    font-weight: 600;
+    font-size: 0.95rem;
+    letter-spacing: 1px;
+    transition: color 0.3s ease;
+}
+
+.ticker-content span:hover {
+    color: #00e676;
+}
+
+@keyframes ticker {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
+}
+
+/* The Guitar Hero Track Container */
+.track-container {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 40px 0 100px 0;
+}
+
+/* The Fretboard Background */
+.guitar-neck {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 180px;
+    background: 
+        repeating-linear-gradient(
+            to bottom,
+            transparent,
+            transparent 148px,
+            #888 148px,
+            #bbb 150px
+        ),
+        linear-gradient(to right, #1a1a1a, #2a2a2a, #1a1a1a);
+    border-left: 3px solid #555;
+    border-right: 3px solid #555;
+    display: flex;
+    justify-content: space-evenly;
+    z-index: 0;
+    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+}
+
+/* The 6 Strings */
+.string {
+    width: 2px;
+    height: 100%;
+    background-color: silver;
+    background: linear-gradient(to right, #777, #ccc, #777);
+    box-shadow: 2px 0 4px rgba(0,0,0,0.8);
+}
+
+/* Timeline Layout */
+.timeline {
+    position: relative;
+    z-index: 1;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 30px; 
+}
+
+.timeline-item {
+    display: flex;
+    align-items: center;
+    width: 50%;
+    position: relative;
+}
+
+.timeline-item.left {
+    align-self: flex-start;
+    justify-content: flex-end;
+    padding-right: 120px;
+}
+
+.timeline-item.right {
+    align-self: flex-end;
+    padding-left: 120px;
+}
+
+/* The Guitar Hero 'Note' - Unlit State */
+.note-target {
+    position: absolute;
+    width: 45px;
+    height: 18px;
+    background-color: #333;
+    border-radius: 10px;
+    border: 2px solid #555;
+    transition: all 0.4s ease;
+}
+
+.timeline-item.left .note-target { right: 33px; }
+.timeline-item.right .note-target { left: 33px; }
+
+/* The Apple Frosted Glass Effect - Unlit State */
+.content {
+    background: rgba(20, 20, 25, 0.4); 
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+    padding: 28px;
+    border-radius: 12px;
+    border-left: 4px solid #333;
+    max-width: 450px;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.content h3 { margin-bottom: 8px; font-size: 1.3rem; }
+.content p { line-height: 1.6; color: #e0e0e0; }
+
+.date {
+    color: #888;
+    font-size: 0.9em;
+    display: block;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+}
+
+/* JS Animation States - The "Hit" */
+.timeline-item.hit .note-target {
+    background-color: #00e676;
+    border-color: #fff;
+    box-shadow: 0 0 25px #00e676, inset 0 0 10px #fff;
+}
+
+.timeline-item.hit .content {
+    opacity: 1;
+    transform: translateY(0);
+    border-left-color: #00e676;
+    background: rgba(30, 30, 35, 0.6); 
+}
+
+.timeline-item.hit .content:hover {
+    transform: translateY(-5px);
+    border-left-color: #ffffff;
+    box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.6);
+}
+
+.content a {
+    color: #00e676;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.content a:hover {
+    text-decoration: underline;
+}
