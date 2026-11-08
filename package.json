@@ -1,0 +1,26 @@
+{
+  "name": "ayush-thakur-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Accessible, buildless portfolio for Ayush Thakur.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node tools/serve.mjs",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check",
+    "validate:html": "html-validate index.html",
+    "check": "npm run format:check && npm run validate:html && node --check script.js && node --test tests/server.test.mjs tests/assets.test.mjs",
+    "test": "playwright test",
+    "test:report": "playwright show-report",
+    "optimize:images": "node tools/optimize-images.mjs"
+  },
+  "devDependencies": {
+    "@axe-core/playwright": "4.14.0",
+    "@playwright/test": "1.65.0",
+    "html-validate": "11.19.0",
+    "prettier": "3.9.10",
+    "sharp": "0.35.5"
+  }
+}
