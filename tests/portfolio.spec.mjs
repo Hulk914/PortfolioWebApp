@@ -68,7 +68,8 @@ test('content and anchors remain usable without JavaScript', async ({ browser, b
       await expect(card).toHaveCSS('opacity', '1');
     await page.getByRole('navigation').getByRole('link', { name: 'Projects', exact: true }).click();
     await expect(page).toHaveURL(/#projects$/);
-    await expect(page.getByRole('heading', { name: /Practical automation/ })).toBeInViewport();
+    // Use the anchor destination so heading copy can change independently.
+    await expect(page.locator('#projects').getByRole('heading', { level: 2 })).toBeInViewport();
   } finally {
     await context.close();
   }
