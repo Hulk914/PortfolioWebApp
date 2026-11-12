@@ -14,6 +14,7 @@
     "check": "npm run format:check && npm run validate:html && node --check script.js && node --test tests/server.test.mjs tests/assets.test.mjs",
     "test": "playwright test",
     "test:report": "playwright show-report",
+    "prepare:downloads": "node tools/prepare-downloads.mjs",
     "optimize:images": "node tools/optimize-images.mjs"
   },
   "devDependencies": {

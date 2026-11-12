@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import AxeBuilder from '@axe-core/playwright';
+import { readFile } from 'node:fs/promises';
 
 test('loads the public page and its assets without browser errors', async ({ page }) => {
   const errors = [];
@@ -50,6 +51,27 @@ test('resume links resolve to a real PDF and new tabs are announced', async ({ p
     expect((await link.getAttribute('rel')).split(/\s+/)).toContain('noopener');
   }
 });
+
+for (const mode of ['http', 'file']) {
+  test(`FastAPI PDF downloads without leaving the portfolio (${mode})`, async ({ page }) => {
+    await page.goto(mode === 'file' ? new URL('../index.html', import.meta.url).href : '/');
+    const portfolioURL = page.url();
+    const link = page.getByRole('link', { name: 'Download FastAPI guide (PDF)' });
+    if (mode === 'file') await expect(link).toHaveAttribute('href', /^blob:/);
+    else await expect(link).toHaveAttribute('href', 'assets/FastAPI-Guide.pdf');
+
+    const pending = page.waitForEvent('download');
+    await link.click();
+    const download = await pending;
+    expect(download.suggestedFilename()).toBe('FastAPI-Guide.pdf');
+    expect(await download.failure()).toBeNull();
+    expect(await readFile(await download.path())).toEqual(
+      await readFile(new URL('../assets/FastAPI-Guide.pdf', import.meta.url)),
+    );
+    await expect(page).toHaveURL(portfolioURL);
+    await expect(page.getByRole('heading', { name: 'FastAPI Complete Guide' })).toBeVisible();
+  });
+}
 
 test('has no automatically detectable WCAG A/AA violations', async ({ page }) => {
   await page.goto('/');

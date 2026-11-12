@@ -7,6 +7,14 @@
   const year = document.getElementById('current-year');
   if (year) year.textContent = String(new Date().getFullYear());
 
+  // Local file links cannot trigger downloads in Chrome. Load a Blob-backed
+  // copy only for direct file previews; hosted pages use the original PDF.
+  if (window.location.protocol === 'file:' && document.getElementById('fastapi-guide-download')) {
+    const downloadScript = document.createElement('script');
+    downloadScript.src = 'assets/FastAPI-Guide.download.js';
+    document.head.append(downloadScript);
+  }
+
   if (typeof window.IntersectionObserver !== 'function') {
     document.querySelectorAll('.timeline-item').forEach((item) => item.classList.add('hit'));
     return;

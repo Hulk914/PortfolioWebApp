@@ -90,6 +90,11 @@ explicit dimensions to reserve layout space; it is not lazy-loaded.
 
 - Edit the biography, skills, and career history in `index.html`.
 - Replace `assets/resume.pdf` to update the resume; keep the filename stable.
+- Replace `assets/FastAPI-Guide.pdf` to update the downloadable FastAPI theory and
+  interview guide; keep the filename stable, then run `npm run prepare:downloads`
+  to refresh the generated copy used for direct file previews. Its repository and
+  download links are in the FastAPI resource card in `index.html`. Direct file
+  downloads require JavaScript; downloads over HTTP also work without JavaScript.
 - Run `npm run format`, `npm run check`, and `npm test` before publishing changes.
 - Publish `index.html`, `styles.css`, `script.js`, and `assets/` on a static host.
   Do not publish development folders, dependencies, Git metadata, or reports.
