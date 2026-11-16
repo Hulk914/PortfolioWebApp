@@ -89,6 +89,10 @@ explicit dimensions to reserve layout space; it is not lazy-loaded.
 ## Updating content and hosting
 
 - Edit the biography, skills, and career history in `index.html`.
+- Add projects as `.project-entry` articles in the Projects & resources section.
+  Keep the title, short overview, technology tags, and links visible; place supporting
+  content inside the native `.project-details` disclosure. Entries start collapsed,
+  support multiple open projects, and work without JavaScript.
 - Replace `assets/resume.pdf` to update the resume; keep the filename stable.
 - Replace `assets/FastAPI-Guide.pdf` to update the downloadable FastAPI theory and
   interview guide; keep the filename stable, then run `npm run prepare:downloads`

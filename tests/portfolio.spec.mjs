@@ -39,6 +39,71 @@ test('keyboard users can skip directly to the main content', async ({ page }) =>
   await expect(page.getByRole('main')).toBeFocused();
 });
 
+test('project overviews lead with AI agents and keep links visible when collapsed', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const projects = page.locator('#projects > article');
+  await expect(projects).toHaveCount(4);
+  await expect(projects.getByRole('heading', { level: 3 })).toHaveText([
+    'AI Agents Under the Hood',
+    'Restaurant Review Reply Automation',
+    'Core Python Field Guide',
+    'FastAPI Complete Guide',
+  ]);
+  await expect(page.locator('.project-details[open]')).toHaveCount(0);
+  for (const project of await projects.all()) {
+    await expect(project.getByRole('heading', { level: 3 })).toBeVisible();
+    await expect(project.locator('.project-preview')).toBeVisible();
+    await expect(project.locator('.card-tags')).toBeVisible();
+    for (const link of await project.getByRole('link').all()) await expect(link).toBeVisible();
+  }
+
+  const agents = page.getByRole('article', { name: 'AI Agents Under the Hood' });
+  const link = agents.getByRole('link', { name: 'Explore the Agent Implementations' });
+  await expect(link).toHaveAttribute('href', 'https://github.com/Hulk914/langchain_job_search');
+  await expect(link).toHaveAttribute('target', '_blank');
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await link.focus();
+  await expect(link).toBeFocused();
+  await expect(link).toHaveCSS('outline-style', 'solid');
+
+  await agents.locator('summary').click();
+  await expect(agents.getByRole('heading', { level: 4 })).toHaveText([
+    'LangChain-Powered Job Search Agent',
+    'Custom ReAct-Style Agent Loop',
+  ]);
+  await expect(agents.getByRole('list', { name: 'Framework-managed agent flow' })).toBeVisible();
+  await expect(agents.getByRole('list', { name: 'Explicit agent loop flow' })).toBeVisible();
+  await expect(agents).toContainText('Both examples use LangChain interfaces with Gemini');
+});
+
+test('project details support keyboard toggling and comparing multiple projects', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const disclosures = page.locator('.project-details');
+  for (const disclosure of await disclosures.all()) {
+    const summary = disclosure.locator('summary');
+    await summary.focus();
+    await expect(summary).toHaveCSS('outline-style', 'solid');
+    await expect(summary).toHaveAccessibleName('View details');
+    await page.keyboard.press('Enter');
+    await expect(disclosure).toHaveJSProperty('open', true);
+    await expect(summary).toHaveAccessibleName('Hide details');
+    await expect(disclosure.locator('.project-card')).toBeVisible();
+  }
+  await expect(page.locator('.project-details[open]')).toHaveCount(4);
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  const firstSummary = disclosures.first().locator('summary');
+  await firstSummary.focus();
+  await page.keyboard.press('Space');
+  await expect(firstSummary).toBeFocused();
+  await expect(disclosures.first()).toHaveJSProperty('open', false);
+  await expect(disclosures.first().locator('.project-card')).toBeHidden();
+  await expect(page.locator('.project-details[open]')).toHaveCount(3);
+});
+
 test('resume links resolve to a real PDF and new tabs are announced', async ({ page, request }) => {
   await page.goto('/');
   const resume = page.getByRole('link', { name: 'View my resume' });
@@ -75,10 +140,15 @@ for (const mode of ['http', 'file']) {
 
 test('has no automatically detectable WCAG A/AA violations', async ({ page }) => {
   await page.goto('/');
-  const results = await new AxeBuilder({ page })
-    .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
-    .analyze();
-  expect(results.violations).toEqual([]);
+  for (const expanded of [false, true]) {
+    if (expanded) {
+      for (const summary of await page.locator('.project-toggle').all()) await summary.click();
+    }
+    const results = await new AxeBuilder({ page })
+      .withTags(['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'])
+      .analyze();
+    expect(results.violations, expanded ? 'Expanded projects' : 'Collapsed projects').toEqual([]);
+  }
 });
 
 test('content and anchors remain usable without JavaScript', async ({ browser, baseURL }) => {
@@ -92,6 +162,17 @@ test('content and anchors remain usable without JavaScript', async ({ browser, b
     await expect(page).toHaveURL(/#projects$/);
     // Use the anchor destination so heading copy can change independently.
     await expect(page.locator('#projects').getByRole('heading', { level: 2 })).toBeInViewport();
+    const agents = page.getByRole('article', { name: 'AI Agents Under the Hood' });
+    await expect(agents.getByRole('heading', { level: 3 })).toBeVisible();
+    await expect(
+      agents.getByRole('link', { name: 'Explore the Agent Implementations' }),
+    ).toHaveAttribute('href', 'https://github.com/Hulk914/langchain_job_search');
+    const disclosure = agents.locator('details');
+    await expect(disclosure).toHaveJSProperty('open', false);
+    await agents.locator('summary').click();
+    await expect(agents.getByRole('list', { name: 'Explicit agent loop flow' })).toBeVisible();
+    await agents.locator('summary').click();
+    await expect(disclosure).toHaveJSProperty('open', false);
   } finally {
     await context.close();
   }
@@ -141,6 +222,11 @@ test('also fits narrow phones and intermediate breakpoints', async ({ page }, te
     expect(
       await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
       'Overflow at ' + width,
+    ).toBe(true);
+    for (const summary of await page.locator('.project-toggle').all()) await summary.click();
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth),
+      'Expanded overflow at ' + width,
     ).toBe(true);
   }
 });

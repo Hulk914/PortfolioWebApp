@@ -459,118 +459,266 @@
           >
           <p>Practical automation.<br />Learning in the open.</p>
         </div>
-        <article class="project-card reveal">
-          <div class="project-copy">
-            <p class="eyebrow project-eyebrow"
-              ><span class="status-dot" aria-hidden="true"></span> Restaurant Review Reply
-              Automation <span class="project-date">/ Independent Project</span></p
-            >
-            <h3>Customer feedback.<br /><span>Meet intelligent automation.</span></h3>
-            <p
-              >An n8n workflow that automates restaurant-review responses, connecting incoming
-              feedback to contextual drafts and team alerts. Shared the implementation in a
-              technical LinkedIn post.</p
-            >
-            <p class="project-subheading">What the workflow does</p>
-            <ul class="summary-highlights">
-              <li>Collect Google &amp; Zomato customer reviews.</li>
-              <li>Orchestrate contextual reply drafts with n8n.</li>
-              <li>Send Telegram alerts with tap-to-copy responses.</li>
-            </ul>
-            <div class="project-footer"
-              ><ul class="card-tags" aria-label="Project technologies"
+        <p class="project-disclosure-hint"
+          >A quick overview first. Select <span>View details</span> to explore the
+          implementation.</p
+        >
+        <article class="project-entry reveal" aria-labelledby="agents-title">
+          <div class="project-overview">
+            <div class="project-intro">
+              <p class="eyebrow project-eyebrow">
+                <span class="status-dot" aria-hidden="true"></span> Agentic AI
+                <span class="project-date">/ Learning Resource</span>
+              </p>
+              <h3 id="agents-title">AI Agents Under the Hood</h3>
+              <p class="project-preview"
+                >Two Python examples comparing LangChain-managed orchestration with an explicit
+                tool-calling loop.</p
+              >
+            </div>
+            <div class="project-overview-meta">
+              <ul class="card-tags" aria-label="Project technologies">
+                <li>Python</li>
+                <li>LangChain</li>
+                <li>Gemini</li>
+                <li>Tavily</li>
+                <li>AI Agents</li>
+                <li>Tool Calling</li>
+              </ul>
+              <div class="project-links"
+                ><a
+                  class="text-link"
+                  href="https://github.com/Hulk914/langchain_job_search"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-describedby="new-tab-hint"
+                  >Explore the Agent Implementations <span aria-hidden="true">↗</span></a
+                ></div
+              >
+            </div>
+          </div>
+          <details class="project-details">
+            <summary class="project-toggle" aria-describedby="agents-title">
+              <span class="details-closed-label">View details</span>
+              <span class="details-open-label">Hide details</span>
+              <span class="project-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="project-card agent-card">
+              <div class="project-copy">
+                <p class="project-subheading"
+                  >Understanding agent orchestration beyond framework abstractions.</p
+                >
+                <p>
+                  Explored AI agent orchestration through two practical Python implementations: a
+                  Gemini-powered job-search agent using LangChain and Tavily, and an explicit
+                  ReAct-style tool-calling loop with custom tools. An educational reference for how
+                  LLMs use external tools, maintain context, process observations, and produce final
+                  responses.
+                </p>
+              </div>
+              <section class="workflow agent-implementation" aria-labelledby="search-agent-title">
+                <p class="eyebrow"><span class="section-number">01</span> Framework-managed</p>
+                <h4 id="search-agent-title">LangChain-Powered Job Search Agent</h4>
+                <p class="agent-description">
+                  A Gemini-powered agent using LangChain’s <code>create_agent()</code> and Tavily
+                  Search to discover AI engineering opportunities in Bengaluru. LangChain manages
+                  tool execution and returns a structured answer with source URLs.
+                </p>
+                <ol class="agent-flow" aria-label="Framework-managed agent flow">
+                  <li>User query</li>
+                  <li>LangChain <code>create_agent()</code></li>
+                  <li>Tavily Search</li>
+                  <li>Structured response</li>
+                </ol>
+              </section>
+              <section class="workflow agent-implementation" aria-labelledby="agent-loop-title">
+                <p class="eyebrow"><span class="section-number">02</span> Explicit orchestration</p>
+                <h4 id="agent-loop-title">Custom ReAct-Style Agent Loop</h4>
+                <p class="agent-description">
+                  Uses LangChain’s <code>.bind_tools()</code> with custom Python tools for
+                  product-price lookup and discount calculations. Manually dispatches tool calls,
+                  appends observations to message history, and stops on a final answer or an
+                  iteration limit.
+                </p>
+                <ol class="agent-flow" aria-label="Explicit agent loop flow">
+                  <li>Model decision</li>
+                  <li>Tool call</li>
+                  <li>Tool result</li>
+                  <li>Repeat or final answer</li>
+                </ol>
+                <p class="agent-loop-note"
+                  >Tool observations feed back into the next model decision.</p
+                >
+              </section>
+              <div class="agent-conclusion">
+                <p class="agent-takeaway">
+                  Frameworks accelerate implementation. Understanding the underlying agent loop
+                  enables better engineering decisions.
+                </p>
+                <p class="agent-scope">
+                  Both examples use LangChain interfaces with Gemini; the second makes orchestration
+                  explicit.
+                </p>
+              </div>
+            </div>
+          </details>
+        </article>
+        <article class="project-entry reveal" aria-labelledby="review-automation-title">
+          <div class="project-overview">
+            <div class="project-intro">
+              <p class="eyebrow project-eyebrow"
+                ><span class="status-dot" aria-hidden="true"></span> Workflow Automation
+                <span class="project-date">/ Independent Project</span></p
+              >
+              <h3 id="review-automation-title">Restaurant Review Reply Automation</h3>
+              <p class="project-preview"
+                >An n8n workflow connecting customer reviews to contextual reply drafts and Telegram
+                alerts.</p
+              >
+            </div>
+            <div class="project-overview-meta">
+              <ul class="card-tags" aria-label="Project technologies"
                 ><li>n8n</li
                 ><li>LLM APIs</li
                 ><li>Telegram</li></ul
-              ><a
-                class="text-link"
-                href="mailto:ayushthakur2009@gmail.com?subject=Let%27s%20talk%20about%20your%20review%20automation%20workflow"
-                >Discuss this project <span aria-hidden="true">↗</span></a
-              ></div
-            >
+              >
+              <div class="project-links"
+                ><a
+                  class="text-link"
+                  href="mailto:ayushthakur2009@gmail.com?subject=Let%27s%20talk%20about%20your%20review%20automation%20workflow"
+                  >Discuss this project <span aria-hidden="true">↗</span></a
+                ></div
+              >
+            </div>
           </div>
-          <div class="workflow" role="group" aria-label="Review pipeline workflow">
-            <div class="workflow-heading"
-              ><span>FROM REVIEW TO RESPONSE</span><span aria-hidden="true">↗</span></div
-            >
-            <ol class="workflow-steps">
-              <li
-                ><span class="flow-icon" aria-hidden="true">01</span
-                ><div><h4>Google + Zomato</h4><p>Incoming customer reviews</p></div
-                ><span class="flow-type">INPUT</span></li
-              >
-              <li
-                ><span class="flow-icon" aria-hidden="true">02</span
-                ><div><h4>n8n</h4><p>Parse &amp; orchestrate the workflow</p></div
-                ><span class="flow-type">CONNECT</span></li
-              >
-              <li class="flow-ai"
-                ><span class="flow-icon" aria-hidden="true">✦</span
-                ><div><h4>AI reply drafting</h4><p>Prepare contextual, empathetic replies</p></div
-                ><span class="flow-type">AI</span></li
-              >
-              <li
-                ><span class="flow-icon" aria-hidden="true">04</span
-                ><div><h4>Telegram</h4><p>Team alerts. Tap to copy.</p></div
-                ><span class="flow-type">DELIVER</span></li
-              >
-            </ol>
-            <p class="workflow-note"
-              ><span class="status-dot" aria-hidden="true"></span> Less manual work. More thoughtful
-              replies.</p
-            >
-          </div>
+          <details class="project-details">
+            <summary class="project-toggle" aria-describedby="review-automation-title">
+              <span class="details-closed-label">View details</span>
+              <span class="details-open-label">Hide details</span>
+              <span class="project-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="project-card">
+              <div class="project-copy">
+                <h4 class="project-detail-title"
+                  >Customer feedback.<br /><span>Meet intelligent automation.</span></h4
+                >
+                <p
+                  >An n8n workflow that automates restaurant-review responses, connecting incoming
+                  feedback to contextual drafts and team alerts. Shared the implementation in a
+                  technical LinkedIn post.</p
+                >
+                <p class="project-subheading">What the workflow does</p>
+                <ul class="summary-highlights">
+                  <li>Collect Google &amp; Zomato customer reviews.</li>
+                  <li>Orchestrate contextual reply drafts with n8n.</li>
+                  <li>Send Telegram alerts with tap-to-copy responses.</li>
+                </ul>
+              </div>
+              <div class="workflow" role="group" aria-label="Review pipeline workflow">
+                <div class="workflow-heading"
+                  ><span>FROM REVIEW TO RESPONSE</span><span aria-hidden="true">↗</span></div
+                >
+                <ol class="workflow-steps">
+                  <li
+                    ><span class="flow-icon" aria-hidden="true">01</span
+                    ><div><h4>Google + Zomato</h4><p>Incoming customer reviews</p></div
+                    ><span class="flow-type">INPUT</span></li
+                  >
+                  <li
+                    ><span class="flow-icon" aria-hidden="true">02</span
+                    ><div><h4>n8n</h4><p>Parse &amp; orchestrate the workflow</p></div
+                    ><span class="flow-type">CONNECT</span></li
+                  >
+                  <li class="flow-ai"
+                    ><span class="flow-icon" aria-hidden="true">✦</span
+                    ><div
+                      ><h4>AI reply drafting</h4><p>Prepare contextual, empathetic replies</p></div
+                    ><span class="flow-type">AI</span></li
+                  >
+                  <li
+                    ><span class="flow-icon" aria-hidden="true">04</span
+                    ><div><h4>Telegram</h4><p>Team alerts. Tap to copy.</p></div
+                    ><span class="flow-type">DELIVER</span></li
+                  >
+                </ol>
+                <p class="workflow-note"
+                  ><span class="status-dot" aria-hidden="true"></span> Less manual work. More
+                  thoughtful replies.</p
+                >
+              </div>
+            </div>
+          </details>
         </article>
-        <article class="project-card resource-card reveal" aria-labelledby="python-guide-title">
-          <div class="project-copy">
-            <p class="eyebrow project-eyebrow">
-              <span class="status-dot" aria-hidden="true"></span> Python Core Concepts
-              <span class="project-date">/ Learning Resource</span>
-            </p>
-            <h3 id="python-guide-title">Core Python Field Guide</h3>
-            <p>
-              After completing a core Python course, I turned my practice notes into a practical,
-              example-first guide. Built for people learning Python and experienced developers
-              revisiting the fundamentals.
-            </p>
-            <div class="project-footer">
+        <article class="project-entry reveal" aria-labelledby="python-guide-title">
+          <div class="project-overview">
+            <div class="project-intro">
+              <p class="eyebrow project-eyebrow">
+                <span class="status-dot" aria-hidden="true"></span> Python Core Concepts
+                <span class="project-date">/ Learning Resource</span>
+              </p>
+              <h3 id="python-guide-title">Core Python Field Guide</h3>
+              <p class="project-preview"
+                >An example-first Python guide with runnable chapters, common pitfalls, and a
+                command-line task tracker.</p
+              >
+            </div>
+            <div class="project-overview-meta">
               <ul class="card-tags" aria-label="Resource topics">
                 <li>Python</li>
                 <li>Standard Library</li>
                 <li>Practice &amp; Testing</li>
               </ul>
-              <a
-                class="text-link"
-                href="https://github.com/Hulk914/python-core-concepts"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-describedby="new-tab-hint"
-                >Explore the Python guide <span aria-hidden="true">↗</span></a
+              <div class="project-links"
+                ><a
+                  class="text-link"
+                  href="https://github.com/Hulk914/python-core-concepts"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-describedby="new-tab-hint"
+                  >Explore the Python guide <span aria-hidden="true">↗</span></a
+                ></div
               >
             </div>
           </div>
-          <div class="resource-notes">
-            <p class="eyebrow">Learn it. Revisit it. Put it to work.</p>
-            <ul class="summary-highlights">
-              <li>Guided chapters and runnable examples for learners.</li>
-              <li>A quick reference, common pitfalls, and exercises for a refresher.</li>
-              <li>A command-line task tracker that brings the concepts together.</li>
-            </ul>
-          </div>
+          <details class="project-details">
+            <summary class="project-toggle" aria-describedby="python-guide-title">
+              <span class="details-closed-label">View details</span>
+              <span class="details-open-label">Hide details</span>
+              <span class="project-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="project-card resource-card">
+              <div class="project-copy">
+                <p>
+                  After completing a core Python course, I turned my practice notes into a
+                  practical, example-first guide. Built for people learning Python and experienced
+                  developers revisiting the fundamentals.
+                </p>
+              </div>
+              <div class="resource-notes">
+                <p class="eyebrow">Learn it. Revisit it. Put it to work.</p>
+                <ul class="summary-highlights">
+                  <li>Guided chapters and runnable examples for learners.</li>
+                  <li>A quick reference, common pitfalls, and exercises for a refresher.</li>
+                  <li>A command-line task tracker that brings the concepts together.</li>
+                </ul>
+              </div>
+            </div>
+          </details>
         </article>
-        <article class="project-card resource-card reveal" aria-labelledby="fastapi-guide-title">
-          <div class="project-copy">
-            <p class="eyebrow project-eyebrow">
-              <span class="status-dot" aria-hidden="true"></span> FastAPI &amp; API Engineering
-              <span class="project-date">/ Learning Resource</span>
-            </p>
-            <h3 id="fastapi-guide-title">FastAPI Complete Guide</h3>
-            <p>
-              After completing a Udemy FastAPI course, I built a seller-and-product API as a
-              hands-on learning and revision resource. Explore typed API contracts, authentication,
-              database workflows, and testing in a focused, runnable project.
-            </p>
-            <div class="project-footer">
+        <article class="project-entry reveal" aria-labelledby="fastapi-guide-title">
+          <div class="project-overview">
+            <div class="project-intro">
+              <p class="eyebrow project-eyebrow">
+                <span class="status-dot" aria-hidden="true"></span> FastAPI &amp; API Engineering
+                <span class="project-date">/ Learning Resource</span>
+              </p>
+              <h3 id="fastapi-guide-title">FastAPI Complete Guide</h3>
+              <p class="project-preview"
+                >A practical FastAPI reference covering typed APIs, authentication, databases, and
+                interview preparation.</p
+              >
+            </div>
+            <div class="project-overview-meta">
               <ul class="card-tags" aria-label="Resource topics">
                 <li>FastAPI</li>
                 <li>Pydantic</li>
@@ -578,33 +726,49 @@
                 <li>Alembic</li>
                 <li>JWT &amp; pytest</li>
               </ul>
-              <a
-                class="text-link"
-                href="https://github.com/Hulk914/FastAPI-Complete-Guide"
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-describedby="new-tab-hint"
-                >Explore the FastAPI code <span aria-hidden="true">↗</span></a
+              <div class="project-links"
+                ><a
+                  class="text-link"
+                  href="https://github.com/Hulk914/FastAPI-Complete-Guide"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-describedby="new-tab-hint"
+                  >Explore the FastAPI code <span aria-hidden="true">↗</span></a
+                >
+                <a
+                  id="fastapi-guide-download"
+                  class="text-link"
+                  href="assets/FastAPI-Guide.pdf"
+                  download="FastAPI-Guide.pdf"
+                  >Download FastAPI guide (PDF) <span aria-hidden="true">↓</span></a
+                ></div
               >
             </div>
           </div>
-          <div class="resource-notes">
-            <p class="eyebrow">Code. Concepts. Interview practice.</p>
-            <ul class="summary-highlights">
-              <li>Theory explained through practical API examples.</li>
-              <li>Database sessions, migrations, authorization, and tests in context.</li>
-              <li>48 mock interview questions with answers, from beginner to advanced.</li>
-            </ul>
-            <div class="project-footer">
-              <a
-                id="fastapi-guide-download"
-                class="text-link"
-                href="assets/FastAPI-Guide.pdf"
-                download="FastAPI-Guide.pdf"
-                >Download FastAPI guide (PDF) <span aria-hidden="true">↓</span></a
-              >
+          <details class="project-details">
+            <summary class="project-toggle" aria-describedby="fastapi-guide-title">
+              <span class="details-closed-label">View details</span>
+              <span class="details-open-label">Hide details</span>
+              <span class="project-toggle-icon" aria-hidden="true"></span>
+            </summary>
+            <div class="project-card resource-card">
+              <div class="project-copy">
+                <p>
+                  After completing a Udemy FastAPI course, I built a seller-and-product API as a
+                  hands-on learning and revision resource. Explore typed API contracts,
+                  authentication, database workflows, and testing in a focused, runnable project.
+                </p>
+              </div>
+              <div class="resource-notes">
+                <p class="eyebrow">Code. Concepts. Interview practice.</p>
+                <ul class="summary-highlights">
+                  <li>Theory explained through practical API examples.</li>
+                  <li>Database sessions, migrations, authorization, and tests in context.</li>
+                  <li>48 mock interview questions with answers, from beginner to advanced.</li>
+                </ul>
+              </div>
             </div>
-          </div>
+          </details>
         </article>
       </section>
 
