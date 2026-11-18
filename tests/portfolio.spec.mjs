@@ -44,12 +44,13 @@ test('project overviews lead with AI agents and keep links visible when collapse
 }) => {
   await page.goto('/');
   const projects = page.locator('#projects > article');
-  await expect(projects).toHaveCount(4);
+  await expect(projects).toHaveCount(5);
   await expect(projects.getByRole('heading', { level: 3 })).toHaveText([
     'AI Agents Under the Hood',
     'Restaurant Review Reply Automation',
     'Core Python Field Guide',
     'FastAPI Complete Guide',
+    'System Design & Architecture Field Guide',
   ]);
   await expect(page.locator('.project-details[open]')).toHaveCount(0);
   for (const project of await projects.all()) {
@@ -93,7 +94,7 @@ test('project details support keyboard toggling and comparing multiple projects'
     await expect(summary).toHaveAccessibleName('Hide details');
     await expect(disclosure.locator('.project-card')).toBeVisible();
   }
-  await expect(page.locator('.project-details[open]')).toHaveCount(4);
+  await expect(page.locator('.project-details[open]')).toHaveCount(5);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const firstSummary = disclosures.first().locator('summary');
   await firstSummary.focus();
@@ -101,7 +102,7 @@ test('project details support keyboard toggling and comparing multiple projects'
   await expect(firstSummary).toBeFocused();
   await expect(disclosures.first()).toHaveJSProperty('open', false);
   await expect(disclosures.first().locator('.project-card')).toBeHidden();
-  await expect(page.locator('.project-details[open]')).toHaveCount(3);
+  await expect(page.locator('.project-details[open]')).toHaveCount(4);
 });
 
 test('resume links resolve to a real PDF and new tabs are announced', async ({ page, request }) => {
@@ -117,25 +118,34 @@ test('resume links resolve to a real PDF and new tabs are announced', async ({ p
   }
 });
 
-for (const mode of ['http', 'file']) {
-  test(`FastAPI PDF downloads without leaving the portfolio (${mode})`, async ({ page }) => {
-    await page.goto(mode === 'file' ? new URL('../index.html', import.meta.url).href : '/');
-    const portfolioURL = page.url();
-    const link = page.getByRole('link', { name: 'Download FastAPI guide (PDF)' });
-    if (mode === 'file') await expect(link).toHaveAttribute('href', /^blob:/);
-    else await expect(link).toHaveAttribute('href', 'assets/FastAPI-Guide.pdf');
+for (const [guide, filename, title] of [
+  ['FastAPI guide', 'FastAPI-Guide.pdf', 'FastAPI Complete Guide'],
+  [
+    'System Design Guide',
+    'System-Design-Architecture-Study-Guide.pdf',
+    'System Design & Architecture Field Guide',
+  ],
+]) {
+  for (const mode of ['http', 'file']) {
+    test(`${guide} PDF downloads without leaving the portfolio (${mode})`, async ({ page }) => {
+      await page.goto(mode === 'file' ? new URL('../index.html', import.meta.url).href : '/');
+      const portfolioURL = page.url();
+      const link = page.getByRole('link', { name: `Download ${guide} (PDF)` });
+      if (mode === 'file') await expect(link).toHaveAttribute('href', /^blob:/);
+      else await expect(link).toHaveAttribute('href', 'assets/' + filename);
 
-    const pending = page.waitForEvent('download');
-    await link.click();
-    const download = await pending;
-    expect(download.suggestedFilename()).toBe('FastAPI-Guide.pdf');
-    expect(await download.failure()).toBeNull();
-    expect(await readFile(await download.path())).toEqual(
-      await readFile(new URL('../assets/FastAPI-Guide.pdf', import.meta.url)),
-    );
-    await expect(page).toHaveURL(portfolioURL);
-    await expect(page.getByRole('heading', { name: 'FastAPI Complete Guide' })).toBeVisible();
-  });
+      const pending = page.waitForEvent('download');
+      await link.click();
+      const download = await pending;
+      expect(download.suggestedFilename()).toBe(filename);
+      expect(await download.failure()).toBeNull();
+      expect(await readFile(await download.path())).toEqual(
+        await readFile(new URL('../assets/' + filename, import.meta.url)),
+      );
+      await expect(page).toHaveURL(portfolioURL);
+      await expect(page.getByRole('heading', { name: title })).toBeVisible();
+    });
+  }
 }
 
 test('has no automatically detectable WCAG A/AA violations', async ({ page }) => {

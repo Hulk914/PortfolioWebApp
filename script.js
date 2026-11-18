@@ -9,10 +9,12 @@
 
   // Local file links cannot trigger downloads in Chrome. Load a Blob-backed
   // copy only for direct file previews; hosted pages use the original PDF.
-  if (window.location.protocol === 'file:' && document.getElementById('fastapi-guide-download')) {
-    const downloadScript = document.createElement('script');
-    downloadScript.src = 'assets/FastAPI-Guide.download.js';
-    document.head.append(downloadScript);
+  if (window.location.protocol === 'file:') {
+    document.querySelectorAll('a[download][href$=".pdf"]').forEach((link) => {
+      const downloadScript = document.createElement('script');
+      downloadScript.src = link.getAttribute('href').replace(/\.pdf$/, '.download.js');
+      document.head.append(downloadScript);
+    });
   }
 
   if (typeof window.IntersectionObserver !== 'function') {

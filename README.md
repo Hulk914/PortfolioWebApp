@@ -99,6 +99,10 @@ explicit dimensions to reserve layout space; it is not lazy-loaded.
   to refresh the generated copy used for direct file previews. Its repository and
   download links are in the FastAPI resource card in `index.html`. Direct file
   downloads require JavaScript; downloads over HTTP also work without JavaScript.
+- The last resource card links to the 39-page System Design & Architecture Field
+  Guide at `assets/System-Design-Architecture-Study-Guide.pdf`. Replace that PDF and
+  run `npm run prepare:downloads` to refresh its direct file preview download too.
+  Keep asset links relative so they also resolve under GitHub Pages' repository path.
 - Run `npm run format`, `npm run check`, and `npm test` before publishing changes.
 - Publish `index.html`, `styles.css`, `script.js`, and `assets/` on a static host.
   Do not publish development folders, dependencies, Git metadata, or reports.
