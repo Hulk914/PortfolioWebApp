@@ -90,9 +90,17 @@ explicit dimensions to reserve layout space; it is not lazy-loaded.
 
 - Edit the biography, skills, and career history in `index.html`.
 - Add projects as `.project-entry` articles in the Projects & resources section.
+  Group them by primary subject in the AI, Python, or Miscellaneous `.project-group`
+  sections. AI applications belong in AI even when implemented in Python; Python
+  language and API resources belong in Python. Keep the category jump-link counts
+  in sync. Groups use level-three headings and project titles use level four.
   Keep the title, short overview, technology tags, and links visible; place supporting
   content inside the native `.project-details` disclosure. Entries start collapsed,
   support multiple open projects, and work without JavaScript.
+- The first AI project, RAG Deep Dive, compares direct Gemini, explicit Python RAG,
+  and LCEL composition. Its HTML/CSS workflows and ingestion pipeline need no
+  external diagram library. Keep its learning scope and live API verification
+  status aligned with the [source repository](https://github.com/Hulk914/RAG-DEEPDIVE).
 - Replace `assets/resume.pdf` to update the resume; keep the filename stable.
 - Replace `assets/FastAPI-Guide.pdf` to update the downloadable FastAPI theory and
   interview guide; keep the filename stable, then run `npm run prepare:downloads`

@@ -822,6 +822,53 @@ img {
 .project-disclosure-hint span {
   color: var(--text);
 }
+.project-group-nav {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+.project-group-nav a {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--text);
+  background: rgba(18, 25, 26, 0.8);
+  font-size: 14px;
+}
+.project-group-nav a:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.project-group-nav span {
+  color: var(--accent);
+  font-family: var(--mono);
+}
+.project-group + .project-group {
+  margin-top: 42px;
+}
+.project-group-heading {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 6px 20px;
+  margin-bottom: 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+}
+.project-group-heading h3 {
+  color: var(--accent);
+  font-size: 20px;
+  font-weight: 550;
+}
+.project-group-heading p {
+  color: var(--muted);
+  font-size: 14px;
+}
 .project-entry {
   padding: 26px 30px 12px;
   border: 1px solid rgba(125, 228, 189, 0.16);
@@ -845,7 +892,7 @@ img {
   gap: 24px 40px;
   align-items: center;
 }
-.project-intro h3 {
+.project-intro h4 {
   margin-top: 9px;
   font-size: clamp(21px, 2vw, 27px);
   font-weight: 550;
@@ -857,6 +904,20 @@ img {
   margin-top: 9px;
   color: var(--muted);
   font-size: 13px;
+  line-height: 1.8;
+}
+.project-stack {
+  display: block;
+  margin-top: 6px;
+  color: var(--accent);
+  font-size: 0.65em;
+  font-weight: 450;
+  letter-spacing: 0;
+}
+.project-subtitle {
+  margin-top: 12px;
+  color: var(--text);
+  font-size: 14px;
   line-height: 1.8;
 }
 .project-overview-meta {
@@ -1053,7 +1114,7 @@ img {
   font-family: var(--mono);
   font-size: 9px;
 }
-.workflow-steps h4 {
+.workflow-steps h5 {
   color: #e0e9e3;
   font-size: 12px;
   font-weight: 600;
@@ -1120,7 +1181,7 @@ img {
   margin-bottom: 10px;
   font-size: 9px;
 }
-.agent-implementation h4 {
+.agent-implementation h5 {
   font-size: 18px;
   font-weight: 550;
   line-height: 1.4;
@@ -1188,6 +1249,132 @@ img {
   background: rgba(125, 228, 189, 0.05);
   font-size: 14px;
   line-height: 1.8;
+}
+
+/* Compare query composition, then follow the shared ingestion architecture. */
+.rag-card {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  padding-top: 24px;
+}
+.rag-card code {
+  overflow-wrap: anywhere;
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+.rag-intro,
+.rag-note {
+  max-width: 960px;
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.rag-approaches {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 24px;
+}
+.rag-approach {
+  display: flex;
+  flex-direction: column;
+  align-self: stretch;
+  min-width: 0;
+  padding: 22px;
+}
+.rag-approach .eyebrow {
+  margin-bottom: 10px;
+  color: var(--accent);
+  font-size: 14px;
+  letter-spacing: 0.5px;
+}
+.rag-approach h6 {
+  font-size: 18px;
+  font-weight: 550;
+  line-height: 1.4;
+}
+.rag-approach > p:not(.eyebrow) {
+  margin-top: 14px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.8;
+}
+.rag-flow {
+  display: grid;
+  gap: 18px;
+  margin-top: 20px;
+  list-style: none;
+}
+.rag-flow li {
+  position: relative;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: #141e1f;
+  font-size: 14px;
+  text-align: center;
+}
+.rag-flow li + li::before {
+  content: '';
+  position: absolute;
+  top: -14px;
+  left: calc(50% - 3px);
+  width: 6px;
+  height: 6px;
+  border-right: 1px solid var(--accent);
+  border-bottom: 1px solid var(--accent);
+  transform: rotate(45deg);
+}
+.rag-flow li:last-child {
+  border-color: rgba(125, 228, 189, 0.35);
+  color: var(--accent);
+}
+.rag-approach > p.rag-lesson {
+  margin-top: auto;
+  padding-top: 22px;
+  color: var(--text);
+}
+.rag-ingestion,
+.rag-practices {
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.rag-ingestion-flow li {
+  gap: 8px;
+  padding: 16px 12px;
+  font-size: 14px;
+}
+.rag-ingestion-flow strong {
+  font-size: 16px;
+  font-weight: 550;
+}
+.rag-ingestion-flow li span {
+  color: var(--muted);
+}
+.rag-practices .summary-highlights {
+  margin-top: 18px;
+  font-size: 16px;
+}
+.rag-conclusion .agent-takeaway {
+  font-size: 18px;
+}
+
+@media (max-width: 1100px) {
+  .rag-approaches {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+@media (max-width: 800px) {
+  .rag-ingestion-flow {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+  .rag-ingestion-flow li + li::before {
+    top: -15px;
+    right: calc(50% - 3px);
+    transform: rotate(135deg);
+  }
 }
 
 /* Personal details and closing contact */
@@ -2010,7 +2197,7 @@ img {
     gap: 9px;
     padding: 12px 9px;
   }
-  .workflow-steps h4 {
+  .workflow-steps h5 {
     font-size: 11px;
   }
   .workflow-steps li p {

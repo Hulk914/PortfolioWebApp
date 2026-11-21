@@ -39,13 +39,12 @@ test('keyboard users can skip directly to the main content', async ({ page }) =>
   await expect(page.getByRole('main')).toBeFocused();
 });
 
-test('project overviews lead with AI agents and keep links visible when collapsed', async ({
-  page,
-}) => {
+test('project overviews lead with RAG and keep links visible when collapsed', async ({ page }) => {
   await page.goto('/');
-  const projects = page.locator('#projects > article');
-  await expect(projects).toHaveCount(5);
-  await expect(projects.getByRole('heading', { level: 3 })).toHaveText([
+  const projects = page.locator('#projects .project-entry');
+  await expect(projects).toHaveCount(6);
+  await expect(projects.getByRole('heading', { level: 4 })).toHaveText([
+    'RAG Deep Dive Gemini, Pinecone & LangChain',
     'AI Agents Under the Hood',
     'Restaurant Review Reply Automation',
     'Core Python Field Guide',
@@ -54,7 +53,7 @@ test('project overviews lead with AI agents and keep links visible when collapse
   ]);
   await expect(page.locator('.project-details[open]')).toHaveCount(0);
   for (const project of await projects.all()) {
-    await expect(project.getByRole('heading', { level: 3 })).toBeVisible();
+    await expect(project.getByRole('heading', { level: 4 })).toBeVisible();
     await expect(project.locator('.project-preview')).toBeVisible();
     await expect(project.locator('.card-tags')).toBeVisible();
     for (const link of await project.getByRole('link').all()) await expect(link).toBeVisible();
@@ -70,13 +69,119 @@ test('project overviews lead with AI agents and keep links visible when collapse
   await expect(link).toHaveCSS('outline-style', 'solid');
 
   await agents.locator('summary').click();
-  await expect(agents.getByRole('heading', { level: 4 })).toHaveText([
+  await expect(agents.getByRole('heading', { level: 5 })).toHaveText([
     'LangChain-Powered Job Search Agent',
     'Custom ReAct-Style Agent Loop',
   ]);
   await expect(agents.getByRole('list', { name: 'Framework-managed agent flow' })).toBeVisible();
   await expect(agents.getByRole('list', { name: 'Explicit agent loop flow' })).toBeVisible();
   await expect(agents).toContainText('Both examples use LangChain interfaces with Gemini');
+});
+
+test('groups projects by their primary subject with working category jump links', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const groups = page.locator('#projects > .project-group');
+  await expect(groups.getByRole('heading', { level: 3 })).toHaveText([
+    'AI',
+    'Python',
+    'Miscellaneous',
+  ]);
+  const categories = page.getByRole('navigation', { name: 'Project categories' });
+  for (const [index, id, name, count] of [
+    [0, 'ai-projects', 'AI', 3],
+    [1, 'python-projects', 'Python', 2],
+    [2, 'misc-projects', 'Miscellaneous', 1],
+  ]) {
+    const group = groups.nth(index);
+    await expect(group).toHaveAccessibleName(name);
+    await expect(group.locator('.project-entry')).toHaveCount(count);
+    const link = categories.getByRole('link', { name: `${name} ${count}`, exact: true });
+    await expect(link).toHaveAttribute('href', '#' + id);
+    await link.scrollIntoViewIfNeeded();
+    await link.focus();
+    await expect(link).toHaveCSS('outline-style', 'solid');
+    await page.keyboard.press('Enter');
+    await expect(page).toHaveURL(new RegExp('#' + id + '$'));
+    await expect(group.getByRole('heading', { name, exact: true })).toBeInViewport();
+  }
+});
+
+test('RAG details compare three workflows and accurately describe their scope', async ({
+  page,
+}) => {
+  await page.goto('/');
+  const rag = page.getByRole('article', { name: 'RAG Deep Dive Gemini, Pinecone & LangChain' });
+  const link = rag.getByRole('link', { name: 'Explore RAG Implementation' });
+  await expect(link).toHaveAttribute('href', 'https://github.com/Hulk914/RAG-DEEPDIVE');
+  await expect(link).toHaveAttribute('target', '_blank');
+  await expect(link).toHaveAttribute('rel', 'noopener noreferrer');
+  await expect(link).toHaveAccessibleDescription('Opens in a new tab');
+  await expect(rag.locator('.card-tags li')).toHaveText([
+    'Python',
+    'LangChain',
+    'Gemini',
+    'Pinecone',
+    'RAG',
+    'LCEL',
+  ]);
+  await rag.locator('summary').click();
+  await expect(rag.getByRole('heading', { level: 6 })).toHaveText([
+    'Direct Gemini — Without Retrieval',
+    'RAG with Explicit Python Orchestration',
+    'RAG with LangChain Expression Language',
+  ]);
+  for (const [name, steps] of [
+    ['Direct Gemini workflow', ['Question', 'Gemini', 'Answer']],
+    [
+      'Explicit Python RAG workflow',
+      ['Question', 'Retrieve relevant chunks', 'Build context-aware prompt', 'Gemini', 'Answer'],
+    ],
+    ['LCEL RAG workflow', ['Question', 'Retriever', 'Prompt', 'Model', 'Output parser']],
+  ]) {
+    await expect(rag.getByRole('list', { name }).getByRole('listitem')).toHaveText(steps);
+  }
+  await expect(rag).toContainText('without retraining the model');
+  await expect(rag).toContainText('does not inherently improve answer quality or execution speed');
+  await expect(rag).toContainText('RunnablePassthrough.assign');
+  await expect(rag).toContainText('StrOutputParser');
+  await expect(rag).toContainText('Eight offline tests');
+  await expect(rag).toContainText('live API smoke test of the cleaned-up version is still pending');
+  await expect(rag.locator('.agent-takeaway')).toHaveText(
+    'RAG changes the context available to the model. LCEL changes how the workflow is composed.',
+  );
+});
+
+test('RAG ingestion stays readable with connected steps at every viewport', async ({ page }) => {
+  await page.goto('/');
+  const rag = page.getByRole('article', { name: 'RAG Deep Dive Gemini, Pinecone & LangChain' });
+  await rag.locator('summary').click();
+  const pipeline = rag.getByRole('list', { name: 'Document ingestion pipeline' });
+  const steps = pipeline.getByRole('listitem');
+  await expect(steps).toHaveCount(4);
+  await expect(steps.nth(0)).toContainText('Original text / notes');
+  await expect(steps.nth(1)).toContainText('1,000-character target · zero overlap');
+  await expect(steps.nth(2)).toContainText('gemini-embedding-001 · 1,536 dimensions');
+  await expect(steps.nth(3)).toContainText('Dense · cosine similarity · AWS us-east-1');
+  for (const step of await steps.all()) await expect(step).toBeVisible();
+  const layout = await pipeline.evaluate((element) => ({
+    width: innerWidth,
+    boxes: [...element.children].map((step) => {
+      const { x, y, right } = step.getBoundingClientRect();
+      return { x, y, right, fits: step.scrollWidth <= step.clientWidth };
+    }),
+  }));
+  expect(layout.boxes.every((box) => box.x >= 0 && box.right <= layout.width && box.fits)).toBe(
+    true,
+  );
+  if (layout.width <= 800) {
+    expect(layout.boxes.every((box) => box.x === layout.boxes[0].x)).toBe(true);
+    expect(
+      layout.boxes.every((box, index) => index === 0 || box.y > layout.boxes[index - 1].y),
+    ).toBe(true);
+  }
+  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
 });
 
 test('project details support keyboard toggling and comparing multiple projects', async ({
@@ -94,7 +199,7 @@ test('project details support keyboard toggling and comparing multiple projects'
     await expect(summary).toHaveAccessibleName('Hide details');
     await expect(disclosure.locator('.project-card')).toBeVisible();
   }
-  await expect(page.locator('.project-details[open]')).toHaveCount(5);
+  await expect(page.locator('.project-details[open]')).toHaveCount(6);
   expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
   const firstSummary = disclosures.first().locator('summary');
   await firstSummary.focus();
@@ -102,7 +207,7 @@ test('project details support keyboard toggling and comparing multiple projects'
   await expect(firstSummary).toBeFocused();
   await expect(disclosures.first()).toHaveJSProperty('open', false);
   await expect(disclosures.first().locator('.project-card')).toBeHidden();
-  await expect(page.locator('.project-details[open]')).toHaveCount(4);
+  await expect(page.locator('.project-details[open]')).toHaveCount(5);
 });
 
 test('resume links resolve to a real PDF and new tabs are announced', async ({ page, request }) => {
@@ -173,7 +278,7 @@ test('content and anchors remain usable without JavaScript', async ({ browser, b
     // Use the anchor destination so heading copy can change independently.
     await expect(page.locator('#projects').getByRole('heading', { level: 2 })).toBeInViewport();
     const agents = page.getByRole('article', { name: 'AI Agents Under the Hood' });
-    await expect(agents.getByRole('heading', { level: 3 })).toBeVisible();
+    await expect(agents.getByRole('heading', { level: 4 })).toBeVisible();
     await expect(
       agents.getByRole('link', { name: 'Explore the Agent Implementations' }),
     ).toHaveAttribute('href', 'https://github.com/Hulk914/langchain_job_search');
@@ -183,6 +288,14 @@ test('content and anchors remain usable without JavaScript', async ({ browser, b
     await expect(agents.getByRole('list', { name: 'Explicit agent loop flow' })).toBeVisible();
     await agents.locator('summary').click();
     await expect(disclosure).toHaveJSProperty('open', false);
+    await page
+      .getByRole('navigation', { name: 'Project categories' })
+      .getByRole('link', { name: 'AI 3', exact: true })
+      .click();
+    await expect(page).toHaveURL(/#ai-projects$/);
+    const rag = page.getByRole('article', { name: 'RAG Deep Dive Gemini, Pinecone & LangChain' });
+    await rag.locator('summary').click();
+    await expect(rag.getByRole('list', { name: 'Document ingestion pipeline' })).toBeVisible();
   } finally {
     await context.close();
   }
