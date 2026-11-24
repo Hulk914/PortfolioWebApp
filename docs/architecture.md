@@ -47,7 +47,8 @@ unused inline incremental-hydration bootstrap scripts.
 and consistent errors. `ChatbotService` defines future health/chat calls with typed
 requests, answers, and citations. The app makes no backend requests on startup.
 Local and production environment files contain public configuration; provider
-credentials must stay on the future backend.
+credentials stay on the backend. Production points at the stable Vercel origin
+`https://portfolio-web-app-six-sage.vercel.app/api`.
 
 ## Delivery
 
@@ -61,56 +62,86 @@ Pages deployment; the deploy job depends on successful build/artifact creation.
 Workflows run npm from `frontend/` and cache its lockfile. Remote Pages must use
 GitHub Actions as its publishing source.
 
-## Current backend skeleton
+## Current backend and RAG
 
-`backend/app/main.py` creates a FastAPI application with separate chat and ingestion
-route modules, Pydantic request/response models, environment-backed CORS settings,
-and interactive OpenAPI documentation. `POST /api/chat` validates a question and
-returns a static answer/empty citations; `POST /api/ingest` explicitly reports a
-stub response and no index update. These are the only two application endpoints
-for this phase; no health route, pipeline, model calls, or job queue is implemented.
-
-The backend is a uv project: `backend/pyproject.toml` defines dependencies and
-`dev`/`start` console commands, `uv.lock` locks the complete dependency graph, and
-`.python-version` pins Python 3.14. uv installs the existing `app/` package in
-editable mode. `uv run dev` starts Uvicorn with application reloads; `uv run start`
-runs without reload. The local `.venv` is managed automatically and ignored by Git.
-No AI credentials are
-needed. Its CORS defaults cover both local Angular development origins; `.env`
-configuration can override them. The frontend and backend are not wired into a
-chat UI yet. See `backend/README.md` for local setup and endpoint examples.
-
-## Later backend and RAG phases
-
-The ingestion/index directories remain placeholders. The intended completed flow:
+`backend/` is an independent Python 3.14 uv project. FastAPI exposes two business
+endpoints: public `POST /api/chat` and owner-token-protected `POST /api/ingest`.
+Console commands expose the same pipeline as `uv run ingest`, `ask`, `retrieve`,
+and `inspect-index`; `ingest --dry-run` needs no provider credentials.
 
 ```mermaid
 flowchart TD
-    Content[content/portfolio.json] --> Angular[Angular static build]
+    Content[content/portfolio.json + JSON Schema] --> Angular[Angular static build]
     Angular --> Pages[GitHub Pages]
-    Content --> Ingest[Python semantic extraction and chunking]
-    Ingest --> Embed[Gemini embeddings during CI]
-    Embed --> Index[Local JSON vectors and manifest]
-    Index --> API[FastAPI on Vercel]
-    Pages -->|Future recruiter question| API
-    API --> Retrieval[Query embedding and cosine retrieval]
-    Retrieval --> Answer[Grounded answer and verified citations]
-    Answer --> Pages
+    Content --> Ingest[Validate, extract documents, recursively split topics]
+    Ingest --> Embed[Gemini document embeddings]
+    Embed --> Chroma[Local persistent Chroma snapshots]
+    Chroma --> Manifest[Atomic active-index manifest]
+    Question[POST /api/chat] --> Query[Gemini query embedding]
+    Query --> Retrieve[Chroma cosine nearest-neighbor retrieval]
+    Manifest --> Retrieve
+    Retrieve --> Context[Relevant context + source IDs]
+    Context --> Gemini[Gemini structured answer]
+    Gemini --> Citations[Validate evidence IDs and construct portfolio citations]
+    Owner[Authorized POST /api/ingest or CLI] --> Ingest
 ```
 
-For the small portfolio dataset, start with a JSON vector index and cosine
-similarity. Preserve stable document/chunk IDs, source sections/URLs, content hashes,
-model/dimension metadata, and an index manifest. Build the index before deployment,
-bundle it read-only with FastAPI, and validate the deployed content revision before
-publishing the matching frontend. Runtime chat must not rebuild the index.
+The loader extracts factual profile, skills, roles, project summaries/details,
+education, and personal information from the existing content model. Recursive
+splitting stays within source document boundaries. Chunks retain deterministic
+IDs and source metadata, including real project-page/section citation URLs.
+Gemini document/query task types and dimensions are explicit. Chroma has no
+implicit embedding function or separate server.
 
-Later work includes private optional LangSmith tracing, recruiter chat UI, provider
-configuration, and operational limits. Model/runtime/free-tier choices need fresh
-verification in those phases. Unit/end-to-end tests and RAG evaluations remain
-deferred until after the working MVP, as requested.
+Ingestion reuses compatible unchanged embeddings, builds a new collection without
+removed chunks, validates it, and atomically publishes a manifest only on success.
+A filesystem lock serializes local CLI/API ingestion. Previous snapshots remain
+available to in-flight readers. The manifest records source/configuration hashes,
+embedding model/dimensions, counts, chunk IDs checksum, timestamp, and CI revision.
+Chat checks compatibility/freshness before retrieval and never builds an index.
 
-Manual ingestion and trusted CI should share one pipeline entry point. CI will
-run it when `content/**` changes and package its exact index revision with the
-backend. The production manual fallback needs owner authorization and a durable
-build/deployment path; serverless local writes cannot persistently replace a
-bundled index. This wiring is deferred until the ingestion phase.
+Generation receives only retrieved evidence and grounding instructions. Gemini
+returns structured text and evidence IDs; the backend rejects IDs outside the
+retrieved context and constructs citation URLs from trusted source metadata.
+Each citation also names all supporting chunk IDs. `retrieved_chunks` returns the
+exact context text, source metadata, cosine similarity, and a flag indicating
+whether the model cited each chunk. This prepares a future citation evidence panel
+without additional API calls or losing the original response's content snapshot.
+Insufficient information returns a clear fallback. Questions and model output are
+bounded, provider errors use safe responses, and ingestion requires an owner token.
+These mechanisms do not prove every generated claim; manual answer review is still
+needed. Production rate limiting remains later work. Optional private LangSmith tracing
+is implemented for ingestion, retrieval, embeddings, and Gemini generation,
+including returned root trace IDs. Tracing uses explicit whitelisted inputs and
+never publishes trace links or credentials.
+
+## Index automation and Vercel releases
+
+`ingest.yml` runs only for trusted main pushes affecting content/backend ingestion
+or through manual dispatch. It uses a repository Gemini secret, locked uv installs,
+a previous-index cache for embedding reuse, and an explicit index validation step.
+Packaging compacts the active collection and includes the matching JSON/schema,
+index manifest, and release checksums in a commit-specific artifact. A dependent
+deployment job verifies the downloaded bytes and revision before the official
+Vercel CLI uploads the code and snapshot for a Linux cloud build.
+
+Production candidates use `--prod --skip-domain` so the current aliases remain in
+place. Hosted health must identify the packaged revision, and one real Gemini
+answer must contain valid evidence chunks, before promotion. A public health check
+then confirms the stable alias serves that revision. Project configuration keeps
+production aliases public, protects previews/unique URLs, and disables direct Git
+deployments that would omit ingestion artifacts.
+
+Cold startup verifies the bundle and copies Chroma to a per-release directory in
+`/tmp`; only that writable copy is opened. No model calls run on startup. Each
+instance uses the same immutable content/index snapshot. Durable refreshes rebuild
+and redeploy through a main push or manual workflow dispatch. Hosted `/api/ingest`
+returns 409 with these directions; local authenticated ingestion remains available.
+
+The GitHub artifact is consumed during deployment, never downloaded by the API.
+Local databases remain independent. Native dependency size/runtime compatibility
+are checked by the Vercel build and hosted verification. Existing frontend Pages
+workflows remain independent; coordinating frontend/backend releases is later work.
+
+See [backend setup, APIs, commands, and secrets](../backend/README.md).
+Automated suites and RAG evaluations remain deferred until after the working MVP.

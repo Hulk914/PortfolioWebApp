@@ -66,7 +66,11 @@ consistent errors. No requests are made during portfolio startup. Configure the
 public API URL in:
 
 - `src/environments/environment.ts`: local `http://localhost:8000/api`.
-- `src/environments/environment.production.ts`: production URL when deployed.
+- `src/environments/environment.production.ts`:
+  `https://portfolio-web-app-six-sage.vercel.app/api`, the stable Vercel API URL.
+
+Production requests allow up to 150 seconds for the configured server timeout and
+bounded Gemini retries. The chatbot UI is still a later phase.
 
 The CSP in `tools/prepare-frontend.mjs` permits Vercel API origins; add a custom
 backend origin there if needed. API/provider credentials belong on the backend.

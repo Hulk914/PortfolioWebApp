@@ -1,0 +1,164 @@
+name: Deploy backend to Vercel
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/**"
+      - "backend/app/**"
+      - "backend/scripts/**"
+      - "backend/pyproject.toml"
+      - "backend/uv.lock"
+      - "backend/.python-version"
+      - "backend/vercel.json"
+      - "backend/.vercelignore"
+      - "backend/deploy/**"
+      - ".vercelignore"
+      - ".github/workflows/ingest.yml"
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Re-embed every chunk
+        type: boolean
+        default: false
+
+permissions:
+  contents: read
+
+concurrency:
+  group: backend-production-${{ github.ref }}
+  cancel-in-progress: false
+
+env:
+  GEMINI_EMBEDDING_MODEL: ${{ vars.GEMINI_EMBEDDING_MODEL || 'gemini-embedding-001' }}
+  PORTFOLIO_EMBEDDING_DIMENSIONS: ${{ vars.PORTFOLIO_EMBEDDING_DIMENSIONS || '768' }}
+  PORTFOLIO_EMBEDDING_BATCH_SIZE: ${{ vars.PORTFOLIO_EMBEDDING_BATCH_SIZE || '32' }}
+  PORTFOLIO_CHUNK_SIZE: ${{ vars.PORTFOLIO_CHUNK_SIZE || '1200' }}
+  PORTFOLIO_CHUNK_OVERLAP: ${{ vars.PORTFOLIO_CHUNK_OVERLAP || '150' }}
+  PORTFOLIO_SITE_URL: ${{ vars.PORTFOLIO_SITE_URL || 'https://hulk914.github.io/PortfolioWebApp/' }}
+  BACKEND_PRODUCTION_URL: ${{ vars.BACKEND_PRODUCTION_URL || 'https://portfolio-web-app-six-sage.vercel.app' }}
+
+jobs:
+  ingest:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    defaults:
+      run:
+        working-directory: backend
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          persist-credentials: false
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          version: "0.13.8"
+          python-version: "3.14"
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - run: uv sync --locked
+      - name: Restore previous index for unchanged embedding reuse
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: backend/data/generated-index
+          key: portfolio-chroma-v1-${{ runner.os }}-${{ hashFiles('backend/uv.lock') }}-${{ hashFiles('content/*.json', 'backend/app/rag/**', 'backend/app/config.py') }}-${{ github.run_id }}
+          restore-keys: |
+            portfolio-chroma-v1-${{ runner.os }}-${{ hashFiles('backend/uv.lock') }}-
+      - name: Ingest current content
+        env:
+          GOOGLE_API_KEY: ${{ secrets.GOOGLE_API_KEY || secrets.GEMINI_API_KEY }}
+          LANGSMITH_API_KEY: ${{ secrets.LANGSMITH_API_KEY || secrets.LANGCHAIN_API_KEY }}
+          LANGSMITH_TRACING: ${{ vars.LANGSMITH_TRACING || 'false' }}
+          LANGSMITH_PROJECT: ${{ vars.LANGSMITH_PROJECT || 'portfoliowebapp-local' }}
+          LANGSMITH_ENDPOINT: ${{ vars.LANGSMITH_ENDPOINT || 'https://apac.api.smith.langchain.com' }}
+          LANGSMITH_WORKSPACE_ID: ${{ vars.LANGSMITH_WORKSPACE_ID }}
+          GEMINI_EMBEDDING_MODEL: ${{ vars.GEMINI_EMBEDDING_MODEL || 'gemini-embedding-001' }}
+          PORTFOLIO_EMBEDDING_DIMENSIONS: ${{ vars.PORTFOLIO_EMBEDDING_DIMENSIONS || '768' }}
+          FORCE_REBUILD: ${{ inputs.force || false }}
+        run: |
+          if [ -z "$GOOGLE_API_KEY" ]; then
+            echo "::error::Add the GOOGLE_API_KEY (or GEMINI_API_KEY) repository Actions secret before running ingestion."
+            exit 1
+          fi
+          if [ "$FORCE_REBUILD" = "true" ]; then
+            uv run --locked ingest --force
+          else
+            uv run --locked ingest
+          fi
+      - name: Verify the generated index matches the checked-out content
+        env:
+          GEMINI_EMBEDDING_MODEL: ${{ vars.GEMINI_EMBEDDING_MODEL || 'gemini-embedding-001' }}
+          PORTFOLIO_EMBEDDING_DIMENSIONS: ${{ vars.PORTFOLIO_EMBEDDING_DIMENSIONS || '768' }}
+        run: uv run --locked inspect-index
+      - name: Package matching content and a compact Chroma snapshot
+        run: uv run --locked python scripts/package_release.py
+      - name: Verify release files and revision
+        run: uv run --locked python scripts/verify_release.py --revision "$GITHUB_SHA"
+      - name: Upload backend release artifact
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: portfolio-backend-${{ github.sha }}
+          path: backend/data/release/
+          if-no-files-found: error
+          retention-days: 7
+          overwrite: true
+
+  deploy:
+    needs: ingest
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    environment:
+      name: vercel-production
+      url: ${{ vars.BACKEND_PRODUCTION_URL || 'https://portfolio-web-app-six-sage.vercel.app' }}
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@2028fbc5c25fe9cf00d9f06a71cc4710d4507903 # v6.0.0
+        with:
+          node-version: "24"
+      - uses: astral-sh/setup-uv@1db35dd8eee11c5894872e0b383ae6c406cf738d # v10.4.0
+        with:
+          version: "0.13.8"
+          python-version: "3.14"
+          enable-cache: true
+          cache-dependency-glob: backend/uv.lock
+      - run: uv sync --project backend --locked
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: portfolio-backend-${{ github.sha }}
+          path: backend/data/release/
+      - name: Verify the exact release downloaded from ingestion
+        run: uv run --project backend --locked python backend/scripts/verify_release.py --revision "$GITHUB_SHA"
+      - name: Install the official Vercel CLI
+        run: npm install --global vercel@66.6.0
+      - name: Configure the backend project and public production alias
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: uv run --project backend --locked python backend/scripts/configure_vercel.py
+      - name: Deploy the code and snapshot without moving production domains
+        id: release
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+        run: uv run --project backend --locked python backend/scripts/deploy_vercel.py
+      - name: Verify hosted index revision and one grounded Gemini response
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.release.outputs.url }}
+        run: uv run --project backend --locked python backend/scripts/verify_hosted.py "$DEPLOYMENT_URL" --protected
+      - name: Promote the verified snapshot to the production domains
+        env:
+          VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+          DEPLOYMENT_URL: ${{ steps.release.outputs.url }}
+        run: vercel promote "$DEPLOYMENT_URL" --yes --token "$VERCEL_TOKEN"
+      - name: Verify the production URL is public and serves this revision
+        run: uv run --project backend --locked python backend/scripts/verify_hosted.py "$BACKEND_PRODUCTION_URL" --health-only
+      - name: Record the production API
+        shell: bash
+        run: |
+          echo "Backend: $BACKEND_PRODUCTION_URL" >> "$GITHUB_STEP_SUMMARY"
+          echo "Swagger: $BACKEND_PRODUCTION_URL/docs" >> "$GITHUB_STEP_SUMMARY"
+          echo "Content revision: $GITHUB_SHA" >> "$GITHUB_STEP_SUMMARY"

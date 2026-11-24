@@ -1,8 +1,12 @@
-"""Chat endpoint; portfolio retrieval and model generation are a later phase."""
+"""Portfolio questions answered through Chroma retrieval and Gemini."""
 
-from fastapi import APIRouter
+from typing import Annotated
 
+from fastapi import APIRouter, Depends
+
+from app.config import Settings, get_settings
 from app.models import ChatRequest, ChatResponse
+from app.rag.chain import answer_question
 
 router = APIRouter()
 
@@ -11,13 +15,9 @@ router = APIRouter()
     "/chat",
     response_model=ChatResponse,
     response_model_exclude_none=True,
-    summary="Ask a portfolio question (stub)",
+    summary="Ask a grounded portfolio question",
 )
-async def chat(request: ChatRequest) -> ChatResponse:
-    """Validate the question and return a static response without calling an LLM."""
-    return ChatResponse(
-        answer=(
-            "This is a placeholder response from the portfolio API. "
-            "Portfolio retrieval and LLM generation are not connected yet."
-        ),
-    )
+def chat(
+    request: ChatRequest, settings: Annotated[Settings, Depends(get_settings)]
+) -> ChatResponse:
+    return answer_question(request.question, settings)

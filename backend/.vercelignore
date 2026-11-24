@@ -1,0 +1,12 @@
+.env
+.env.*
+.venv
+tests
+scripts
+**/__pycache__
+data/generated-index
+data/release-stage-*
+
+# This ignored-in-Git directory must be present in the deployment build.
+!data/release/
+!data/release/**

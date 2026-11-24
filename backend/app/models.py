@@ -1,4 +1,4 @@
-"""Request and response contracts for the initial API stub."""
+"""Public request/response contracts for portfolio chat and owner ingestion."""
 
 from typing import Literal
 
@@ -21,16 +21,52 @@ class Citation(BaseModel):
     title: str
     url: str
     section: str | None = None
+    chunk_ids: list[str] = Field(
+        default_factory=list,
+        description="IDs of supporting chunks in this response's retrieved_chunks.",
+    )
+
+
+class EvidenceChunk(BaseModel):
+    chunk_id: str
+    document_id: str
+    title: str
+    section: str
+    text: str = Field(
+        description="Exact indexed text retrieved from Chroma and supplied to Gemini."
+    )
+    similarity_score: float = Field(
+        ge=-1, le=1, description="Cosine similarity; not a confidence probability."
+    )
+    used_in_answer: bool = Field(
+        default=False,
+        description="Whether Gemini cited this retrieved chunk in its answer.",
+    )
+    source_file: str
+    url: str = Field(
+        description="Public portfolio page or section corresponding to the local source document."
+    )
 
 
 class ChatResponse(BaseModel):
     answer: str
     citations: list[Citation] = Field(default_factory=list)
+    retrieved_chunks: list[EvidenceChunk] = Field(
+        default_factory=list,
+        description="The retrieved context supplied to Gemini, including chunks it did not cite.",
+    )
     trace_id: str | None = None
     trace_url: str | None = None
+    content_hash: str
 
 
 class IngestionResponse(BaseModel):
-    status: Literal["stub"] = "stub"
+    status: Literal["completed", "unchanged"]
     message: str
-    index_updated: bool = False
+    index_updated: bool
+    content_hash: str
+    index_id: str
+    document_count: int
+    chunk_count: int
+    embedded_chunks: int
+    reused_chunks: int

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": "fastapi",
+  "git": { "deploymentEnabled": false },
+  "env": { "PORTFOLIO_RUNTIME": "vercel" },
+  "functions": {
+    "app/main.py": {
+      "maxDuration": 120,
+      "excludeFiles": "{.venv/**,.env,.env.*,tests/**,scripts/**,**/__pycache__/**,data/generated-index/**,data/release-stage-*/**}"
+    }
+  }
+}

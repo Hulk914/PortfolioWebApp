@@ -1,7 +1,7 @@
 # Editing portfolio content
 
-`portfolio.json` is the source of truth for the Angular portfolio and the future
-Python ingestion pipeline. `portfolio.schema.json` documents its supported shape.
+`portfolio.json` is the source of truth for the Angular portfolio and the Python
+ingestion pipeline. `portfolio.schema.json` documents its supported shape.
 
 Edit the JSON to change your profile, experience, skills, projects, education, or
 personal information. Angular imports it through `PortfolioContentService` and
@@ -54,3 +54,14 @@ is supported by the source information.
 During `npm run dev`, imported JSON changes rebuild the UI. Assets are served
 from `frontend/src/assets/` directly; refresh the browser after replacing a file.
 Production builds regenerate metadata and copy public assets. The Angular app uses this JSON as its only professional-content source.
+
+## Refresh the backend knowledge base
+
+From `backend/`, run `uv run ingest` after editing content, or call the owner-only
+`POST /api/ingest`. `uv run ingest --dry-run` validates and shows chunks/sources
+without calling Gemini. Chat refuses a stale index until ingestion finishes.
+
+Main pushes affecting `content/**` also run the trusted ingestion workflow and
+produce a Chroma backend artifact; configure the `GEMINI_API_KEY` Actions secret
+first. This updates the runner's index, not your laptop or an already running API.
+Backend artifact deployment is a later phase. See [backend setup](../backend/README.md).

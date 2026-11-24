@@ -1,0 +1,17 @@
+.git
+.env
+.env.*
+**/.env
+**/.env.*
+**/.venv
+**/node_modules
+**/__pycache__
+frontend
+docs
+.vscode
+backend/data/generated-index
+backend/data/release-stage-*
+
+# Git ignores generated data, but the deployment must include this CI snapshot.
+!backend/data/release/
+!backend/data/release/**

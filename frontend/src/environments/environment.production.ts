@@ -1,5 +1,4 @@
 export const environment = {
   production: true,
-  // Set to https://your-backend.vercel.app/api when the backend is deployed.
-  api: { baseUrl: '', timeoutMs: 15000 },
+  api: { baseUrl: 'https://portfolio-web-app-six-sage.vercel.app/api', timeoutMs: 150000 },
 };

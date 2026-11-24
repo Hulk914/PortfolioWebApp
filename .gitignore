@@ -19,3 +19,5 @@ __pycache__/
 !.env.example
 backend/data/generated-index/*
 !backend/data/generated-index/.gitkeep
+backend/data/release/
+backend/data/release-stage-*/

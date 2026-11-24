@@ -1,8 +1,8 @@
 # Ayush Thakur - Portfolio
 
 An Angular 22.3.0 portfolio with a uv-managed FastAPI backend and shared JSON
-content. The UI migration is complete; backend chat/ingestion endpoints currently
-return static placeholders while the RAG pipeline is developed in later phases.
+content. The UI migration is complete. The backend ingests the same JSON into local Chroma
+and answers recruiter questions through Gemini with portfolio citations.
 
 ## Repository layout
 
@@ -20,8 +20,11 @@ backend/
   pyproject.toml            Python dependencies and uv commands
   uv.lock                   Locked backend dependency graph
   .venv/                    Local Python environment (ignored)
-  app/                      FastAPI routes, models, settings, and CLI
-.github/workflows/          Frontend build and deployment workflows
+  app/                      FastAPI routes, models, settings, CLI, and RAG pipeline
+  scripts/                  Ingestion and question script entry points
+  data/generated-index/     Local Chroma database and manifest (ignored)
+  data/release/             Matching content/schema/index deployment snapshot (ignored)
+.github/workflows/          Frontend delivery and ingestion-gated backend deployment
 docs/                       Architecture and implementation progress
 ```
 
@@ -66,13 +69,16 @@ In a separate terminal, from the repository root:
 ```sh
 cd backend
 uv sync --locked
+# Copy .env.example to .env; set GOOGLE_API_KEY (or GEMINI_API_KEY) and PORTFOLIO_INGESTION_TOKEN.
+uv run ingest
 uv run dev
 ```
 
 Open **http://127.0.0.1:8000/docs** to try:
 
-- `POST /api/chat`: validates a question and returns a static answer/empty citations.
-- `POST /api/ingest`: returns a stub response with `index_updated: false`.
+- `POST /api/chat`: retrieves relevant Chroma chunks and returns a grounded Gemini
+  answer with verified portfolio citations.
+- `POST /api/ingest`: refreshes the local index; requires your owner bearer token.
 
 Python 3.14 and the backend environment are managed by uv. Use `uv run start` for
 startup without auto-reload. From the repository root, `uv run --project backend dev`
@@ -81,8 +87,7 @@ is also supported. See [backend setup and API examples](backend/README.md).
 ## Content and deployment
 
 [Edit content and add projects](content/README.md) through `content/portfolio.json`.
-Angular components consume that shared source; the later Python ingestion pipeline
-will read the same file. Public images/documents live in `frontend/src/assets/`.
+Angular components and the Python ingestion pipeline consume that shared source. Public images/documents live in `frontend/src/assets/`.
 
 The production URL stays **https://hulk914.github.io/PortfolioWebApp/**. Pull
 requests run a frontend build. Main pushes build and deploy to GitHub Pages,
@@ -91,11 +96,25 @@ install dependencies from `frontend/package-lock.json` and upload only
 `frontend/dist/portfolio/browser/`. Repository Pages settings must use **GitHub
 Actions** as the publishing source.
 
+The **Deploy backend to Vercel** workflow runs on main pushes affecting shared
+content or backend code. It ingests, packages matching content/schema/Chroma,
+deploys through the official Vercel CLI, and checks one real Gemini answer before
+promoting the release. The stable backend origin is
+**https://portfolio-web-app-six-sage.vercel.app**, with Swagger at `/docs` and
+readiness at `/api/health`. GitHub Actions secrets and Vercel runtime variables
+are configured separately; see the [backend deployment guide](backend/README.md#deployment-to-vercel).
+Frontend Pages delivery remains an independent workflow.
+
 ## Current scope
 
-The Angular UI, JSON/schema, routing, API client foundation, and local FastAPI/uv
-skeleton are implemented. Ingestion, retrieval/model generation, backend hosting,
-and chatbot UI remain later phases. Automated suites remain deferred.
+Angular, shared content/schema, FastAPI/uv, document extraction and chunking,
+incremental Chroma ingestion, retrieval, Gemini generation/citations, and trusted
+CI ingestion and the Vercel release flow are implemented. Run
+`uv run ingest --dry-run` without keys to inspect extraction; see the backend
+README for live setup. Coordinated frontend/backend releases and chatbot UI remain
+later phases. Optional private
+LangSmith tracing is implemented and locally verified.
+Automated suites remain deferred.
 
 See the [implementation checklist](docs/implementation-checklist.md) and
 [application architecture](docs/architecture.md).

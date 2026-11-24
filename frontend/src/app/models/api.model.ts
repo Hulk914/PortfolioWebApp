@@ -3,9 +3,14 @@ export interface ApiConfig {
   timeoutMs: number;
 }
 export interface HealthResponse {
-  status: string;
+  status: 'ok';
   rag_index_loaded: boolean;
-  content_hash?: string;
+  content_hash: string;
+  index_id: string;
+  source_revision: string;
+  embedding_model: string;
+  embedding_dimensions: number;
+  chunk_count: number;
 }
 export interface ChatRequest {
   question: string;
@@ -15,10 +20,24 @@ export interface Citation {
   title: string;
   url: string;
   section?: string;
+  chunk_ids: string[];
+}
+export interface EvidenceChunk {
+  chunk_id: string;
+  document_id: string;
+  title: string;
+  section: string;
+  text: string;
+  similarity_score: number;
+  used_in_answer: boolean;
+  source_file: string;
+  url: string;
 }
 export interface ChatResponse {
   answer: string;
   citations: Citation[];
+  retrieved_chunks: EvidenceChunk[];
+  content_hash: string;
   trace_id?: string;
   trace_url?: string | null;
 }
