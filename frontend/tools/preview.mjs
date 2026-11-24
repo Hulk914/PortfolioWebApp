@@ -3,7 +3,7 @@ import { readFile, realpath, stat } from 'node:fs/promises';
 import { extname, resolve, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
-const root = resolve(fileURLToPath(new URL('../dist/frontend/browser/', import.meta.url)));
+const root = resolve(fileURLToPath(new URL('../dist/portfolio/browser/', import.meta.url)));
 const index = await readFile(resolve(root, 'index.html'), 'utf8').catch(() => {
   throw new Error('Build the Angular application with npm run build first.');
 });

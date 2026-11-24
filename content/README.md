@@ -24,7 +24,8 @@ facts to component templates or TypeScript files.
 5. Put any new public document/image in `frontend/src/assets/`. Angular copies
    these directly into the public `assets/` directory during builds. Keep JSON
    links as `assets/...`; filesystem organization does not change public URLs.
-6. Run `npm run build` from the repository root. Fix content/build diagnostics,
+6. Run `npm run build` inside `frontend/` (or `npm --prefix frontend run build`
+   from the repository root). Fix content/build diagnostics,
    then open the application locally to review it.
 
 Example detail paragraph:

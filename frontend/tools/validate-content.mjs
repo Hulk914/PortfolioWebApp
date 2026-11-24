@@ -1,8 +1,8 @@
 import { readFile, access } from 'node:fs/promises';
 import Ajv2020 from 'ajv/dist/2020.js';
 
-const root = new URL('../', import.meta.url);
-const assetRoot = new URL('../frontend/src/assets/', import.meta.url);
+const root = new URL('../../', import.meta.url);
+const assetRoot = new URL('../src/assets/', import.meta.url);
 const [content, schema] = await Promise.all(
   ['content/portfolio.json', 'content/portfolio.schema.json'].map(async (path) =>
     JSON.parse(await readFile(new URL(path, root), 'utf8')),

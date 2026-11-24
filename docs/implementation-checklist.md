@@ -11,9 +11,9 @@ Do not recreate or rerun suites during each phase. Use necessary compilation/bui
 checks and address concrete implementation errors.
 
 The first Angular milestone combines Phase 1, the shared content foundation from
-Phase 2, and frontend build/deployment configuration from Phase 7. Backend folders
-remain empty. Angular implementation was authorized and the UI migration is now implemented.
-The user has approved the UI. The first production deployment remains pending.
+Phase 2, and frontend build/deployment configuration from Phase 7. The UI migration
+is approved and committed/pushed as `62bd278`. Backend work has started with a
+local FastAPI stub; ingestion and RAG integration remain pending.
 
 ## Phase 0: audit and scaffold
 
@@ -43,7 +43,7 @@ The user has approved the UI. The first production deployment remains pending.
 ### Angular
 
 - [x] Create a strict standalone application in `frontend/`, using a compatible
-      current stable release, a root npm workspace, and one lockfile.
+      current stable release, an independent npm project, and a frontend lockfile.
 - [x] Add typed models and a shared content service; pass data into components.
 - [x] Implement header, hero, skills, timeline, project groups/cards/details,
       beyond-code/education, contact, and footer.
@@ -84,14 +84,45 @@ deployment and hosting-setting changes still require separate confirmation.
       local/production API configuration; no startup API calls.
 - [x] User approves the migrated UI.
 
-No automated suites were added or run. The production deployment is still pending.
+No automated suites were added or run. Backend deployment is outside the current phase.
+
+## Frontend project isolation
+
+- [x] Place package metadata, lockfile, Node/formatter configuration, and build tools
+      inside `frontend/`; keep shared content and repository workflows at root.
+- [x] Update CI, deployment artifact paths, npm caching, and Dependabot for the
+      standalone frontend project.
+- [x] Complete a production build using only `frontend/node_modules` and remove
+      the old root dependency/output folders.
+
+## Backend phase: local FastAPI skeleton
+
+- [x] Add a FastAPI entry point with separate chat and ingestion route modules.
+- [x] Define validated request/response models matching the Angular chat contract.
+- [x] Add `POST /api/chat` with a clearly identified static answer and no citations.
+- [x] Add `POST /api/ingest` with a stub status and `index_updated: false`.
+- [x] Configure local Angular CORS origins and an optional `.env.example`.
+- [x] Pin dependencies and document virtual environment setup, Uvicorn, and Swagger.
+- [x] Initialize a uv project with `pyproject.toml`, `uv.lock`, and Python 3.14 pinning.
+- [x] Add cross-platform `uv run dev` and `uv run start` console commands and
+      remove the separate pip requirements file.
+- [x] Synchronize the locked uv environment and verify development startup on
+      Python 3.14.6 with the same two API routes.
+- [x] Confirm server startup; both POST stubs returned HTTP 200, OpenAPI lists
+      exactly two application endpoints, and the local Angular CORS header is present.
+
+Acceptance: both POST routes can be exercised through `/docs` or direct HTTP
+calls. No keys, ingestion, embeddings, vector writes, LLM calls, or deployments
+are part of this phase. Automated suites remain deferred.
 
 ## Later work
 
 - [ ] Extend the shared content model as real content grows.
 - [ ] Implement Python ingestion, semantic chunks, Gemini embeddings, local JSON
       vectors, content hashes, and an index manifest.
-- [ ] Implement FastAPI retrieval/chat endpoints and grounded citations.
+- [ ] Connect retrieval/LLM generation and grounded citations to the chat route.
+- [ ] Connect manual ingestion and protect it when it performs real work.
+- [ ] Add trusted ingestion automation for `content/**` changes and package the index.
 - [ ] Add optional private LangSmith tracing.
 - [ ] Build the recruiter chat UI with loading, error, and citation handling.
 - [ ] Package the index with Vercel and coordinate backend/Pages releases.

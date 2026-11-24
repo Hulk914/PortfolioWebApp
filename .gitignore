@@ -8,7 +8,7 @@ dist/
 .angular/
 coverage/
 
-# Future Python backend and local configuration.
+# Python backend and local configuration.
 .venv/
 __pycache__/
 *.py[cod]

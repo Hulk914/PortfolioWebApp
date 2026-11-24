@@ -5,7 +5,7 @@ await import('./validate-content.mjs');
 await import('./prepare-frontend.mjs');
 const cli = fileURLToPath(new URL('../node_modules/@angular/cli/bin/ng.js', import.meta.url));
 const result = spawnSync(process.execPath, [cli, 'build', ...process.argv.slice(2)], {
-  cwd: fileURLToPath(new URL('../frontend/', import.meta.url)),
+  cwd: fileURLToPath(new URL('../', import.meta.url)),
   stdio: 'inherit',
 });
 if (result.error) throw result.error;

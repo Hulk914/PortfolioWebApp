@@ -1,6 +1,6 @@
 node_modules/
 package-lock.json
-frontend/src/assets/
+src/assets/
 dist/
 .angular/
-frontend/src/index.html
+src/index.html

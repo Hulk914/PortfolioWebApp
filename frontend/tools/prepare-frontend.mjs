@@ -1,7 +1,7 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
 const { profile } = JSON.parse(
-  await readFile(new URL('../content/portfolio.json', import.meta.url), 'utf8'),
+  await readFile(new URL('../../content/portfolio.json', import.meta.url), 'utf8'),
 );
 const escapeHtml = (text) =>
   text.replace(
@@ -27,5 +27,5 @@ const index = `<!doctype html>
   <body id="top"><app-root></app-root></body>
 </html>
 `;
-await writeFile(new URL('../frontend/src/index.html', import.meta.url), index);
+await writeFile(new URL('../src/index.html', import.meta.url), index);
 console.log('Prepared frontend metadata from content/portfolio.json.');

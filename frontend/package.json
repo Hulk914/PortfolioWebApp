@@ -3,9 +3,16 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "prestart": "node ../tools/validate-content.mjs && node ../tools/prepare-frontend.mjs",
+    "prestart": "npm run prepare:frontend",
     "start": "ng serve --host 127.0.0.1 --port 4200",
-    "build": "ng build"
+    "dev": "npm run start",
+    "validate:content": "node tools/validate-content.mjs",
+    "prepare:frontend": "npm run validate:content && node tools/prepare-frontend.mjs",
+    "build": "node tools/build.mjs",
+    "build:pages": "node tools/build.mjs --base-href /PortfolioWebApp/",
+    "preview": "node tools/preview.mjs",
+    "format": "prettier . --write",
+    "format:check": "prettier . --check"
   },
   "dependencies": {
     "@angular/common": "22.3.0",
@@ -22,6 +29,12 @@
     "@angular/build": "22.3.0",
     "@angular/cli": "22.3.0",
     "@angular/compiler-cli": "22.3.0",
+    "ajv": "8.17.1",
+    "prettier": "3.9.10",
     "typescript": "~6.0.0"
+  },
+  "description": "Angular portfolio powered by shared JSON content.",
+  "engines": {
+    "node": "^24.15.0"
   }
 }
