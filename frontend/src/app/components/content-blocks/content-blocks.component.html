@@ -1,0 +1,170 @@
+<ng-container [ngTemplateOutlet]="render" [ngTemplateOutletContext]="{ $implicit: blocks() }" />
+<ng-template #render let-nodes>
+  @for (node of nodes; track $index) {
+    @if (node.text !== undefined) {
+      {{ node.text }}
+    } @else {
+      @switch (node.tag) {
+        @case ('div') {
+          <div
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></div>
+        }
+        @case ('section') {
+          <section
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></section>
+        }
+        @case ('p') {
+          <p
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></p>
+        }
+        @case ('h5') {
+          <h5
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></h5>
+        }
+        @case ('h6') {
+          <h6
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></h6>
+        }
+        @case ('ul') {
+          <ul
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></ul>
+        }
+        @case ('ol') {
+          <ol
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></ol>
+        }
+        @case ('li') {
+          <li
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></li>
+        }
+        @case ('span') {
+          <span
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></span>
+        }
+        @case ('strong') {
+          <strong
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></strong>
+        }
+        @case ('em') {
+          <em
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></em>
+        }
+        @case ('code') {
+          <code
+            [class]="node.className"
+            [attr.id]="node.id"
+            [attr.role]="node.role"
+            [attr.aria-label]="node.label"
+            [attr.aria-labelledby]="node.labelledBy"
+            [attr.aria-hidden]="node.hidden"
+            ><ng-container
+              [ngTemplateOutlet]="render"
+              [ngTemplateOutletContext]="{ $implicit: node.children ?? [] }"
+          /></code>
+        }
+        @case ('br') {
+          <br />
+        }
+      }
+    }
+  }
+</ng-template>

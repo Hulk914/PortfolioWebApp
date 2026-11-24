@@ -1,0 +1,653 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:portfolio:schema:1",
+  "title": "Canonical portfolio content",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "profile": {
+      "$ref": "#/$defs/profile"
+    },
+    "skills": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/skill"
+      },
+      "minItems": 1
+    },
+    "experience": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/experience"
+      },
+      "minItems": 1
+    },
+    "projectGroups": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/group"
+      },
+      "minItems": 1
+    },
+    "projects": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/project"
+      },
+      "minItems": 1
+    },
+    "education": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/education"
+      },
+      "minItems": 0
+    },
+    "additionalInformation": {
+      "$ref": "#/$defs/personal"
+    },
+    "presentation": {
+      "$ref": "#/$defs/presentation"
+    }
+  },
+  "required": [
+    "schemaVersion",
+    "profile",
+    "skills",
+    "experience",
+    "projectGroups",
+    "projects",
+    "education",
+    "additionalInformation",
+    "presentation"
+  ],
+  "$defs": {
+    "block": {
+      "oneOf": [
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "text": {
+              "type": "string",
+              "minLength": 1
+            }
+          },
+          "required": ["text"]
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "tag": {
+              "enum": [
+                "div",
+                "section",
+                "p",
+                "h5",
+                "h6",
+                "ul",
+                "ol",
+                "li",
+                "span",
+                "strong",
+                "em",
+                "code",
+                "br"
+              ]
+            },
+            "children": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/block"
+              },
+              "minItems": 0
+            },
+            "className": {
+              "type": "string",
+              "minLength": 1
+            },
+            "id": {
+              "type": "string",
+              "pattern": "^[a-z][a-z0-9-]*$"
+            },
+            "role": {
+              "type": "string",
+              "minLength": 1
+            },
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "labelledBy": {
+              "type": "string",
+              "minLength": 1
+            },
+            "hidden": {
+              "enum": ["true", "false"]
+            }
+          },
+          "required": ["tag", "children"]
+        }
+      ]
+    },
+    "link": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "url": {
+          "type": "string",
+          "pattern": "^(https?://|mailto:|assets/)"
+        },
+        "external": {
+          "type": "boolean"
+        },
+        "download": {
+          "type": "string",
+          "minLength": 1
+        },
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "icon": {
+          "enum": ["email", "linkedin", "github", "medium"]
+        }
+      },
+      "required": ["label", "url"]
+    },
+    "heading": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "number": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        },
+        "description": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        }
+      },
+      "required": ["number", "eyebrow", "title", "description"]
+    },
+    "profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "headline": {
+          "type": "string",
+          "minLength": 1
+        },
+        "tagline": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "location": {
+          "type": "string",
+          "minLength": 1
+        },
+        "email": {
+          "type": "string",
+          "pattern": "^[^@ ]+@[^@ ]+\\.[^@ ]+$"
+        },
+        "roleFocus": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "focus": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          },
+          "minItems": 1
+        },
+        "portrait": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "src": {
+              "type": "string",
+              "minLength": 1
+            },
+            "webp": {
+              "type": "string",
+              "minLength": 1
+            },
+            "alt": {
+              "type": "string",
+              "minLength": 1
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1
+            }
+          },
+          "required": ["src", "webp", "alt", "width", "height"]
+        },
+        "resume": {
+          "type": "string",
+          "minLength": 1
+        },
+        "seoDescription": {
+          "type": "string",
+          "minLength": 1
+        },
+        "impact": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              },
+              "suffix": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": ["value", "label"]
+          },
+          "minItems": 1
+        }
+      },
+      "required": [
+        "name",
+        "headline",
+        "tagline",
+        "summary",
+        "location",
+        "email",
+        "roleFocus",
+        "focus",
+        "links",
+        "portrait",
+        "resume",
+        "seoDescription",
+        "impact"
+      ]
+    },
+    "skill": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["id", "label", "description"]
+    },
+    "experience": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "company": {
+          "type": "string",
+          "minLength": 1
+        },
+        "role": {
+          "type": "string",
+          "minLength": 1
+        },
+        "startDate": {
+          "type": "string",
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+        },
+        "endDate": {
+          "type": ["string", "null"],
+          "pattern": "^\\d{4}-(0[1-9]|1[0-2])$"
+        },
+        "description": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        },
+        "technologies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "relatedProjectIds": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "pattern": "^[a-z][a-z0-9-]*$"
+          },
+          "minItems": 0
+        }
+      },
+      "required": ["id", "company", "role", "startDate", "endDate", "description", "technologies"]
+    },
+    "group": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "label": {
+          "type": "string",
+          "minLength": 1
+        },
+        "description": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["id", "label", "description"]
+    },
+    "project": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "slug": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "groupId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "titleId": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "statusDot": {
+          "type": "boolean"
+        },
+        "summary": {
+          "type": "string",
+          "minLength": 1
+        },
+        "technologies": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "minLength": 1
+          },
+          "minItems": 1
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          },
+          "minItems": 1
+        },
+        "detailClass": {
+          "type": "string",
+          "minLength": 1
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        },
+        "stack": {
+          "type": "string",
+          "minLength": 1
+        },
+        "subtitle": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "id",
+        "slug",
+        "groupId",
+        "titleId",
+        "title",
+        "eyebrow",
+        "kind",
+        "statusDot",
+        "summary",
+        "technologies",
+        "links",
+        "detailClass",
+        "details"
+      ]
+    },
+    "education": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]*$"
+        },
+        "degree": {
+          "type": "string",
+          "minLength": 1
+        },
+        "field": {
+          "type": "string",
+          "minLength": 1
+        },
+        "institution": {
+          "type": "string",
+          "minLength": 1
+        },
+        "graduationYear": {
+          "type": "integer",
+          "minimum": 1900
+        },
+        "grade": {
+          "type": "number",
+          "minimum": 0
+        },
+        "gradeScale": {
+          "type": "number",
+          "exclusiveMinimum": 0
+        }
+      },
+      "required": ["id", "degree", "field", "institution", "graduationYear", "grade", "gradeScale"]
+    },
+    "personal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "eyebrow": {
+          "type": "string",
+          "minLength": 1
+        },
+        "title": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        },
+        "description": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/block"
+          },
+          "minItems": 0
+        },
+        "links": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/link"
+          },
+          "minItems": 0
+        }
+      },
+      "required": ["eyebrow", "title", "description", "links"]
+    },
+    "presentation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "navigation": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "id": {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9-]*$"
+              },
+              "label": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": ["id", "label"]
+          },
+          "minItems": 1
+        },
+        "portraitLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "focusLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "coordinate": {
+          "type": "string",
+          "minLength": 1
+        },
+        "companiesLabel": {
+          "type": "string",
+          "minLength": 1
+        },
+        "experience": {
+          "$ref": "#/$defs/heading"
+        },
+        "projects": {
+          "$ref": "#/$defs/heading"
+        },
+        "beyond": {
+          "$ref": "#/$defs/heading"
+        },
+        "contact": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "eyebrow": {
+              "type": "string",
+              "minLength": 1
+            },
+            "title": {
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/block"
+              },
+              "minItems": 0
+            }
+          },
+          "required": ["eyebrow", "title"]
+        },
+        "footer": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "navigation",
+        "portraitLabel",
+        "focusLabel",
+        "coordinate",
+        "companiesLabel",
+        "experience",
+        "projects",
+        "beyond",
+        "contact",
+        "footer"
+      ]
+    }
+  }
+}

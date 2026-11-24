@@ -1,7 +1,21 @@
-.qa/
 node_modules/
-playwright-report/
-test-results/
 .DS_Store
 Thumbs.db
 *.log
+
+# Angular build output and local caches.
+dist/
+.angular/
+coverage/
+
+# Future Python backend and local configuration.
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.vercel/
+.env
+.env.*
+!.env.example
+backend/data/generated-index/*
+!backend/data/generated-index/.gitkeep

@@ -1,0 +1,38 @@
+/* The migrated portfolio design and assets now live entirely inside frontend. */
+@import './styles/portfolio.css';
+
+app-root,
+app-header,
+app-footer,
+app-hero,
+app-skills,
+app-experience,
+app-projects,
+app-beyond,
+app-contact,
+app-content-blocks,
+app-section-heading,
+app-content-link,
+app-icon,
+app-portfolio-page,
+app-project-page {
+  display: contents;
+}
+
+.project-page {
+  min-height: 70vh;
+  padding-bottom: 80px;
+}
+.project-back {
+  display: inline-flex;
+  margin-bottom: 24px;
+}
+.project-page-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  line-height: 1.2;
+  margin-bottom: 32px;
+  letter-spacing: -0.04em;
+}
+.project-page .project-entry {
+  margin-top: 0;
+}

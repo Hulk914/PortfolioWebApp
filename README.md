@@ -1,121 +1,140 @@
-# Ayush Thakur — Portfolio
+# Ayush Thakur - Angular Portfolio
 
-A static portfolio for full-stack and applied AI engineering, forward deployed
-engineering, and frontend architecture. The production page uses native HTML,
-CSS, and a deferred JavaScript file. No runtime packages or build step are required.
+An Angular 22.3.0 portfolio with standalone components, shared JSON content,
+static prerendering, and GitHub Pages deployment configuration. The existing
+appearance, complete project explanations/workflows, experience timeline, native
+disclosures, images, documents, and responsive layout are preserved.
 
-## Preview
+## Run locally
 
-Open `index.html` directly, or use Node.js 24 (see `.nvmrc`):
+Use Node.js 24.15 or newer on the Node 24 line (the current workspace uses
+24.21.0). Run these commands from the repository root:
 
 ```sh
 npm ci
 npm run dev
 ```
 
-Visit `http://127.0.0.1:4173`. The local server serves only the public page and
-assets; it does not expose the repository, tools, tests, or dependencies.
+Open **http://127.0.0.1:4200/PortfolioWebApp**. Opening `/` redirects there. The local Angular CLI is included; no global CLI,
+Python setup, API key, or running backend is needed. Stop the server with Ctrl+C.
+Content changes rebuild the UI. Images/documents are served directly from the Angular assets folder.
 
-## Quality checks
-
-```sh
-npm run check
-npx playwright install chromium
-npm test
-```
-
-`npm run check` checks formatting, HTML semantics and references, JavaScript
-syntax, the preview server's public-file boundary, and lossless image integrity.
-`npm test` covers desktop, tablet, mobile, and intermediate widths; keyboard
-navigation; active-section state; PDF loading; direct file preview; missing
-browser APIs; JavaScript-disabled browsing; and reduced motion.
-
-If Chrome is already installed, use it without downloading a test browser:
-
-```powershell
-$env:PLAYWRIGHT_CHANNEL = 'chrome'
-npm test
-```
-
-On macOS/Linux, use `PLAYWRIGHT_CHANNEL=chrome npm test`.
-Browser failure traces and screenshots are written to `test-results/`;
-`npm run test:report` opens the HTML report.
-
-[Playwright and axe](https://playwright.dev/docs/accessibility-testing) scan for
-common WCAG A/AA issues. Automated scans complement manual keyboard, screen
-reader, zoom, contrast-over-image, and browser testing; they do not establish
-complete accessibility conformance.
-
-The GitHub Actions workflow runs these checks on pushes and pull requests. It
-uses a read-only token, pinned action commits, `npm ci`, and a locked dependency
-tree. Dependabot proposes updates to development packages and actions.
-
-## Design and engineering decisions
-
-- **Progressive enhancement:** career content, anchors, contact links, and the
-  resume work without JavaScript. Enhancements are scoped to an IIFE, feature
-  detect browser APIs, and respect reduced-motion preferences.
-- **Deterministic navigation:** active-section state is derived from visible
-  sections in document order and cleared when no tracked section is being read.
-- **Semantic HTML:** native landmarks, one primary heading, machine-readable
-  employment dates, descriptive groups, and a keyboard-focusable skip target.
-  New-tab announcements are available to screen readers without changing labels.
-- **Consistent maintenance:** Prettier, EditorConfig, and Git line-ending rules
-  make source formatting reproducible across operating systems.
-- **Local assets:** no CDN fonts, runtime libraries, tracking, or third-party
-  requests are required to render the page.
-- **Defense in depth:** a same-origin
-  [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CSP)
-  blocks inline scripts, object embedding, base-URL overrides, and form submission.
-  A referrer policy and `noopener noreferrer` protect outbound navigation.
-  HTML validation requires SRI if cross-origin scripts or styles are added.
-
-## Images and visual preservation
-
-The original PNGs remain in `assets/` as editable sources and browser fallbacks.
-Served WebP versions use lossless compression, retain the color profile, and
-preserve the original dimensions. The optimization script compares decoded RGBA
-pixels before writing each file. The two served images total 3,893,024 bytes,
-compared with 7,463,984 bytes for the PNGs: about 48% less image data.
+## Production preview
 
 ```sh
-npm run optimize:images
-npm run check
+npm run build
+npm run preview
 ```
 
-Run those commands after replacing either PNG. The high-priority portrait keeps
-explicit dimensions to reserve layout space; it is not lazy-loaded.
+Open **http://127.0.0.1:4173/PortfolioWebApp/**. Production builds use the existing
+GitHub Pages path by default; opening the preview server at `/` redirects there.
+The explicit Pages build command is also available:
 
-## Updating content and hosting
+```sh
+npm run build:pages
+npm run preview
+```
 
-- Edit the biography, skills, and career history in `index.html`.
-- Add projects as `.project-entry` articles in the Projects & resources section.
-  Group them by primary subject in the AI, Python, or Miscellaneous `.project-group`
-  sections. AI applications belong in AI even when implemented in Python; Python
-  language and API resources belong in Python. Keep the category jump-link counts
-  in sync. Groups use level-three headings and project titles use level four.
-  Keep the title, short overview, technology tags, and links visible; place supporting
-  content inside the native `.project-details` disclosure. Entries start collapsed,
-  support multiple open projects, and work without JavaScript.
-- The first AI project, RAG Deep Dive, compares direct Gemini, explicit Python RAG,
-  and LCEL composition. Its HTML/CSS workflows and ingestion pipeline need no
-  external diagram library. Keep its learning scope and live API verification
-  status aligned with the [source repository](https://github.com/Hulk914/RAG-DEEPDIVE).
-- Replace `assets/resume.pdf` to update the resume; keep the filename stable.
-- Replace `assets/FastAPI-Guide.pdf` to update the downloadable FastAPI theory and
-  interview guide; keep the filename stable, then run `npm run prepare:downloads`
-  to refresh the generated copy used for direct file previews. Its repository and
-  download links are in the FastAPI resource card in `index.html`. Direct file
-  downloads require JavaScript; downloads over HTTP also work without JavaScript.
-- The last resource card links to the 39-page System Design & Architecture Field
-  Guide at `assets/System-Design-Architecture-Study-Guide.pdf`. Replace that PDF and
-  run `npm run prepare:downloads` to refresh its direct file preview download too.
-  Keep asset links relative so they also resolve under GitHub Pages' repository path.
-- Run `npm run format`, `npm run check`, and `npm test` before publishing changes.
-- Publish `index.html`, `styles.css`, `script.js`, and `assets/` on a static host.
-  Do not publish development folders, dependencies, Git metadata, or reports.
+Open **http://127.0.0.1:4173/PortfolioWebApp/**. Both builds write static files to
+`dist/frontend/browser/`; only that directory is published. A build validates the
+content, generates metadata/assets, compiles Angular, prerenders the home page and
+every project, and prepares the Pages fallback.
 
-Production HTTPS, compression, caching, and response headers are configured at
-the hosting provider. In particular, `frame-ancestors` must be delivered as a CSP
-HTTP header; it cannot be enforced through the page's meta policy. Configure
-host-specific headers and a canonical URL when the production domain is known.
+## Content and components
+
+```text
+content/
+  portfolio.json             Canonical professional and presentation content
+  portfolio.schema.json      Shared JSON Schema
+  README.md                  Editing and adding projects
+frontend/
+  angular.json                Build, development, and static-output configuration
+  src/app/
+    components/               Header, hero, skills, experience, projects, beyond,
+                              contact, footer, and reusable content/link/icon views
+    pages/                    Home portfolio and individual project pages
+    directives/               Scroll reveals and reduced-motion handling
+    services/                 Content, navigation, metadata, API, and chatbot contract
+    models/                   Portfolio and future backend response types
+  src/assets/                 Images, favicon, resume, and guide PDFs
+  src/styles/portfolio.css    Migrated portfolio stylesheet
+  src/environments/           Local and production API configuration
+backend/                      Empty scaffold for later Python/RAG work
+tools/                        Content preparation, build, and static preview
+.github/workflows/            Pull-request builds and automatic main deployment
+```
+
+[Edit content and add projects](content/README.md) through `content/portfolio.json`.
+A typed content service imports that file at build time, and components receive
+its records through signal inputs. Group counts and repeated identity/company
+labels are derived. Detailed content is a safe structured tree of text, headings,
+paragraphs, lists, and workflow steps, ready for later Python extraction.
+
+Public source assets now live in `frontend/src/assets/`, and the migrated design
+stylesheet is `frontend/src/styles/portfolio.css`. Angular copies those assets
+directly to the build's `assets/` directory; no intermediate staging is needed.
+Public URLs such as `assets/resume.pdf` are unchanged. Downloads use the original
+PDFs directly. `frontend/src/index.html` is generated from the canonical profile
+metadata.
+
+## Routing and static hosting
+
+- `/PortfolioWebApp` is the explicit home route and preserves section/category fragments.
+- `/` redirects to `/PortfolioWebApp` with `pathMatch: full`.
+- `/PortfolioWebApp/projects/<slug>` shows an expanded project; click a project title to open it.
+- The wildcard route and unknown project slugs redirect to `/PortfolioWebApp`.
+- The build prerenders every known project into its own `index.html`. Known deep
+  links can load and refresh on Pages without a Node server.
+- `404.html` bootstraps Angular for unknown URLs. GitHub still returns HTTP 404 for
+  that first unknown request before client routing redirects; this is a static-host
+  limitation. Valid prerendered project pages do not rely on that fallback.
+- Angular routing uses `APP_BASE_HREF: /` because the route itself contains
+  `PortfolioWebApp`. The production HTML base stays `/PortfolioWebApp/` for assets,
+  so links do not acquire a doubled prefix.
+- Relative asset/document links respect the build's base href. Angular development
+  and preview use HTTP rather than opening compiled files through `file://`.
+
+The production URL remains **https://hulk914.github.io/PortfolioWebApp/**. The
+deployment workflow rejects a Pages configuration with a different base path.
+
+## Future backend calls
+
+`ApiService` uses Angular HttpClient/fetch, typed responses, configurable timeouts,
+and consistent `ApiError` handling. `ChatbotService` provides lazy `health()` and
+`ask(question)` calls for the future `GET /api/health` and `POST /api/chat` contract.
+No API requests occur during portfolio startup; the chatbot UI is a later phase.
+
+Configure public API settings in:
+
+- `frontend/src/environments/environment.ts`: local default
+  `http://localhost:8000/api`.
+- `frontend/src/environments/environment.production.ts`: set `api.baseUrl` to
+  `https://your-backend.vercel.app/api` when deployed; currently unset.
+
+The production environment is selected by the production build. API credentials
+belong only on the future Python backend. The current CSP permits Vercel API
+origins; if using a custom backend domain, add its origin to `connect-src` in
+`tools/prepare-frontend.mjs`. Configure backend CORS for the actual frontend origin:
+`http://127.0.0.1:4200` locally and `https://hulk914.github.io` on Pages (no path).
+
+## GitHub Actions and deployment
+
+`ci.yml` installs the locked dependencies and builds for the repository path on
+pull requests. Automated test suites remain deferred for the MVP.
+
+`deploy.yml` runs on pushes to main and also supports manual dispatch. It confirms the configured Pages
+base path is `/PortfolioWebApp/`, builds, uploads `dist/frontend/browser`, and deploys using the official
+Pages actions. Actions are pinned; no personal access token or AI secrets are needed.
+Before pushing, open repository Pages settings and select **GitHub Actions** as
+its publishing source. Main pushes then build and deploy Angular automatically.
+The deployment workflow includes its own successful-build gate, so main does not
+run a duplicate CI build.
+
+## MVP scope
+
+The UI migration, JSON model, API service foundation, routing, and build setup are
+implemented. Python, RAG ingestion, chatbot UI, and unit/end-to-end suites are later
+work. Optional formatting is available with `npm run format`.
+
+See the [implementation checklist](docs/implementation-checklist.md) and the
+[application architecture](docs/architecture.md).

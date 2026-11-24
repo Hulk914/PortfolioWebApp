@@ -2,26 +2,26 @@
   "name": "ayush-thakur-portfolio",
   "version": "1.0.0",
   "private": true,
-  "description": "Accessible, buildless portfolio for Ayush Thakur.",
+  "description": "Angular portfolio powered by shared JSON content.",
+  "workspaces": [
+    "frontend"
+  ],
   "engines": {
-    "node": ">=22"
+    "node": "^24.15.0"
   },
   "scripts": {
-    "dev": "node tools/serve.mjs",
+    "dev": "npm run start --workspace frontend",
+    "start": "npm run dev",
+    "validate:content": "node tools/validate-content.mjs",
+    "prepare:frontend": "npm run validate:content && node tools/prepare-frontend.mjs",
+    "build": "node tools/build.mjs",
+    "build:pages": "node tools/build.mjs --base-href /PortfolioWebApp/",
+    "preview": "node tools/preview.mjs",
     "format": "prettier . --write",
-    "format:check": "prettier . --check",
-    "validate:html": "html-validate index.html",
-    "check": "npm run format:check && npm run validate:html && node --check script.js && node --test tests/server.test.mjs tests/assets.test.mjs",
-    "test": "playwright test",
-    "test:report": "playwright show-report",
-    "prepare:downloads": "node tools/prepare-downloads.mjs",
-    "optimize:images": "node tools/optimize-images.mjs"
+    "format:check": "prettier . --check"
   },
   "devDependencies": {
-    "@axe-core/playwright": "4.14.0",
-    "@playwright/test": "1.65.0",
-    "html-validate": "11.19.0",
-    "prettier": "3.9.10",
-    "sharp": "0.35.5"
+    "ajv": "8.17.1",
+    "prettier": "3.9.10"
   }
 }

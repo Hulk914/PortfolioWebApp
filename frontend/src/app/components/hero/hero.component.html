@@ -1,0 +1,82 @@
+<section class="hero shell" aria-labelledby="hero-title">
+  <div class="hero-content">
+    <div class="hero-profile">
+      <p class="eyebrow"
+        ><span class="status-dot" aria-hidden="true"></span> {{ profile().headline }}</p
+      >
+      <h1 id="hero-title"
+        >{{ profile().name }}<span appContentBlocks [blocks]="profile().tagline"></span
+      ></h1>
+      <p class="hero-intro">{{ profile().summary }}</p>
+      <ul class="role-focus" aria-label="Engineering focus areas">
+        @for (focus of profile().roleFocus; track focus) {
+          <li>{{ focus }}</li>
+        }
+      </ul>
+      <div class="hero-actions">
+        <a
+          [href]="profile().resume"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-describedby="new-tab-hint"
+          class="resume-btn"
+          >View my resume <app-icon
+        /></a>
+        <a routerLink="/PortfolioWebApp" fragment="experience" class="text-link"
+          >Explore my work <span aria-hidden="true">↓</span></a
+        >
+      </div>
+      <div class="social-links" role="group" [attr.aria-label]="'Connect with ' + profile().name">
+        @for (link of profile().links; track link.url) {
+          <app-content-link [link]="link" linkClass="social-btn" />
+        }
+      </div>
+    </div>
+    <aside class="hero-summary" aria-label="Profile and current focus">
+      <div class="portrait-frame">
+        <picture
+          ><source [srcset]="profile().portrait.webp" type="image/webp" /><img
+            [src]="profile().portrait.src"
+            [alt]="profile().portrait.alt"
+            class="profile-pic"
+            [width]="profile().portrait.width"
+            [height]="profile().portrait.height"
+            fetchpriority="high"
+            decoding="async"
+        /></picture>
+        <span class="portrait-label">{{ presentation().portraitLabel }}</span>
+        <div class="portrait-caption"
+          ><span class="status-dot" aria-hidden="true"></span> Based in
+          <strong>{{ profile().location }}</strong></div
+        >
+      </div>
+      <div class="focus-note"
+        ><span class="focus-symbol" aria-hidden="true">⌘</span
+        ><p
+          ><span>{{ presentation().focusLabel }}</span
+          ><app-content-blocks [blocks]="profile().focus" /></p
+      ></div>
+      <span class="portrait-coordinate" aria-hidden="true">{{ presentation().coordinate }}</span>
+    </aside>
+  </div>
+  <dl class="impact-strip">
+    @for (impact of profile().impact; track impact.label) {
+      <div
+        ><dt [class.text-metric]="!impact.suffix"
+          >{{ impact.value }}
+          @if (impact.suffix) {
+            <span>{{ impact.suffix }}</span>
+          }</dt
+        ><dd>{{ impact.label }}</dd></div
+      >
+    }
+  </dl>
+  <div class="company-strip"
+    ><p>{{ presentation().companiesLabel }}</p
+    ><ul aria-label="Career companies">
+      @for (company of companies(); track company) {
+        <li>{{ company }}</li>
+      }
+    </ul></div
+  >
+</section>

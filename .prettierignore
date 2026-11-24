@@ -1,6 +1,6 @@
-.qa/
 node_modules/
-playwright-report/
-test-results/
 package-lock.json
-assets/
+frontend/src/assets/
+dist/
+.angular/
+frontend/src/index.html

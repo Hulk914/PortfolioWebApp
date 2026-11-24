@@ -1,0 +1,2066 @@
+{
+  "schemaVersion": 1,
+  "profile": {
+    "name": "Ayush Thakur",
+    "headline": "Full-Stack & Applied AI Engineering Lead",
+    "tagline": [
+      {
+        "text": "Enterprise systems."
+      },
+      {
+        "tag": "br",
+        "children": []
+      },
+      {
+        "tag": "em",
+        "children": [
+          {
+            "text": "Applied intelligence."
+          }
+        ]
+      }
+    ],
+    "summary": "I connect business problems to working software: Python APIs, Angular interfaces, and real-time systems. 10+ years of hands-on delivery, team leadership, and stakeholder collaboration.",
+    "location": "Bengaluru, India",
+    "email": "ayushthakur2009@gmail.com",
+    "roleFocus": ["Forward Deployed Engineering", "Full-Stack AI", "Frontend Architecture"],
+    "focus": [
+      {
+        "text": "Python APIs & Angular architecture."
+      },
+      {
+        "tag": "br",
+        "children": []
+      },
+      {
+        "text": "LLM applications, RAG & AI agents."
+      }
+    ],
+    "links": [
+      {
+        "label": "Email",
+        "url": "mailto:ayushthakur2009@gmail.com",
+        "icon": "email"
+      },
+      {
+        "label": "LinkedIn",
+        "url": "https://www.linkedin.com/in/ayush-thakur/",
+        "icon": "linkedin",
+        "external": true
+      },
+      {
+        "label": "GitHub",
+        "url": "https://github.com/Hulk914",
+        "icon": "github",
+        "external": true
+      },
+      {
+        "label": "Medium",
+        "url": "https://medium.com/@just-another-developer",
+        "icon": "medium",
+        "external": true
+      }
+    ],
+    "portrait": {
+      "src": "assets/dp_asset.png",
+      "webp": "assets/dp_asset.webp",
+      "alt": "Ayush Thakur",
+      "width": 1024,
+      "height": 1024
+    },
+    "resume": "assets/resume.pdf",
+    "seoDescription": "Ayush Thakur, Full-Stack & Applied AI Engineering Lead in Bengaluru. Python APIs, Angular architecture, real-time systems, MCP tools, and forward deployed engineering.",
+    "impact": [
+      {
+        "value": "10",
+        "label": "Years delivering enterprise software",
+        "suffix": "+"
+      },
+      {
+        "value": "Full-stack",
+        "label": "Python APIs, Angular & real-time data"
+      },
+      {
+        "value": "End-to-end",
+        "label": "Stakeholder discovery, integration & rollout"
+      }
+    ]
+  },
+  "skills": [
+    {
+      "id": "frontend-architecture",
+      "label": "Frontend architecture",
+      "description": "Angular v2–v20, TypeScript, RxJS, NgRx, Signals, Standalone Components, Zoneless Angular, Nx & Module Federation."
+    },
+    {
+      "id": "backend-real-time-systems",
+      "label": "Backend & real-time systems",
+      "description": "Python, FastAPI, Pydantic, REST APIs, async programming, Node.js, authentication, PostgreSQL, SQLAlchemy, Alembic (database migrations), Kafka & WebSockets."
+    },
+    {
+      "id": "applied-ai-agents",
+      "label": "Applied AI & agents",
+      "description": "LLM APIs, LangChain, LangSmith, RAG, embeddings, vector databases, semantic search, agents, tool calling, MCP, evaluations & guardrails."
+    },
+    {
+      "id": "delivery-engineering-quality",
+      "label": "Delivery & engineering quality",
+      "description": "Docker, CI/CD, Grafana, observability, pytest, Jest, Playwright, Claude Code, GitHub Copilot & AI-assisted PR gates."
+    }
+  ],
+  "experience": [
+    {
+      "id": "fico-lead-engineer",
+      "company": "FICO",
+      "role": "Lead Engineer",
+      "startDate": "2025-07",
+      "endDate": "2026-10",
+      "description": [
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Led Angular 20 micro-frontends for credit-scoring and hotlisting products using Nx, Module Federation, Signals, and shared libraries. Developed Python APIs and REST integrations with SQL-backed services."
+            }
+          ]
+        },
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Built WebSocket dashboards for large datasets and asynchronous operations. Partnered with Product Owners and UX teams to scope requirements and manage UI delivery."
+            }
+          ]
+        },
+        {
+          "tag": "p",
+          "className": "impact-line",
+          "children": [
+            {
+              "tag": "strong",
+              "children": [
+                {
+                  "text": "AI-assisted delivery"
+                }
+              ]
+            },
+            {
+              "text": " Co-developed Jira, Figma & Confluence MCP tools; contributed to PR quality/security gates, Docker deployments, and Grafana observability."
+            }
+          ]
+        }
+      ],
+      "technologies": ["Python APIs", "Angular 20", "MCP", "WebSockets"]
+    },
+    {
+      "id": "morgan-stanley-senior-manager",
+      "company": "Morgan Stanley",
+      "role": "Senior Manager",
+      "startDate": "2021-08",
+      "endDate": "2025-07",
+      "description": [
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Led end-to-end delivery of fixed-income pricing and portfolio optimization applications. Designed REST API contracts linking Angular interfaces, Python quantitative services, and third-party calculation engines."
+            }
+          ]
+        },
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Worked on server-side concurrency, Kafka streams, and WebSocket synchronization. Built Plotly and Highcharts dashboards for real-time data and long-running computations."
+            }
+          ]
+        },
+        {
+          "tag": "p",
+          "className": "impact-line",
+          "children": [
+            {
+              "tag": "strong",
+              "children": [
+                {
+                  "text": "Discovery to rollout"
+                }
+              ]
+            },
+            {
+              "text": " Partnered with business stakeholders to replace kdb+ and Excel workflows; led architecture, roadmaps, code reviews, and mentoring in Docker environments."
+            }
+          ]
+        }
+      ],
+      "technologies": ["Angular", "Python Services", "Kafka", "WebSockets"]
+    },
+    {
+      "id": "fis-software-engineer-ii",
+      "company": "FIS",
+      "role": "Software Engineer II",
+      "startDate": "2019-12",
+      "endDate": "2021-08",
+      "description": [
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Independently owned Angular modernization for commercial banking and ACH transaction workflows. Debugged legacy .NET behavior to understand business flows and integrate revamped interfaces with existing services."
+            }
+          ]
+        },
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Built reusable design-system components with WCAG-aligned accessibility and improved frontend performance across banking modules."
+            }
+          ]
+        }
+      ],
+      "technologies": ["Angular", ".NET Integration", "Design Systems", "Accessibility"]
+    },
+    {
+      "id": "zycus-associate-tech-lead",
+      "company": "Zycus",
+      "role": "Associate Tech Lead",
+      "startDate": "2018-07",
+      "endDate": "2019-12",
+      "description": [
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Developed Node.js-backed functionality alongside modular Angular applications for enterprise procurement. Built an in-house Angular component library with reusable design-system patterns."
+            }
+          ]
+        },
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Led and mentored engineers on maintainable architecture, shared components, and consistent delivery practices."
+            }
+          ]
+        }
+      ],
+      "technologies": ["Node.js", "Angular", "Component Libraries", "Mentoring"]
+    },
+    {
+      "id": "infosys-system-engineer",
+      "company": "Infosys",
+      "role": "System Engineer / Full Stack Developer",
+      "startDate": "2016-01",
+      "endDate": "2018-07",
+      "description": [
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Delivered full-stack functionality across services and frontend interfaces for telecom modernization. Wrote Python scripts and web scrapers to automate data retrieval and repetitive engineering tasks."
+            }
+          ]
+        },
+        {
+          "tag": "p",
+          "children": [
+            {
+              "text": "Worked with containerized services written in multiple languages in Docker-based environments."
+            }
+          ]
+        }
+      ],
+      "technologies": ["Python", "Web Scraping", "Docker", "Telecom"]
+    }
+  ],
+  "projectGroups": [
+    {
+      "id": "ai-projects",
+      "label": "AI",
+      "description": "LLM workflows, retrieval & agents"
+    },
+    {
+      "id": "python-projects",
+      "label": "Python",
+      "description": "Language fundamentals & API engineering"
+    },
+    {
+      "id": "misc-projects",
+      "label": "Miscellaneous",
+      "description": "System design & broader engineering resources"
+    }
+  ],
+  "projects": [
+    {
+      "id": "rag-deep-dive",
+      "slug": "rag-deep-dive",
+      "groupId": "ai-projects",
+      "titleId": "rag-title",
+      "title": "RAG Deep Dive",
+      "eyebrow": "Applied AI",
+      "kind": "Learning Resource",
+      "statusDot": false,
+      "summary": "A hands-on Python project comparing direct Gemini inference, explicit Retrieval-Augmented Generation, and LCEL-based RAG. Explores document embeddings, vector search, retrieved context, and LangChain workflow composition.",
+      "technologies": ["Python", "LangChain", "Gemini", "Pinecone", "RAG", "LCEL"],
+      "links": [
+        {
+          "label": "Explore RAG Implementation",
+          "url": "https://github.com/Hulk914/RAG-DEEPDIVE",
+          "external": true
+        }
+      ],
+      "detailClass": "project-card rag-card",
+      "details": [
+        {
+          "tag": "section",
+          "className": "rag-comparison",
+          "labelledBy": "rag-approaches-title",
+          "children": [
+            {
+              "tag": "h5",
+              "className": "project-detail-title",
+              "id": "rag-approaches-title",
+              "children": [
+                {
+                  "text": "One Question. "
+                },
+                {
+                  "tag": "span",
+                  "children": [
+                    {
+                      "text": "Three Approaches."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "rag-intro",
+              "children": [
+                {
+                  "text": " Built a small RAG demonstration to understand how external knowledge is supplied to an LLM and how orchestration differs between explicit Python code and LangChain Expression Language. "
+                },
+                {
+                  "tag": "code",
+                  "children": [
+                    {
+                      "text": "main.py"
+                    }
+                  ]
+                },
+                {
+                  "text": " asks the same question three ways. "
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "className": "rag-approaches",
+              "children": [
+                {
+                  "tag": "section",
+                  "className": "workflow rag-approach",
+                  "labelledBy": "rag-direct-title",
+                  "children": [
+                    {
+                      "tag": "p",
+                      "className": "eyebrow",
+                      "children": [
+                        {
+                          "text": "Direct LLM"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "h6",
+                      "id": "rag-direct-title",
+                      "children": [
+                        {
+                          "text": "Direct Gemini — Without Retrieval"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "The question goes directly to Gemini without retrieving documents from the project's knowledge base."
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "ol",
+                      "className": "rag-flow",
+                      "label": "Direct Gemini workflow",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Question"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Gemini"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Answer"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "className": "rag-lesson",
+                      "children": [
+                        {
+                          "text": "Simple LLM integration, but no access to the external knowledge base through this workflow."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "section",
+                  "className": "workflow rag-approach",
+                  "labelledBy": "rag-explicit-title",
+                  "children": [
+                    {
+                      "tag": "p",
+                      "className": "eyebrow",
+                      "children": [
+                        {
+                          "text": "Explicit RAG"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "h6",
+                      "id": "rag-explicit-title",
+                      "children": [
+                        {
+                          "text": "RAG with Explicit Python Orchestration"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Retrieves relevant Pinecone chunks, builds a context-aware prompt, and invokes Gemini through explicit Python calls using LangChain components."
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "ol",
+                      "className": "rag-flow",
+                      "label": "Explicit Python RAG workflow",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Question"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Retrieve relevant chunks"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Build context-aware prompt"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Gemini"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Answer"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "className": "rag-lesson",
+                      "children": [
+                        {
+                          "text": "RAG enriches the prompt with external context without retraining the model."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "section",
+                  "className": "workflow rag-approach",
+                  "labelledBy": "rag-lcel-title",
+                  "children": [
+                    {
+                      "tag": "p",
+                      "className": "eyebrow",
+                      "children": [
+                        {
+                          "text": "LCEL-based RAG"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "h6",
+                      "id": "rag-lcel-title",
+                      "children": [
+                        {
+                          "text": "RAG with LangChain Expression Language"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Composes retrieval, prompt-building, model invocation, and output parsing into a reusable LCEL pipeline."
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "ol",
+                      "className": "rag-flow",
+                      "label": "LCEL RAG workflow",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Question"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Retriever"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Prompt"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Model"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "text": "Output parser"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "className": "rag-components",
+                      "children": [
+                        {
+                          "tag": "code",
+                          "children": [
+                            {
+                              "text": "RunnablePassthrough.assign"
+                            }
+                          ]
+                        },
+                        {
+                          "text": " and "
+                        },
+                        {
+                          "tag": "code",
+                          "children": [
+                            {
+                              "text": "itemgetter"
+                            }
+                          ]
+                        },
+                        {
+                          "text": " supply context to the prompt template and chat model; "
+                        },
+                        {
+                          "tag": "code",
+                          "children": [
+                            {
+                              "text": "StrOutputParser"
+                            }
+                          ]
+                        },
+                        {
+                          "text": " returns text."
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "className": "rag-lesson",
+                      "children": [
+                        {
+                          "text": "LCEL changes composition and readability. It does not inherently improve answer quality or execution speed."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "rag-ingestion",
+          "labelledBy": "rag-ingestion-title",
+          "children": [
+            {
+              "tag": "h5",
+              "className": "project-detail-title",
+              "id": "rag-ingestion-title",
+              "children": [
+                {
+                  "text": "From Documents to "
+                },
+                {
+                  "tag": "span",
+                  "children": [
+                    {
+                      "text": "Searchable Knowledge"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "agent-flow rag-ingestion-flow",
+              "label": "Document ingestion pipeline",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Original text / notes"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "children": [
+                        {
+                          "text": "Local source text"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Character-based chunking"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "children": [
+                        {
+                          "text": "1,000-character target · zero overlap"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Google embeddings"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "children": [
+                        {
+                          "tag": "code",
+                          "children": [
+                            {
+                              "text": "gemini-embedding-001"
+                            }
+                          ]
+                        },
+                        {
+                          "text": " · 1,536 dimensions"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Pinecone vector index"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "children": [
+                        {
+                          "text": "Dense · cosine similarity · AWS "
+                        },
+                        {
+                          "tag": "code",
+                          "children": [
+                            {
+                              "text": "us-east-1"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "rag-note",
+              "children": [
+                {
+                  "tag": "code",
+                  "children": [
+                    {
+                      "text": "ingestion.py"
+                    }
+                  ]
+                },
+                {
+                  "text": " uses "
+                },
+                {
+                  "tag": "code",
+                  "children": [
+                    {
+                      "text": "CharacterTextSplitter"
+                    }
+                  ]
+                },
+                {
+                  "text": "; long paragraphs can exceed the chunk target. At query time, both RAG workflows request up to three chunks ("
+                },
+                {
+                  "tag": "code",
+                  "children": [
+                    {
+                      "text": "k=3"
+                    }
+                  ]
+                },
+                {
+                  "text": ") from this index."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "rag-practices",
+          "labelledBy": "rag-practices-title",
+          "children": [
+            {
+              "tag": "h5",
+              "className": "project-detail-title",
+              "id": "rag-practices-title",
+              "children": [
+                {
+                  "text": "Beyond the Happy Path"
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": ".env.example"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " for configuration; Git exclusions for credentials and local files."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Portable file paths and locked dependencies in "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "uv.lock"
+                        }
+                      ]
+                    },
+                    {
+                      "text": "."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Existing Pinecone indexes stay untouched unless an explicit "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "--reset-index"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " is supplied."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Eight offline tests covering data flow and ingestion safeguards."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "rag-note",
+              "children": [
+                {
+                  "text": "An educational implementation with attention to engineering quality. Offline checks do not validate live APIs or answer quality; a live API smoke test of the cleaned-up version is still pending."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "rag-conclusion",
+          "children": [
+            {
+              "tag": "p",
+              "className": "agent-takeaway",
+              "children": [
+                {
+                  "text": "RAG changes the context available to the model. LCEL changes how the workflow is composed."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "rag-note",
+              "children": [
+                {
+                  "text": "Retrieval can provide useful external information, but answer quality still depends on the relevance of the retrieved context and the model's behavior. Framework abstractions simplify implementation without removing the need for architectural judgment."
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "stack": "Gemini, Pinecone & LangChain",
+      "subtitle": "Understanding RAG and LCEL through three practical LLM workflows."
+    },
+    {
+      "id": "ai-agents-under-the-hood",
+      "slug": "ai-agents-under-the-hood",
+      "groupId": "ai-projects",
+      "titleId": "agents-title",
+      "title": "AI Agents Under the Hood",
+      "eyebrow": "Agentic AI",
+      "kind": "Learning Resource",
+      "statusDot": true,
+      "summary": "Two Python examples comparing LangChain-managed orchestration with an explicit tool-calling loop.",
+      "technologies": ["Python", "LangChain", "Gemini", "Tavily", "AI Agents", "Tool Calling"],
+      "links": [
+        {
+          "label": "Explore the Agent Implementations",
+          "url": "https://github.com/Hulk914/langchain_job_search",
+          "external": true
+        }
+      ],
+      "detailClass": "project-card agent-card",
+      "details": [
+        {
+          "tag": "div",
+          "className": "project-copy",
+          "children": [
+            {
+              "tag": "p",
+              "className": "project-subheading",
+              "children": [
+                {
+                  "text": "Understanding agent orchestration beyond framework abstractions."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": " Explored AI agent orchestration through two practical Python implementations: a Gemini-powered job-search agent using LangChain and Tavily, and an explicit ReAct-style tool-calling loop with custom tools. An educational reference for how LLMs use external tools, maintain context, process observations, and produce final responses. "
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "workflow agent-implementation",
+          "labelledBy": "search-agent-title",
+          "children": [
+            {
+              "tag": "p",
+              "className": "eyebrow",
+              "children": [
+                {
+                  "tag": "span",
+                  "className": "section-number",
+                  "children": [
+                    {
+                      "text": "01"
+                    }
+                  ]
+                },
+                {
+                  "text": " Framework-managed"
+                }
+              ]
+            },
+            {
+              "tag": "h5",
+              "id": "search-agent-title",
+              "children": [
+                {
+                  "text": "LangChain-Powered Job Search Agent"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-description",
+              "children": [
+                {
+                  "text": " A Gemini-powered agent using LangChain’s "
+                },
+                {
+                  "tag": "code",
+                  "children": [
+                    {
+                      "text": "create_agent()"
+                    }
+                  ]
+                },
+                {
+                  "text": " and Tavily Search to discover AI engineering opportunities in Bengaluru. LangChain manages tool execution and returns a structured answer with source URLs. "
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "agent-flow",
+              "label": "Framework-managed agent flow",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "User query"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "LangChain "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "create_agent()"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Tavily Search"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Structured response"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "workflow agent-implementation",
+          "labelledBy": "agent-loop-title",
+          "children": [
+            {
+              "tag": "p",
+              "className": "eyebrow",
+              "children": [
+                {
+                  "tag": "span",
+                  "className": "section-number",
+                  "children": [
+                    {
+                      "text": "02"
+                    }
+                  ]
+                },
+                {
+                  "text": " Explicit orchestration"
+                }
+              ]
+            },
+            {
+              "tag": "h5",
+              "id": "agent-loop-title",
+              "children": [
+                {
+                  "text": "Custom ReAct-Style Agent Loop"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-description",
+              "children": [
+                {
+                  "text": " Uses LangChain’s "
+                },
+                {
+                  "tag": "code",
+                  "children": [
+                    {
+                      "text": ".bind_tools()"
+                    }
+                  ]
+                },
+                {
+                  "text": " with custom Python tools for product-price lookup and discount calculations. Manually dispatches tool calls, appends observations to message history, and stops on a final answer or an iteration limit. "
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "agent-flow",
+              "label": "Explicit agent loop flow",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Model decision"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Tool call"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Tool result"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Repeat or final answer"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-loop-note",
+              "children": [
+                {
+                  "text": "Tool observations feed back into the next model decision."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "agent-conclusion",
+          "children": [
+            {
+              "tag": "p",
+              "className": "agent-takeaway",
+              "children": [
+                {
+                  "text": " Frameworks accelerate implementation. Understanding the underlying agent loop enables better engineering decisions. "
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-scope",
+              "children": [
+                {
+                  "text": " Both examples use LangChain interfaces with Gemini; the second makes orchestration explicit. "
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "restaurant-review-reply-automation",
+      "slug": "restaurant-review-reply-automation",
+      "groupId": "ai-projects",
+      "titleId": "review-automation-title",
+      "title": "Restaurant Review Reply Automation",
+      "eyebrow": "Workflow Automation",
+      "kind": "Independent Project",
+      "statusDot": true,
+      "summary": "An n8n workflow connecting customer reviews to contextual reply drafts and Telegram alerts.",
+      "technologies": ["n8n", "LLM APIs", "Telegram"],
+      "links": [
+        {
+          "label": "Discuss this project",
+          "url": "mailto:ayushthakur2009@gmail.com?subject=Let%27s%20talk%20about%20your%20review%20automation%20workflow"
+        }
+      ],
+      "detailClass": "project-card",
+      "details": [
+        {
+          "tag": "div",
+          "className": "project-copy",
+          "children": [
+            {
+              "tag": "h5",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "Customer feedback."
+                },
+                {
+                  "tag": "br",
+                  "children": []
+                },
+                {
+                  "tag": "span",
+                  "children": [
+                    {
+                      "text": "Meet intelligent automation."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "An n8n workflow that automates restaurant-review responses, connecting incoming feedback to contextual drafts and team alerts. Shared the implementation in a technical LinkedIn post."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "project-subheading",
+              "children": [
+                {
+                  "text": "What the workflow does"
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Collect Google & Zomato customer reviews."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Orchestrate contextual reply drafts with n8n."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Send Telegram alerts with tap-to-copy responses."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "workflow",
+          "role": "group",
+          "label": "Review pipeline workflow",
+          "children": [
+            {
+              "tag": "div",
+              "className": "workflow-heading",
+              "children": [
+                {
+                  "tag": "span",
+                  "children": [
+                    {
+                      "text": "FROM REVIEW TO RESPONSE"
+                    }
+                  ]
+                },
+                {
+                  "tag": "span",
+                  "hidden": "true",
+                  "children": [
+                    {
+                      "text": "↗"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "workflow-steps",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "span",
+                      "className": "flow-icon",
+                      "hidden": "true",
+                      "children": [
+                        {
+                          "text": "01"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "children": [
+                        {
+                          "tag": "h5",
+                          "children": [
+                            {
+                              "text": "Google + Zomato"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "Incoming customer reviews"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "className": "flow-type",
+                      "children": [
+                        {
+                          "text": "INPUT"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "span",
+                      "className": "flow-icon",
+                      "hidden": "true",
+                      "children": [
+                        {
+                          "text": "02"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "children": [
+                        {
+                          "tag": "h5",
+                          "children": [
+                            {
+                              "text": "n8n"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "Parse & orchestrate the workflow"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "className": "flow-type",
+                      "children": [
+                        {
+                          "text": "CONNECT"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "className": "flow-ai",
+                  "children": [
+                    {
+                      "tag": "span",
+                      "className": "flow-icon",
+                      "hidden": "true",
+                      "children": [
+                        {
+                          "text": "✦"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "children": [
+                        {
+                          "tag": "h5",
+                          "children": [
+                            {
+                              "text": "AI reply drafting"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "Prepare contextual, empathetic replies"
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "className": "flow-type",
+                      "children": [
+                        {
+                          "text": "AI"
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "span",
+                      "className": "flow-icon",
+                      "hidden": "true",
+                      "children": [
+                        {
+                          "text": "04"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "children": [
+                        {
+                          "tag": "h5",
+                          "children": [
+                            {
+                              "text": "Telegram"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "Team alerts. Tap to copy."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "span",
+                      "className": "flow-type",
+                      "children": [
+                        {
+                          "text": "DELIVER"
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "workflow-note",
+              "children": [
+                {
+                  "tag": "span",
+                  "className": "status-dot",
+                  "hidden": "true",
+                  "children": []
+                },
+                {
+                  "text": " Less manual work. More thoughtful replies."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "core-python-field-guide",
+      "slug": "core-python-field-guide",
+      "groupId": "python-projects",
+      "titleId": "python-guide-title",
+      "title": "Core Python Field Guide",
+      "eyebrow": "Python Core Concepts",
+      "kind": "Learning Resource",
+      "statusDot": true,
+      "summary": "An example-first Python guide with runnable chapters, common pitfalls, and a command-line task tracker.",
+      "technologies": ["Python", "Standard Library", "Practice & Testing"],
+      "links": [
+        {
+          "label": "Explore the Python guide",
+          "url": "https://github.com/Hulk914/python-core-concepts",
+          "external": true
+        }
+      ],
+      "detailClass": "project-card resource-card",
+      "details": [
+        {
+          "tag": "div",
+          "className": "project-copy",
+          "children": [
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": " After completing a core Python course, I turned my practice notes into a practical, example-first guide. Built for people learning Python and experienced developers revisiting the fundamentals. "
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "resource-notes",
+          "children": [
+            {
+              "tag": "p",
+              "className": "eyebrow",
+              "children": [
+                {
+                  "text": "Learn it. Revisit it. Put it to work."
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Guided chapters and runnable examples for learners."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "A quick reference, common pitfalls, and exercises for a refresher."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "A command-line task tracker that brings the concepts together."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "fastapi-complete-guide",
+      "slug": "fastapi-complete-guide",
+      "groupId": "python-projects",
+      "titleId": "fastapi-guide-title",
+      "title": "FastAPI Complete Guide",
+      "eyebrow": "FastAPI & API Engineering",
+      "kind": "Learning Resource",
+      "statusDot": true,
+      "summary": "A practical FastAPI reference covering typed APIs, authentication, databases, and interview preparation.",
+      "technologies": ["FastAPI", "Pydantic", "SQLAlchemy", "Alembic", "JWT & pytest"],
+      "links": [
+        {
+          "label": "Explore the FastAPI code",
+          "url": "https://github.com/Hulk914/FastAPI-Complete-Guide",
+          "external": true
+        },
+        {
+          "label": "Download FastAPI guide (PDF)",
+          "url": "assets/FastAPI-Guide.pdf",
+          "download": "FastAPI-Guide.pdf",
+          "id": "fastapi-guide-download"
+        }
+      ],
+      "detailClass": "project-card resource-card",
+      "details": [
+        {
+          "tag": "div",
+          "className": "project-copy",
+          "children": [
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": " After completing a Udemy FastAPI course, I built a seller-and-product API as a hands-on learning and revision resource. Explore typed API contracts, authentication, database workflows, and testing in a focused, runnable project. "
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "resource-notes",
+          "children": [
+            {
+              "tag": "p",
+              "className": "eyebrow",
+              "children": [
+                {
+                  "text": "Code. Concepts. Interview practice."
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Theory explained through practical API examples."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Database sessions, migrations, authorization, and tests in context."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "48 mock interview questions with answers, from beginner to advanced."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "system-design-architecture-field-guide",
+      "slug": "system-design-architecture-field-guide",
+      "groupId": "misc-projects",
+      "titleId": "system-design-guide-title",
+      "title": "System Design & Architecture Field Guide",
+      "eyebrow": "Software Architecture",
+      "kind": "Study Resource",
+      "statusDot": true,
+      "summary": "From architectural fundamentals to real-world system design. A 39-page guide for learning, revision, and HLD/LLD interview preparation.",
+      "technologies": [
+        "System Design",
+        "Software Architecture",
+        "Distributed Systems",
+        "HLD / LLD"
+      ],
+      "links": [
+        {
+          "label": "Download System Design Guide (PDF)",
+          "url": "assets/System-Design-Architecture-Study-Guide.pdf",
+          "download": "System-Design-Architecture-Study-Guide.pdf",
+          "id": "system-design-guide-download"
+        }
+      ],
+      "detailClass": "project-card resource-card",
+      "details": [
+        {
+          "tag": "div",
+          "className": "project-copy",
+          "children": [
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": " A practical study and revision guide to scalable, reliable, and maintainable software systems. Explore architectural patterns, distributed data, consistency, event-driven architectures, and the trade-offs behind each design decision. "
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": " Worked Railway Booking and Banking Transfer designs connect the concepts to concurrency, failure recovery, ledger consistency, and idempotency. Architecture diagrams and mock HLD/LLD interviews help developers learn the foundations and experienced engineers revisit them. "
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "project-subheading",
+              "children": [
+                {
+                  "text": "Great architecture starts with understanding requirements and making deliberate trade-offs."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "resource-notes",
+          "children": [
+            {
+              "tag": "p",
+              "className": "eyebrow",
+              "children": [
+                {
+                  "text": "Learn. Revise. Explain your design."
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Architectural foundations:"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " functional and non-functional requirements, constraints, CAP, and distributed data strategies. "
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Patterns & distributed systems:"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " monoliths, microservices, events, CQRS, event sourcing, stream processing, and Lambda architecture. "
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Practical system design:"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " railway seat reservations and banking transfers, with concurrency, reliable transactions, and recovery in context. "
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Interview preparation:"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " HLD/LLD mock interviews, architecture diagrams, revision checklists, and worked exercises. "
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "education": [
+    {
+      "id": "galgotias-computer-science",
+      "degree": "B.Tech",
+      "field": "Computer Science Engineering",
+      "institution": "Galgotias University",
+      "graduationYear": 2016,
+      "grade": 9.29,
+      "gradeScale": 10
+    }
+  ],
+  "additionalInformation": {
+    "eyebrow": "Engineer. Musician. Explorer.",
+    "title": [
+      {
+        "text": "Different instruments."
+      },
+      {
+        "tag": "br",
+        "children": []
+      },
+      {
+        "text": "The same love for craft."
+      }
+    ],
+    "description": [
+      {
+        "tag": "p",
+        "children": [
+          {
+            "text": "Outside of work, I lead a "
+          },
+          {
+            "tag": "strong",
+            "children": [
+              {
+                "text": "200+ member music community"
+              }
+            ]
+          },
+          {
+            "text": ". You’ll find me composing original music with my band or exploring somewhere new."
+          }
+        ]
+      }
+    ],
+    "links": [
+      {
+        "label": "Meet the band",
+        "url": "https://hulk914.github.io/Trinetrashwari/",
+        "external": true
+      },
+      {
+        "label": "Our original song",
+        "url": "https://youtu.be/2c9PK1ZfRyU",
+        "external": true
+      },
+      {
+        "label": "Travel journal",
+        "url": "https://www.instagram.com/travelwithayushreya/",
+        "external": true
+      }
+    ]
+  },
+  "presentation": {
+    "navigation": [
+      {
+        "id": "experience",
+        "label": "Experience"
+      },
+      {
+        "id": "projects",
+        "label": "Projects"
+      },
+      {
+        "id": "beyond",
+        "label": "Beyond code"
+      }
+    ],
+    "portraitLabel": "THE PERSON BEHIND THE CODE",
+    "focusLabel": "MY FOCUS",
+    "coordinate": "ENGINEERING × CRAFT",
+    "companiesLabel": "BUILT WITH TEAMS AT",
+    "experience": {
+      "number": "01",
+      "eyebrow": "The experience",
+      "title": [
+        {
+          "text": "A decade of building"
+        },
+        {
+          "tag": "br",
+          "children": []
+        },
+        {
+          "tag": "span",
+          "children": [
+            {
+              "text": "what matters."
+            }
+          ]
+        }
+      ],
+      "description": [
+        {
+          "text": "Financial services. Banking. Procurement. Telecom."
+        },
+        {
+          "tag": "br",
+          "children": []
+        },
+        {
+          "text": "From business workflows to reliable software."
+        }
+      ]
+    },
+    "projects": {
+      "number": "02",
+      "eyebrow": "Projects & resources",
+      "title": [
+        {
+          "text": "Built to solve."
+        },
+        {
+          "tag": "br",
+          "children": []
+        },
+        {
+          "tag": "span",
+          "children": [
+            {
+              "text": "Shared to help."
+            }
+          ]
+        }
+      ],
+      "description": [
+        {
+          "text": "Practical automation."
+        },
+        {
+          "tag": "br",
+          "children": []
+        },
+        {
+          "text": "Learning in the open."
+        }
+      ]
+    },
+    "beyond": {
+      "number": "03",
+      "eyebrow": "Beyond the screen",
+      "title": [
+        {
+          "text": "A little more"
+        },
+        {
+          "tag": "br",
+          "children": []
+        },
+        {
+          "tag": "span",
+          "children": [
+            {
+              "text": "than the code."
+            }
+          ]
+        }
+      ],
+      "description": [
+        {
+          "text": "Music, new places,"
+        },
+        {
+          "tag": "br",
+          "children": []
+        },
+        {
+          "text": "and a curious mind."
+        }
+      ]
+    },
+    "contact": {
+      "eyebrow": "Let’s build something that matters",
+      "title": [
+        {
+          "text": "Enterprise platforms. Applied AI."
+        },
+        {
+          "tag": "br",
+          "children": []
+        },
+        {
+          "tag": "span",
+          "children": [
+            {
+              "text": "Let’s turn the problem into software."
+            }
+          ]
+        }
+      ]
+    },
+    "footer": "Built with intention."
+  }
+}
