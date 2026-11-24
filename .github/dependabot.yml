@@ -4,6 +4,10 @@ updates:
     directory: /frontend
     schedule:
       interval: monthly
+    ignore:
+      # Angular 22 requires TypeScript >=6.0.0 <6.1.0. Revisit when upgrading Angular.
+      - dependency-name: typescript
+        versions: [">=6.1.0"]
     groups:
       development-tools:
         patterns: ["*"]
