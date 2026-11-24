@@ -49,6 +49,10 @@ class EvidenceChunk(BaseModel):
 
 
 class ChatResponse(BaseModel):
+    status: Literal["answered", "insufficient_context"] = Field(
+        default="answered",
+        description="Distinguishes grounded answers from valid questions the portfolio cannot answer.",
+    )
     answer: str
     citations: list[Citation] = Field(default_factory=list)
     retrieved_chunks: list[EvidenceChunk] = Field(

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "urn:portfolio:assistant:1",
+  "title": "Portfolio assistant presentation",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "title",
+    "launcherLabel",
+    "navigationLabel",
+    "eyebrow",
+    "headline",
+    "description",
+    "welcome",
+    "welcomeDescription",
+    "placeholder",
+    "suggestions",
+    "pipeline",
+    "deliveryNote",
+    "availabilityTitle",
+    "availabilityNote",
+    "privacyNote"
+  ],
+  "properties": {
+    "title": { "$ref": "#/$defs/text" },
+    "launcherLabel": { "$ref": "#/$defs/text" },
+    "navigationLabel": { "$ref": "#/$defs/text" },
+    "eyebrow": { "$ref": "#/$defs/text" },
+    "headline": { "$ref": "#/$defs/text" },
+    "description": { "$ref": "#/$defs/text" },
+    "welcome": { "$ref": "#/$defs/text" },
+    "welcomeDescription": { "$ref": "#/$defs/text" },
+    "placeholder": { "$ref": "#/$defs/text" },
+    "deliveryNote": { "$ref": "#/$defs/text" },
+    "availabilityTitle": { "$ref": "#/$defs/text" },
+    "availabilityNote": { "$ref": "#/$defs/text" },
+    "privacyNote": { "$ref": "#/$defs/text" },
+    "suggestions": {
+      "type": "array",
+      "minItems": 1,
+      "maxItems": 6,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "question"],
+        "properties": {
+          "label": { "$ref": "#/$defs/text" },
+          "question": { "type": "string", "minLength": 1, "maxLength": 500 }
+        }
+      }
+    },
+    "pipeline": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "detail"],
+        "properties": {
+          "label": { "$ref": "#/$defs/text" },
+          "detail": { "$ref": "#/$defs/text" }
+        }
+      }
+    }
+  },
+  "$defs": { "text": { "type": "string", "minLength": 1 } }
+}

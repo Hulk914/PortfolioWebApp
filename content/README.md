@@ -64,4 +64,15 @@ without calling Gemini. Chat refuses a stale index until ingestion finishes.
 Main pushes affecting `content/**` also run the trusted ingestion workflow and
 produce a Chroma backend artifact; configure the `GEMINI_API_KEY` Actions secret
 first. This updates the runner's index, not your laptop or an already running API.
-Backend artifact deployment is a later phase. See [backend setup](../backend/README.md).
+Successful ingestion packages the matching content/schema/index, deploys it to
+Vercel, checks a grounded answer, and promotes the backend. Local databases are
+still separate. See [backend setup](../backend/README.md).
+
+## Assistant presentation
+
+`assistant.json` contains the chat launcher's labels, welcome copy, suggested
+questions, architecture explanation, availability humor, and privacy note.
+`assistant.schema.json` validates this UI copy during frontend builds. Keep each
+suggested question within 500 characters and grounded in the documented portfolio.
+Changing this presentation file rebuilds the frontend; it does not add facts to
+the RAG corpus. The backend continues to index only `portfolio.json`.

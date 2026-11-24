@@ -4,11 +4,18 @@ import { Portfolio, Profile } from '../../models/portfolio.model';
 import { ContentBlocksComponent } from '../content-blocks/content-blocks.component';
 import { ContentLinkComponent } from '../content-link/content-link.component';
 import { IconComponent } from '../icon/icon.component';
+import { AssistantSpotlightComponent } from '../assistant-spotlight/assistant-spotlight.component';
 
 @Component({
   selector: 'app-hero',
   standalone: true,
-  imports: [RouterLink, ContentBlocksComponent, ContentLinkComponent, IconComponent],
+  imports: [
+    RouterLink,
+    ContentBlocksComponent,
+    ContentLinkComponent,
+    IconComponent,
+    AssistantSpotlightComponent,
+  ],
   templateUrl: './hero.component.html',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })

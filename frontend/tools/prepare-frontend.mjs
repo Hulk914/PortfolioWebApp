@@ -16,7 +16,7 @@ const index = `<!doctype html>
   <head>
     <meta charset="utf-8" />
     <base href="/" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, interactive-widget=resizes-content" />
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; base-uri 'self'; object-src 'none'; form-action 'none'; connect-src 'self' http://localhost:8000 https://*.vercel.app ws://localhost:* ws://127.0.0.1:*" />
     <meta name="referrer" content="strict-origin-when-cross-origin" />
     <meta name="description" content="${escapeHtml(profile.seoDescription)}" />

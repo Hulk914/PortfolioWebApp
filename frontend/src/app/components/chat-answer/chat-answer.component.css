@@ -1,0 +1,31 @@
+app-chat-answer {
+  display: block;
+  color: #d9e3df;
+  font-size: 14px;
+  line-height: 1.85;
+  overflow-wrap: anywhere;
+}
+app-chat-answer p,
+app-chat-answer ul,
+app-chat-answer ol {
+  margin: 0 0 14px;
+}
+app-chat-answer ul,
+app-chat-answer ol {
+  padding-left: 23px;
+}
+app-chat-answer li + li {
+  margin-top: 8px;
+}
+app-chat-answer li::marker {
+  color: var(--accent);
+}
+app-chat-answer h4 {
+  margin: 21px 0 9px;
+  color: var(--text);
+  font-size: 14px;
+  font-weight: 650;
+}
+app-chat-answer > :last-child {
+  margin-bottom: 0;
+}

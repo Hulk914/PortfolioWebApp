@@ -2,7 +2,8 @@
 
 FastAPI + Gemini + a local persistent Chroma database. The two APIs now run the
 complete backend flow. GitHub Actions prepares and deploys an immutable backend
-snapshot to Vercel. The Angular chatbot UI remains a separate phase.
+snapshot to Vercel. The Angular chatbot consumes the chat API and displays its
+answer status, verified citations, and original retrieved evidence.
 
 ## Local setup
 
@@ -107,7 +108,11 @@ Invoke-RestMethod -Method Post -Uri 'http://127.0.0.1:8000/api/chat' -ContentTyp
 ```
 
 Successful answers contain `answer`, `citations`, `retrieved_chunks`, and
-`content_hash`. The local JSON is mapped to its public portfolio pages:
+`content_hash`, with `status: "answered"`. Valid questions that cannot be answered
+from the portfolio return HTTP 200 with `status: "insufficient_context"`, the fixed
+portfolio-boundary message, and no citations. This is distinct from operational
+errors such as `provider_unavailable`; the UI can explain missing evidence without
+suggesting a provider retry. The local JSON is mapped to its public portfolio pages:
 project URLs use `/PortfolioWebApp/projects/<slug>` and other sources use actual
 home-page anchors such as `/PortfolioWebApp/#experience`. These URLs identify
 the rendered portfolio content, not the local JSON or Chroma filesystem path.
@@ -418,8 +423,9 @@ uv run --locked python scripts/verify_release.py
 The deployment gate uses `scripts/verify_hosted.py` for readiness plus one live
 Gemini answer, rather than an automated unit/e2e suite. Native dependency size and
 runtime compatibility are enforced by the actual Vercel build and hosted check.
-Frontend Pages delivery remains independent; chat UI integration and rate limiting
-remain later work.
+Frontend Pages delivery remains independent. The Angular chat integration supports
+the previously deployed response format during rollout; rate limiting and atomic
+frontend/backend releases remain later work.
 
 Deployment validation on 24 November 2026: a private Vercel preview built
 successfully, loaded the packaged 35-chunk index, and returned a real Gemini answer

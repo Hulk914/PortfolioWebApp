@@ -1,0 +1,927 @@
+app-recruiter-assistant {
+  display: block;
+}
+app-recruiter-assistant button,
+app-recruiter-assistant textarea {
+  font: inherit;
+}
+app-recruiter-assistant button {
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+app-recruiter-assistant button:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+app-recruiter-assistant button:focus-visible,
+app-recruiter-assistant textarea:focus-visible,
+app-recruiter-assistant summary:focus-visible,
+app-recruiter-assistant .conversation:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+app-recruiter-assistant .assistant-launcher {
+  position: fixed;
+  z-index: 30;
+  right: max(24px, env(safe-area-inset-right));
+  bottom: max(24px, env(safe-area-inset-bottom));
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: 66px;
+  padding: 12px 18px 12px 12px;
+  border: 1px solid #7de4bd66;
+  border-radius: 14px;
+  color: var(--text);
+  background: #11241ff5;
+  box-shadow:
+    0 12px 50px #0008,
+    0 0 26px #7de4bd0c;
+  text-align: left;
+  transition:
+    border-color 0.2s,
+    transform 0.2s;
+}
+app-recruiter-assistant .assistant-launcher[hidden] {
+  display: none;
+}
+app-recruiter-assistant .assistant-launcher:hover {
+  border-color: var(--accent);
+  transform: translateY(-3px);
+}
+app-recruiter-assistant .launcher-mark,
+app-recruiter-assistant .assistant-mark {
+  display: grid;
+  place-items: center;
+  flex-shrink: 0;
+  width: 40px;
+  height: 40px;
+  color: var(--accent);
+  background: #7de4bd12;
+  border: 1px solid #7de4bd2a;
+  border-radius: 10px;
+}
+app-recruiter-assistant .launcher-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+app-recruiter-assistant .launcher-copy strong {
+  font-size: 13px;
+  font-weight: 600;
+}
+app-recruiter-assistant .launcher-copy > span {
+  font-size: 10px;
+  color: #adc5bb;
+}
+app-recruiter-assistant .launcher-dot,
+app-recruiter-assistant .footer-dot {
+  display: inline-block;
+  width: 5px;
+  height: 5px;
+  margin-left: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+app-recruiter-assistant .launcher-dot.is-thinking {
+  animation: breathe 1.2s ease-in-out infinite;
+}
+app-recruiter-assistant .assistant-dialog {
+  position: fixed;
+  inset: 0;
+  display: none;
+  width: min(1000px, calc(100vw - 64px));
+  max-width: none;
+  height: min(820px, calc(100dvh - 64px));
+  max-height: none;
+  margin: auto;
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid #7de4bd38;
+  border-radius: 18px;
+  color: var(--text);
+  background: #10181b;
+  box-shadow: 0 30px 100px #000b;
+}
+app-recruiter-assistant .assistant-dialog[open] {
+  display: flex;
+  flex-direction: column;
+}
+app-recruiter-assistant .assistant-dialog.has-evidence {
+  width: min(1340px, calc(100vw - 48px));
+}
+app-recruiter-assistant .assistant-dialog::backdrop {
+  background: #050b10c9;
+  backdrop-filter: blur(9px);
+}
+app-recruiter-assistant .assistant-header {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 19px 26px;
+  border-bottom: 1px solid var(--line);
+  background: #13201f;
+}
+app-recruiter-assistant .assistant-identity {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 0;
+}
+app-recruiter-assistant .assistant-identity h2 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin: 0;
+  font-size: 18px;
+  font-weight: 550;
+  line-height: 1.5;
+  letter-spacing: -0.04em;
+}
+app-recruiter-assistant .assistant-identity h2:focus {
+  outline: 0;
+}
+app-recruiter-assistant .rag-label {
+  padding: 3px 6px;
+  border: 1px solid #7de4bd30;
+  border-radius: 4px;
+  color: var(--accent);
+  font: 8px/1.4 var(--mono);
+  letter-spacing: 0.06em;
+}
+app-recruiter-assistant .assistant-identity p {
+  margin-top: 2px;
+  color: var(--muted);
+  font-size: 10px;
+}
+app-recruiter-assistant .window-actions {
+  display: flex;
+  gap: 5px;
+  flex-shrink: 0;
+  align-items: center;
+}
+app-recruiter-assistant .icon-button,
+app-recruiter-assistant .new-chat {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  min-width: 40px;
+  min-height: 40px;
+  padding: 8px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  color: var(--muted);
+  background: transparent;
+}
+app-recruiter-assistant .new-chat {
+  margin-right: 10px;
+  padding-inline: 12px;
+  border-color: var(--line);
+  font-size: 11px;
+}
+app-recruiter-assistant .new-chat app-icon {
+  transform: scale(0.8);
+}
+app-recruiter-assistant .icon-button:hover,
+app-recruiter-assistant .new-chat:hover {
+  color: var(--accent);
+  background: #7de4bd0a;
+  border-color: #7de4bd38;
+}
+app-recruiter-assistant .assistant-body {
+  position: relative;
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+app-recruiter-assistant .chat-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  min-width: 0;
+}
+app-recruiter-assistant .conversation {
+  flex: 1;
+  min-height: 0;
+  padding: 30px 38px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: #3a5248 transparent;
+  scroll-padding-top: 25px;
+}
+app-recruiter-assistant .welcome {
+  max-width: 710px;
+  margin: 8px auto 0;
+}
+app-recruiter-assistant .welcome-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: var(--accent);
+  font: 9px/1.5 var(--mono);
+  letter-spacing: 0.1em;
+}
+app-recruiter-assistant .tiny-orbit {
+  width: 9px;
+  height: 9px;
+  border: 1px solid var(--accent);
+  border-radius: 50%;
+  box-shadow: 0 0 0 3px #7de4bd11;
+}
+app-recruiter-assistant .welcome h3 {
+  margin: 18px 0 12px;
+  color: var(--text);
+  font-size: clamp(27px, 3.5vw, 38px);
+  line-height: 1.15;
+  font-weight: 500;
+  letter-spacing: -0.05em;
+}
+app-recruiter-assistant .welcome-description {
+  max-width: 520px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.85;
+}
+app-recruiter-assistant .question-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 26px 0 22px;
+}
+app-recruiter-assistant .question-grid button {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-height: 104px;
+  padding: 17px 30px 17px 17px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  color: #d4e3db;
+  background: #14201f;
+  font-size: 12px;
+  text-align: left;
+  line-height: 1.65;
+  transition:
+    border-color 0.2s,
+    background 0.2s;
+}
+app-recruiter-assistant .question-grid button:hover {
+  border-color: #7de4bd77;
+  background: #172a25;
+}
+app-recruiter-assistant .suggestion-label {
+  color: var(--accent);
+  font: 9px var(--mono);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+app-recruiter-assistant .suggestion-arrow {
+  position: absolute;
+  top: 13px;
+  right: 14px;
+  color: var(--accent);
+  font-size: 17px;
+}
+app-recruiter-assistant .under-the-hood {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #0d1518;
+}
+app-recruiter-assistant .under-the-hood summary {
+  padding: 14px 16px;
+  color: var(--muted);
+  cursor: pointer;
+  font-size: 11px;
+}
+app-recruiter-assistant .under-the-hood summary::marker {
+  color: var(--accent);
+}
+app-recruiter-assistant .hood-tags {
+  float: right;
+  color: var(--subtle);
+  font: 8px/2 var(--mono);
+  letter-spacing: 0.02em;
+}
+app-recruiter-assistant .pipeline {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+  padding: 6px 18px 18px;
+}
+app-recruiter-assistant .pipeline li {
+  display: flex;
+  gap: 10px;
+}
+app-recruiter-assistant .step-number {
+  color: var(--accent);
+  font: 10px/1.7 var(--mono);
+}
+app-recruiter-assistant .pipeline h4 {
+  color: var(--text);
+  font-size: 11px;
+  font-weight: 550;
+}
+app-recruiter-assistant .pipeline p,
+app-recruiter-assistant .delivery-note,
+app-recruiter-assistant .privacy-note {
+  margin-top: 5px;
+  color: var(--muted);
+  font-size: 10px;
+  line-height: 1.8;
+}
+app-recruiter-assistant .delivery-note,
+app-recruiter-assistant .privacy-note {
+  margin: 0 18px 14px;
+}
+app-recruiter-assistant .privacy-note {
+  color: var(--subtle);
+  font-size: 9px;
+}
+app-recruiter-assistant .welcome-boundary {
+  margin-top: 15px;
+  color: var(--subtle);
+  font-size: 10px;
+  line-height: 1.7;
+}
+app-recruiter-assistant .chat-turn {
+  max-width: 800px;
+  margin: 0 auto 32px;
+  scroll-margin-top: 0;
+}
+app-recruiter-assistant .question-row {
+  padding: 17px 20px;
+  margin-bottom: 27px;
+  border: 1px solid var(--line);
+  border-radius: 9px;
+  background: #172421;
+}
+app-recruiter-assistant .speaker-label {
+  color: var(--accent);
+  font: 8px/1.5 var(--mono);
+  letter-spacing: 0.09em;
+}
+app-recruiter-assistant .user-question {
+  margin-top: 7px;
+  color: var(--text);
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+  font-size: 14px;
+  line-height: 1.75;
+}
+app-recruiter-assistant .answer-row {
+  display: flex;
+  gap: 13px;
+}
+app-recruiter-assistant .answer-avatar {
+  display: grid;
+  place-items: center;
+  flex: 0 0 30px;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #7de4bd33;
+  border-radius: 8px;
+  color: var(--accent);
+  background: #7de4bd0a;
+}
+app-recruiter-assistant .answer-avatar app-icon {
+  transform: scale(0.8);
+}
+app-recruiter-assistant .answer-content {
+  flex: 1;
+  min-width: 0;
+}
+app-recruiter-assistant .answer-label {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 7px 0 16px;
+  color: var(--text);
+  font: 9px var(--mono);
+  letter-spacing: 0.025em;
+}
+app-recruiter-assistant .answer-label > span {
+  color: var(--subtle);
+  font-size: 8px;
+}
+app-recruiter-assistant .thinking {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #cfdfd6;
+  font-size: 12px;
+  line-height: 1.7;
+}
+app-recruiter-assistant .thinking-dots {
+  display: inline-flex;
+  gap: 4px;
+  flex-shrink: 0;
+}
+app-recruiter-assistant .thinking-dots i {
+  display: block;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent);
+  animation: breathe 1.2s ease-in-out infinite;
+}
+app-recruiter-assistant .thinking-dots i:nth-child(2) {
+  animation-delay: 0.18s;
+}
+app-recruiter-assistant .thinking-dots i:nth-child(3) {
+  animation-delay: 0.36s;
+}
+app-recruiter-assistant .thinking-note {
+  margin-top: 10px;
+  color: var(--subtle);
+  font-size: 10px;
+  line-height: 1.7;
+}
+app-recruiter-assistant .answer-sources {
+  margin-top: 23px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+app-recruiter-assistant .answer-sources > p {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
+  color: var(--text);
+  font-size: 11px;
+}
+app-recruiter-assistant .answer-sources > p app-icon {
+  transform: scale(0.75);
+  color: var(--accent);
+}
+app-recruiter-assistant .answer-sources > p > span {
+  margin-left: auto;
+  color: var(--subtle);
+  font-size: 9px;
+}
+app-recruiter-assistant .citation-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+app-recruiter-assistant .citation {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 62px;
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  color: var(--text);
+  background: #13211e;
+  text-align: left;
+}
+app-recruiter-assistant .citation:hover,
+app-recruiter-assistant .citation[aria-pressed='true'] {
+  border-color: #7de4bd77;
+  background: #172b24;
+}
+app-recruiter-assistant .citation-number {
+  flex-shrink: 0;
+  color: var(--accent);
+  font: 11px var(--mono);
+}
+app-recruiter-assistant .citation-copy {
+  flex: 1;
+  min-width: 0;
+}
+app-recruiter-assistant .citation-copy strong {
+  display: block;
+  font-size: 11px;
+  line-height: 1.5;
+  font-weight: 500;
+}
+app-recruiter-assistant .citation-copy > span {
+  display: block;
+  margin-top: 4px;
+  color: var(--subtle);
+  font: 8px var(--mono);
+  text-transform: uppercase;
+}
+app-recruiter-assistant .citation-chevron {
+  flex-shrink: 0;
+  color: var(--accent);
+  font-size: 15px;
+}
+app-recruiter-assistant .answer-tools {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 14px;
+}
+app-recruiter-assistant .answer-tools button {
+  display: inline-flex;
+  gap: 5px;
+  align-items: center;
+  min-height: 36px;
+  padding: 3px 0;
+  border: 0;
+  background: transparent;
+  color: var(--subtle);
+  font-size: 10px;
+}
+app-recruiter-assistant .answer-tools button:hover {
+  color: var(--accent);
+}
+app-recruiter-assistant .answer-tools button app-icon {
+  transform: scale(0.65);
+}
+app-recruiter-assistant .answer-tools > span {
+  color: var(--subtle);
+  font: 8px/1.6 var(--mono);
+}
+app-recruiter-assistant .answer-error,
+app-recruiter-assistant .no-evidence {
+  padding: 18px 20px;
+  border: 1px solid #d3b47938;
+  border-radius: 9px;
+  background: #d3b47908;
+}
+app-recruiter-assistant .answer-error h4,
+app-recruiter-assistant .no-evidence h4 {
+  margin-bottom: 8px;
+  color: #e7d0a1;
+  font-size: 16px;
+  line-height: 1.5;
+  font-weight: 550;
+  letter-spacing: -0.02em;
+}
+app-recruiter-assistant .answer-error > p,
+app-recruiter-assistant .no-evidence > p {
+  color: #c0c8bf;
+  font-size: 12px;
+  line-height: 1.8;
+}
+app-recruiter-assistant .budget-note {
+  padding-top: 14px;
+  margin-top: 14px;
+  border-top: 1px solid #d3b47920;
+}
+app-recruiter-assistant .budget-note strong {
+  color: #d6d4bf;
+  font-size: 11px;
+  font-weight: 550;
+}
+app-recruiter-assistant .budget-note p {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 11px;
+  line-height: 1.85;
+}
+app-recruiter-assistant .retry-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  min-height: 42px;
+  margin-top: 16px;
+  padding: 9px 13px;
+  border: 1px solid #d3b47955;
+  border-radius: 6px;
+  color: #e7d0a1;
+  background: #d3b4790a;
+  font-size: 11px;
+}
+app-recruiter-assistant .retry-button:hover {
+  border-color: #e7d0a1;
+}
+app-recruiter-assistant .retry-button app-icon {
+  transform: scale(0.8);
+}
+app-recruiter-assistant .boundary-label {
+  display: block;
+  margin-bottom: 10px;
+  color: #d9be8f;
+  font: 8px/1.7 var(--mono);
+  letter-spacing: 0.05em;
+}
+app-recruiter-assistant .no-evidence > p {
+  margin-top: 14px;
+  color: var(--subtle);
+  font-size: 10px;
+}
+app-recruiter-assistant .cancelled-note {
+  color: var(--muted);
+  font-size: 12px;
+}
+app-recruiter-assistant .transcript-note {
+  max-width: 800px;
+  margin: 10px auto 0;
+  padding-top: 13px;
+  border-top: 1px solid var(--line);
+  color: var(--subtle);
+  font-size: 9px;
+  line-height: 1.7;
+}
+app-recruiter-assistant .composer {
+  flex-shrink: 0;
+  padding: 16px 30px 15px;
+  border-top: 1px solid var(--line);
+  background: #101b1d;
+}
+app-recruiter-assistant .composer > label {
+  display: block;
+  margin-bottom: 8px;
+  color: #c8d8d0;
+  font-size: 10px;
+}
+app-recruiter-assistant .composer-input {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  padding: 12px;
+  border: 1px solid #7de4bd40;
+  border-radius: 10px;
+  background: #0d1618;
+}
+app-recruiter-assistant .composer-input:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px #7de4bd09;
+}
+app-recruiter-assistant textarea {
+  flex: 1;
+  min-width: 0;
+  width: 100%;
+  min-height: 48px;
+  max-height: 120px;
+  padding: 2px;
+  border: 0;
+  resize: vertical;
+  outline: 0;
+  color: var(--text);
+  background: transparent;
+  font-size: 13px;
+  line-height: 1.8;
+  scrollbar-width: thin;
+}
+app-recruiter-assistant textarea:focus-visible {
+  outline: 0;
+}
+app-recruiter-assistant textarea::placeholder {
+  color: #7f968b;
+}
+app-recruiter-assistant .send-button {
+  display: grid;
+  place-items: center;
+  flex: 0 0 40px;
+  width: 40px;
+  height: 40px;
+  border: 0;
+  border-radius: 8px;
+  background: var(--accent);
+  color: #0a2519;
+}
+app-recruiter-assistant .send-button:not(:disabled):hover {
+  background: #a3f1d3;
+}
+app-recruiter-assistant .send-button:disabled {
+  opacity: 0.28;
+}
+app-recruiter-assistant .stop-button {
+  background: #c7d8cf;
+}
+app-recruiter-assistant .composer-meta {
+  display: flex;
+  gap: 10px;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-top: 8px;
+  color: var(--subtle);
+  font-size: 9px;
+  line-height: 1.7;
+}
+app-recruiter-assistant .composer-meta > p > span {
+  display: inline-block;
+  margin-left: 7px;
+  color: #80988a;
+}
+app-recruiter-assistant .composer-meta > span {
+  flex-shrink: 0;
+  font-family: var(--mono);
+}
+app-recruiter-assistant .assistant-footer {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 10px 26px;
+  border-top: 1px solid var(--line);
+  color: var(--subtle);
+  background: #101819;
+  font-size: 9px;
+}
+app-recruiter-assistant .assistant-footer > span:first-child {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  font: 8px/1.6 var(--mono);
+  letter-spacing: 0.04em;
+}
+app-recruiter-assistant .footer-dot {
+  margin-left: 0;
+  width: 4px;
+  height: 4px;
+}
+@keyframes breathe {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@media (max-width: 1100px) {
+  app-recruiter-assistant .has-evidence .conversation {
+    padding-inline: 24px;
+  }
+  app-recruiter-assistant .has-evidence .question-grid {
+    grid-template-columns: 1fr;
+  }
+  app-recruiter-assistant .has-evidence .answer-row {
+    gap: 9px;
+  }
+  app-recruiter-assistant .has-evidence .answer-avatar {
+    display: none;
+  }
+}
+@media (max-width: 800px) {
+  app-recruiter-assistant .assistant-dialog,
+  app-recruiter-assistant .assistant-dialog.has-evidence {
+    width: calc(100vw - 32px);
+    height: calc(100dvh - 32px);
+  }
+  app-recruiter-assistant .sources-open .chat-main {
+    display: none;
+  }
+  app-recruiter-assistant .assistant-header {
+    padding: 16px 20px;
+  }
+  app-recruiter-assistant .conversation,
+  app-recruiter-assistant .has-evidence .conversation {
+    padding: 25px;
+  }
+  app-recruiter-assistant .composer {
+    padding: 14px 20px;
+  }
+  app-recruiter-assistant .minimize-button {
+    display: none;
+  }
+  app-recruiter-assistant .assistant-footer {
+    padding-inline: 20px;
+  }
+}
+@media (max-width: 540px) {
+  app-recruiter-assistant textarea {
+    font-size: 16px;
+    line-height: 1.6;
+  }
+  app-recruiter-assistant .assistant-launcher {
+    right: 16px;
+    bottom: max(16px, env(safe-area-inset-bottom));
+    padding: 10px 12px 10px 10px;
+    min-height: 58px;
+    gap: 9px;
+    border-radius: 12px;
+  }
+  app-recruiter-assistant .launcher-copy > span {
+    font-size: 9px;
+  }
+  app-recruiter-assistant .launcher-mark {
+    width: 34px;
+    height: 34px;
+  }
+  app-recruiter-assistant .assistant-dialog,
+  app-recruiter-assistant .assistant-dialog.has-evidence {
+    width: 100vw;
+    height: 100dvh;
+    border-radius: 0;
+    border: 0;
+  }
+  app-recruiter-assistant .assistant-header {
+    gap: 8px;
+    padding: 13px 16px;
+  }
+  app-recruiter-assistant .assistant-mark {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+  }
+  app-recruiter-assistant .assistant-identity {
+    gap: 9px;
+  }
+  app-recruiter-assistant .assistant-identity h2 {
+    font-size: 17px;
+  }
+  app-recruiter-assistant .rag-label {
+    display: none;
+  }
+  app-recruiter-assistant .assistant-identity p {
+    font-size: 9px;
+  }
+  app-recruiter-assistant .new-chat {
+    min-width: 36px;
+    padding: 6px;
+    margin-right: 0;
+    border: 0;
+  }
+  app-recruiter-assistant .new-chat > span {
+    display: none;
+  }
+  app-recruiter-assistant .window-actions {
+    gap: 0;
+  }
+  app-recruiter-assistant .icon-button {
+    min-width: 36px;
+  }
+  app-recruiter-assistant .conversation,
+  app-recruiter-assistant .has-evidence .conversation {
+    padding: 24px 18px;
+  }
+  app-recruiter-assistant .welcome h3 {
+    font-size: 30px;
+  }
+  app-recruiter-assistant .welcome-description {
+    font-size: 12px;
+  }
+  app-recruiter-assistant .question-grid {
+    grid-template-columns: 1fr;
+    gap: 8px;
+    margin-top: 22px;
+  }
+  app-recruiter-assistant .question-grid button {
+    min-height: 82px;
+    padding-block: 13px;
+    gap: 6px;
+  }
+  app-recruiter-assistant .hood-tags {
+    display: none;
+  }
+  app-recruiter-assistant .pipeline {
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  app-recruiter-assistant .welcome-boundary {
+    font-size: 9px;
+  }
+  app-recruiter-assistant .answer-avatar {
+    display: none;
+  }
+  app-recruiter-assistant .answer-row {
+    gap: 0;
+  }
+  app-recruiter-assistant .answer-sources > p > span {
+    margin-left: 0;
+    flex-basis: 100%;
+    padding-left: 4px;
+  }
+  app-recruiter-assistant .citation-list {
+    grid-template-columns: 1fr;
+  }
+  app-recruiter-assistant .question-row {
+    padding: 14px 16px;
+    margin-bottom: 22px;
+  }
+  app-recruiter-assistant .user-question {
+    font-size: 13px;
+  }
+  app-recruiter-assistant .answer-error,
+  app-recruiter-assistant .no-evidence {
+    padding: 16px;
+  }
+  app-recruiter-assistant .composer {
+    padding: 12px 16px;
+  }
+  app-recruiter-assistant .composer-meta > p > span {
+    display: none;
+  }
+  app-recruiter-assistant .assistant-footer {
+    padding: 10px 16px max(12px, env(safe-area-inset-bottom));
+    font-size: 8px;
+  }
+  app-recruiter-assistant .assistant-footer > span:first-child {
+    font-size: 7px;
+  }
+  app-recruiter-assistant .assistant-footer > span:last-child {
+    max-width: 125px;
+    text-align: right;
+    font-size: 8px;
+    line-height: 1.5;
+  }
+}

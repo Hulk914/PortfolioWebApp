@@ -1,0 +1,179 @@
+app-assistant-spotlight {
+  display: block;
+  margin-top: 40px;
+}
+app-assistant-spotlight .spotlight {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1.1fr 1fr;
+  gap: 54px;
+  align-items: center;
+  padding: 36px 40px;
+  border: 1px solid rgba(125, 228, 189, 0.28);
+  border-radius: 16px;
+  background:
+    radial-gradient(ellipse at 100% 0, rgba(125, 228, 189, 0.08), transparent 70%), #10191b;
+  overflow: hidden;
+}
+app-assistant-spotlight .spotlight::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 40px;
+  width: 80px;
+  height: 2px;
+  background: var(--accent);
+}
+app-assistant-spotlight .spotlight-eyebrow {
+  display: flex;
+  gap: 9px;
+  align-items: center;
+  color: var(--accent);
+  font: 10px/1.5 var(--mono);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+app-assistant-spotlight .live-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  box-shadow: 0 0 14px #7de4bd55;
+}
+app-assistant-spotlight h2 {
+  margin: 12px 0 10px;
+  font-size: clamp(24px, 3vw, 32px);
+  font-weight: 580;
+  line-height: 1.2;
+  letter-spacing: -0.045em;
+}
+app-assistant-spotlight .spotlight-copy > p:not(.spotlight-eyebrow) {
+  max-width: 460px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.75;
+}
+app-assistant-spotlight button {
+  font: inherit;
+  cursor: pointer;
+}
+app-assistant-spotlight .spotlight-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 20px;
+  padding: 11px 16px;
+  color: #0b231b;
+  background: var(--accent);
+  border: 0;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 700;
+}
+app-assistant-spotlight .spotlight-cta > span {
+  margin-left: 12px;
+  font-size: 17px;
+}
+app-assistant-spotlight .spotlight-cta:hover {
+  background: #a0efd1;
+}
+app-assistant-spotlight button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 5px;
+}
+app-assistant-spotlight .demo-caption {
+  margin-bottom: 12px;
+  color: var(--subtle);
+  font: 9px/1.6 var(--mono);
+  letter-spacing: 0.07em;
+}
+app-assistant-spotlight .demo-question {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 12px;
+  padding: 17px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  color: var(--text);
+  text-align: left;
+  background: #0b1215;
+  font-size: 12px;
+  line-height: 1.65;
+  transition: border-color 0.2s;
+}
+app-assistant-spotlight .demo-question:hover {
+  border-color: var(--accent);
+}
+app-assistant-spotlight .demo-question > span:nth-child(2) {
+  flex: 1;
+}
+app-assistant-spotlight .demo-avatar {
+  display: grid;
+  flex: 0 0 28px;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  border-radius: 8px;
+  background: #1a3028;
+  color: var(--accent);
+  font: 13px var(--mono);
+}
+app-assistant-spotlight .demo-question app-icon {
+  color: var(--accent);
+  transform: rotate(45deg);
+}
+app-assistant-spotlight .mini-pipeline {
+  display: flex;
+  list-style: none;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 19px;
+  padding-top: 17px;
+  border-top: 1px solid var(--line);
+}
+app-assistant-spotlight .mini-pipeline li {
+  color: #dce9e3;
+  font: 11px var(--mono);
+}
+app-assistant-spotlight .mini-pipeline li span {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--accent);
+  font-size: 9px;
+  opacity: 0.7;
+}
+app-assistant-spotlight .demo-footnote {
+  display: flex;
+  gap: 7px;
+  align-items: center;
+  margin-top: 17px;
+  color: var(--muted);
+  font-size: 10px;
+}
+app-assistant-spotlight .demo-footnote app-icon {
+  transform: scale(0.75);
+}
+@media (max-width: 800px) {
+  app-assistant-spotlight .spotlight {
+    grid-template-columns: 1fr;
+    gap: 30px;
+    padding: 28px;
+  }
+  app-assistant-spotlight .spotlight-copy > p:not(.spotlight-eyebrow) {
+    max-width: none;
+  }
+}
+@media (max-width: 480px) {
+  app-assistant-spotlight .spotlight {
+    padding: 24px 20px;
+    border-radius: 12px;
+  }
+  app-assistant-spotlight .demo-footnote {
+    font-size: 9px;
+  }
+  app-assistant-spotlight .mini-pipeline li {
+    font-size: 10px;
+  }
+}

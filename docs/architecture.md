@@ -44,11 +44,36 @@ unused inline incremental-hydration bootstrap scripts.
 ## API foundation
 
 `ApiService` wraps Angular HttpClient/fetch with configurable base URL, timeout,
-and consistent errors. `ChatbotService` defines future health/chat calls with typed
+and consistent errors. `ChatbotService` provides health/chat calls with typed
 requests, answers, and citations. The app makes no backend requests on startup.
 Local and production environment files contain public configuration; provider
 credentials stay on the backend. Production points at the stable Vercel origin
 `https://portfolio-web-app-six-sage.vercel.app/api`.
+
+The recruiter assistant is mounted once at the application root, so it remains
+available on home/project routes. A hero spotlight and fixed launcher share an
+in-memory `AssistantSessionService`. Standalone components separate the dialog,
+plain-text answer formatting, source inspection, and hero invitation. The session
+has a bounded transcript and sends only the current question to the API; the UI
+states that each question stands alone. No chat data is persisted in localStorage.
+
+The native dialog supplies modal focus containment and Escape dismissal; focus
+returns to its opener after Angular restores the launcher. Mobile uses the full
+viewport and switches from conversation to evidence when a citation is selected.
+Model strings are interpolated as text, never HTML. Exact returned chunk text,
+source metadata, similarity, and snapshot identity can be inspected independently
+of the generated answer. Private tracing links are not exposed.
+
+`content/assistant.json` supplies presentation copy and suggested questions,
+validated by its own schema during frontend builds. It is not added to the factual
+RAG corpus. Component-prefixed styles are bundled into the external stylesheet to
+preserve the static site's strict CSP. No UI dependencies or test framework were added.
+
+`status: insufficient_context` is a successful semantic refusal with a dedicated
+UI explanation; transport/provider errors have retry controls and availability
+copy. The browser preserves structured error codes and honors `Retry-After`
+without multiplying server retries. Old backend responses remain compatible
+through their empty citation list during the independent rollout.
 
 ## Delivery
 

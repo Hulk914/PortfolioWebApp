@@ -1,0 +1,9 @@
+{
+  "/api/**": {
+    "target": "https://portfolio-web-app-six-sage.vercel.app",
+    "secure": true,
+    "changeOrigin": true,
+    "timeout": 150000,
+    "proxyTimeout": 150000
+  }
+}

@@ -1,0 +1,89 @@
+<aside class="evidence-panel" aria-labelledby="evidence-title">
+  <header class="evidence-header">
+    <div
+      ><p class="evidence-eyebrow">THE RECEIPTS</p
+      ><h3 id="evidence-title" tabindex="-1">Inside the retrieval</h3></div
+    >
+    <button
+      type="button"
+      class="evidence-close"
+      aria-label="Close sources and return to the answer"
+      (click)="closed.emit()"
+      ><app-icon name="close"
+    /></button>
+  </header>
+  <div class="evidence-scroll">
+    <p class="evidence-intro"
+      >These are the actual text chunks behind this answer. They were embedded as vectors in Chroma,
+      retrieved by similarity to your question, and supplied to Gemini as RAG context.</p
+    >
+    <div class="source-picker" aria-label="Choose a cited source">
+      @for (
+        citation of selection().response.citations;
+        track citation.document_id;
+        let i = $index
+      ) {
+        <button
+          type="button"
+          [attr.aria-pressed]="citation.document_id === selection().citation.document_id"
+          (click)="select(citation, i)"
+          ><span>{{ i + 1 }}</span
+          >{{ citation.title }}</button
+        >
+      }
+    </div>
+    <div class="source-origin">
+      <span class="origin-section">{{ selection().citation.section || 'Portfolio' }}</span>
+      <h4>{{ selection().citation.title }}</h4>
+      <a [href]="selection().citation.url" target="_blank" rel="noopener noreferrer"
+        >View portfolio source <app-icon /><span class="source-url">{{
+          selection().citation.url
+        }}</span
+        ><span class="visually-hidden"> (opens in a new tab)</span></a
+      >
+    </div>
+    <div class="evidence-scope" aria-label="Which retrieved chunks to inspect">
+      <button type="button" [attr.aria-pressed]="scope() === 'cited'" (click)="scope.set('cited')"
+        >This source · {{ cited().length }}</button
+      >
+      <button type="button" [attr.aria-pressed]="scope() === 'all'" (click)="scope.set('all')"
+        >All retrieved · {{ selection().response.retrieved_chunks.length }}</button
+      >
+    </div>
+    @for (chunk of chunks(); track chunk.chunk_id; let i = $index) {
+      <article class="chunk" [attr.aria-label]="'Evidence chunk ' + (i + 1)">
+        <div class="chunk-top"
+          ><span>CHUNK {{ i + 1 }}</span
+          ><span class="chunk-use" [class.is-used]="chunk.used_in_answer">{{
+            chunk.used_in_answer ? 'Cited in answer' : 'Retrieved context'
+          }}</span></div
+        >
+        <h5>{{ chunk.title }}</h5>
+        <dl class="chunk-metadata"
+          ><div
+            ><dt>Section</dt><dd>{{ chunk.section }}</dd></div
+          ><div
+            ><dt>Similarity</dt><dd>{{ chunk.similarity_score.toFixed(3) }}</dd></div
+          ></dl
+        >
+        <p class="chunk-text">{{ chunk.text }}</p>
+        <div class="chunk-file"
+          ><span>{{ chunk.source_file }}</span
+          ><code [title]="chunk.chunk_id">{{ chunk.chunk_id.slice(0, 12) }}</code></div
+        >
+      </article>
+    } @empty {
+      <p class="evidence-intro">No matching evidence text was returned for this source.</p>
+    }
+    <p class="evidence-note"
+      >Similarity measures vector proximity, not answer confidence. These chunks are from the
+      snapshot used for this response.</p
+    >
+    <p class="snapshot"
+      >CONTENT SNAPSHOT
+      <code [title]="selection().response.content_hash">{{
+        selection().response.content_hash.slice(0, 12)
+      }}</code></p
+    >
+  </div>
+</aside>

@@ -3,6 +3,8 @@
 An Angular 22.3.0 portfolio with a uv-managed FastAPI backend and shared JSON
 content. The UI migration is complete. The backend ingests the same JSON into local Chroma
 and answers recruiter questions through Gemini with portfolio citations.
+The **Ask Ayush** assistant opens from a hero invitation or floating launcher,
+with readable answers and an evidence drawer for inspecting the actual chunks.
 
 ## Repository layout
 
@@ -111,8 +113,8 @@ Angular, shared content/schema, FastAPI/uv, document extraction and chunking,
 incremental Chroma ingestion, retrieval, Gemini generation/citations, and trusted
 CI ingestion and the Vercel release flow are implemented. Run
 `uv run ingest --dry-run` without keys to inspect extraction; see the backend
-README for live setup. Coordinated frontend/backend releases and chatbot UI remain
-later phases. Optional private
+README for live setup. The recruiter chat UI is implemented locally and ready for
+review. Coordinated frontend/backend releases remain later work. Optional private
 LangSmith tracing is implemented and locally verified.
 Automated suites remain deferred.
 

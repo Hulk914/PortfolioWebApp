@@ -17,6 +17,45 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
       [class.education-icon]="name() === 'education'"
     >
       @switch (name()) {
+        @case ('chat') {
+          <path
+            d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H4l-3 2V11.5A8.5 8.5 0 0 1 9.5 3h3a8.5 8.5 0 0 1 8.5 8.5Z"
+          />
+          <path d="M7 10h8M7 14h5" />
+        }
+        @case ('sparkle') {
+          <path d="m12 3 2.6 6.4L21 12l-6.4 2.6L12 21l-2.6-6.4L3 12l6.4-2.6L12 3ZM20 2v4M18 4h4" />
+        }
+        @case ('close') {
+          <path d="m6 6 12 12M6 18 18 6" />
+        }
+        @case ('minimize') {
+          <path d="M5 17h14" />
+        }
+        @case ('send') {
+          <path d="m12 19 0-14M5 12l7-7 7 7" />
+        }
+        @case ('refresh') {
+          <path d="M20 7v5h-5M4 17v-5h5M6.1 6a8 8 0 0 1 13 3M4.9 15a8 8 0 0 0 13 3" />
+        }
+        @case ('source') {
+          <path
+            d="M14 3H6a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9l-6-6ZM14 3v6h6M8 13h8M8 17h5"
+          />
+        }
+        @case ('copy') {
+          <rect x="8" y="8" width="12" height="13" rx="2" />
+          <path d="M16 8V3H4v13h4" />
+        }
+        @case ('check') {
+          <path d="m5 12 4 4L19 6" />
+        }
+        @case ('stop') {
+          <rect x="6" y="6" width="12" height="12" rx="2" />
+        }
+        @case ('back') {
+          <path d="m12 5-7 7 7 7M5 12h15" />
+        }
         @case ('email') {
           <rect x="3" y="5" width="18" height="14" rx="2" />
           <path d="m3 7 9 6 9-6" />

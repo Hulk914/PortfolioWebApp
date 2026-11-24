@@ -62,6 +62,7 @@ app.add_middleware(
     allow_credentials=False,
     allow_methods=["GET", "POST"],
     allow_headers=["Content-Type"],
+    expose_headers=["Retry-After"],
 )
 
 app.include_router(chat.router, prefix="/api", tags=["Chat"])

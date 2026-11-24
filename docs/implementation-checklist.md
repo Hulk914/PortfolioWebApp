@@ -169,11 +169,31 @@ workflow to Vercel; frontend Pages delivery remains independent.
 - [x] Build a private preview on Vercel and verify real `/api/chat` generation,
       matching Chroma content, evidence chunks, citation, and returned trace ID.
 - [x] Document secrets, runtime variables, URLs, local commands, and refresh behavior.
-- [ ] Owner pushes to main; verify GitHub production deployment and public alias.
+- [x] Push to main; verify GitHub production deployment and public alias at `a48de71`.
 
 Verified preview: `https://portfolio-web-7ickyphrp-ayush-thakur2.vercel.app`.
 This preview uses the local snapshot revision; production packaging uses the
-GitHub commit SHA. Production has not been promoted from this workspace.
+GitHub commit SHA. Production was promoted successfully by the corrected Actions
+run, including a real Gemini response and a public health check.
+
+## Frontend phase: portfolio recruiter assistant
+
+- [x] Add a hero invitation and persistent floating launcher with shared session state.
+- [x] Build a native modal dialog with focus containment, Escape, focus restoration,
+      responsive desktop/mobile layouts, and preserved minimized conversations.
+- [x] Add suggested questions, a bounded in-memory transcript, keyboard composer,
+      readable text blocks, loading/cancellation, manual retries, and free-tier copy.
+- [x] Inspect original cited chunks and all retrieved context with metadata,
+      source URLs, similarity, and content snapshot identity.
+- [x] Add schema-validated assistant presentation JSON in the shared content folder.
+- [x] Preserve strict portfolio grounding and add explicit insufficient-context status
+      with a dedicated UI state and backwards-compatible handling.
+- [x] Preserve error codes/Retry-After, keep provider keys on the backend, and
+      avoid model HTML, public trace links, or persisted browser chat data.
+- [x] Verify a real UI request with four cited sources and six retrieved chunks,
+      an actual provider-busy state, exact evidence text, mobile sizing, and focus return.
+- [x] Verify a real unsupported question returns insufficient_context and no citations.
+- [x] Owner reviews the UI locally and authorizes committing/pushing the feature.
 
 ## Later work
 
@@ -184,7 +204,7 @@ GitHub commit SHA. Production has not been promoted from this workspace.
 - [x] Connect manual ingestion and protect it with an owner bearer token.
 - [x] Add trusted ingestion automation for `content/**` changes and package the index as an artifact.
 - [x] Add optional private LangSmith tracing.
-- [ ] Build the recruiter chat UI with loading, error, and citation handling.
+- [x] Build the recruiter chat UI with loading, error, and citation handling.
 - [x] Package and deploy the matching index with Vercel after ingestion succeeds.
 - [ ] Coordinate backend/Pages releases when the chatbot UI is integrated.
 - [x] Document backend environment variables, supported models, and storage limits.

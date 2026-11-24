@@ -44,6 +44,18 @@
               ],
               "budgets": [{ "type": "initial", "maximumWarning": "650kB", "maximumError": "1MB" }]
             },
+            "hosted": {
+              "baseHref": "/",
+              "optimization": false,
+              "sourceMap": true,
+              "extractLicenses": false,
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.hosted.ts"
+                }
+              ]
+            },
             "development": {
               "baseHref": "/",
               "optimization": false,
@@ -57,7 +69,11 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": { "buildTarget": "portfolio:build:production" },
-            "development": { "buildTarget": "portfolio:build:development" }
+            "development": { "buildTarget": "portfolio:build:development" },
+            "hosted": {
+              "buildTarget": "portfolio:build:hosted",
+              "proxyConfig": "proxy.hosted.json"
+            }
           },
           "defaultConfiguration": "development"
         }

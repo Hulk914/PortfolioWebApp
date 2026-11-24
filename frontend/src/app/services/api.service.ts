@@ -21,7 +21,10 @@ export class ApiService {
   private url(path: string): string {
     const base = this.config.baseUrl.trim();
     if (!base) throw new ApiError('The assistant service has not been configured yet.');
-    if (!/^https?:\/\//.test(base) || /^(?:[a-z]+:|\/\/)/i.test(path)) {
+    if (
+      (!/^https?:\/\//.test(base) && !/^\/(?!\/)/.test(base)) ||
+      /^(?:[a-z]+:|\/\/)/i.test(path)
+    ) {
       throw new ApiError('Invalid API configuration or endpoint.');
     }
     return `${base.replace(/\/+$/, '')}/${path.replace(/^\/+/, '')}`;
@@ -34,14 +37,32 @@ export class ApiService {
         if (error instanceof ApiError) return throwError(() => error);
         if (error instanceof TimeoutError)
           return throwError(
-            () => new ApiError('The service took too long to respond. Please try again.'),
+            () =>
+              new ApiError(
+                'The service took too long to respond. Please try again.',
+                0,
+                'client_timeout',
+              ),
           );
         const status = error instanceof HttpErrorResponse ? error.status : 0;
+        const code =
+          error instanceof HttpErrorResponse &&
+          typeof error.error?.code === 'string' &&
+          /^[a-z_]{1,60}$/.test(error.error.code)
+            ? error.error.code
+            : status === 0
+              ? 'network_error'
+              : 'service_unavailable';
+        const retryHeader =
+          error instanceof HttpErrorResponse ? Number(error.headers.get('Retry-After')) : 0;
+        const retryAfter = Number.isFinite(retryHeader)
+          ? Math.min(60, Math.max(0, retryHeader))
+          : 0;
         const message =
           status === 429
             ? 'The service is busy. Please try again later.'
             : 'The assistant service is unavailable. Please try again later.';
-        return throwError(() => new ApiError(message, status));
+        return throwError(() => new ApiError(message, status, code, retryAfter));
       }),
     );
   }

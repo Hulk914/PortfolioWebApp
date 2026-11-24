@@ -1,5 +1,15 @@
 /* The migrated portfolio design and assets now live entirely inside frontend. */
 @import './styles/portfolio.css';
+@import './app/components/header/header.component.css';
+/* External, component-prefixed styles keep the static site's strict style CSP. */
+@import './app/components/assistant-spotlight/assistant-spotlight.component.css';
+@import './app/components/recruiter-assistant/recruiter-assistant.component.css';
+@import './app/components/chat-answer/chat-answer.component.css';
+@import './app/components/source-evidence/source-evidence.component.css';
+
+body.assistant-modal-open {
+  overflow: hidden;
+}
 
 app-root,
 app-header,

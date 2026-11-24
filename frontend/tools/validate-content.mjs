@@ -15,6 +15,16 @@ if (!validate(content)) {
   );
 }
 
+const [assistant, assistantSchema] = await Promise.all(
+  ['content/assistant.json', 'content/assistant.schema.json'].map(async (path) =>
+    JSON.parse(await readFile(new URL(path, root), 'utf8')),
+  ),
+);
+const validateAssistant = new Ajv2020({ allErrors: true, strict: true }).compile(assistantSchema);
+if (!validateAssistant(assistant)) {
+  throw new Error(`Invalid assistant content: ${JSON.stringify(validateAssistant.errors)}`);
+}
+
 function unique(values, label) {
   const seen = new Set();
   for (const value of values) {

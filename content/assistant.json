@@ -1,0 +1,51 @@
+{
+  "title": "Ask Ayush",
+  "launcherLabel": "Talk to my RAG assistant",
+  "navigationLabel": "Know me, the AI way",
+  "eyebrow": "A live AI project, inside the portfolio",
+  "headline": "A conversation. With receipts.",
+  "description": "Explore my experience, projects and engineering decisions with an AI assistant grounded in this portfolio. Then peek at the evidence behind the answer.",
+  "welcome": "What would you like to know?",
+  "welcomeDescription": "Get the story behind the experience. Ask a question, read a grounded answer, and open its sources to see exactly what the model retrieved.",
+  "placeholder": "Ask about experience, projects, or engineering skills…",
+  "suggestions": [
+    {
+      "label": "Experience",
+      "question": "How has Ayush used Angular in his professional work?"
+    },
+    {
+      "label": "Applied AI",
+      "question": "What has Ayush built with RAG and AI agents?"
+    },
+    {
+      "label": "Leadership",
+      "question": "What leadership and architecture experience does Ayush have?"
+    },
+    {
+      "label": "Python & APIs",
+      "question": "What does the portfolio show about Ayush's Python and FastAPI skills?"
+    }
+  ],
+  "pipeline": [
+    {
+      "label": "Portfolio",
+      "detail": "Shared JSON is validated and split into topic-specific text chunks."
+    },
+    {
+      "label": "Chroma",
+      "detail": "Gemini embeddings represent the chunks as vectors. The question's vector retrieves nearby content."
+    },
+    {
+      "label": "Gemini",
+      "detail": "LangChain supplies the retrieved text and strict portfolio-only instructions to the model."
+    },
+    {
+      "label": "Evidence",
+      "detail": "The backend checks the cited chunk IDs and returns the original text with every answer."
+    }
+  ],
+  "deliveryNote": "GitHub Actions rebuilds the index when content changes, checks a real hosted answer, and deploys the matching snapshot to FastAPI on Vercel. Angular runs on GitHub Pages. Optional LangSmith traces stay private.",
+  "availabilityTitle": "Production thinking. Coffee-budget infrastructure.",
+  "availabilityNote": "Hosting, the LLM and tracing run on free tiers. Occasionally, the cloud takes a coffee break. More budget buys more headroom; the retry button is our current finance department.",
+  "privacyNote": "Questions and answers may appear in private diagnostic traces. Please keep sensitive information out of this public demo."
+}

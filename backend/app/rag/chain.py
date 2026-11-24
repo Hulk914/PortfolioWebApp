@@ -54,6 +54,7 @@ def _answer_question(question: str, settings: Settings) -> ChatResponse:
     manifest, hits = retrieve(question, settings)
     if not hits:
         return ChatResponse(
+            status="insufficient_context",
             answer=INSUFFICIENT_CONTEXT,
             citations=[],
             content_hash=manifest.content_hash,
@@ -114,6 +115,7 @@ def _answer_question(question: str, settings: Settings) -> ChatResponse:
     if not generated.answerable:
         _, retrieved_chunks = build_evidence(hits, [])
         return ChatResponse(
+            status="insufficient_context",
             answer=INSUFFICIENT_CONTEXT,
             citations=[],
             retrieved_chunks=retrieved_chunks,

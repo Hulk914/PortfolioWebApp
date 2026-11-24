@@ -34,6 +34,8 @@ export interface EvidenceChunk {
   url: string;
 }
 export interface ChatResponse {
+  /** Optional while an older backend deployment is still serving traffic. */
+  status?: 'answered' | 'insufficient_context';
   answer: string;
   citations: Citation[];
   retrieved_chunks: EvidenceChunk[];
@@ -46,6 +48,8 @@ export class ApiError extends Error {
   constructor(
     message: string,
     readonly status = 0,
+    readonly code = 'service_unavailable',
+    readonly retryAfterSeconds = 0,
   ) {
     super(message);
     this.name = 'ApiError';

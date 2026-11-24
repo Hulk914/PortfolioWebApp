@@ -6,6 +6,7 @@
     "prestart": "npm run prepare:frontend",
     "start": "ng serve --host 127.0.0.1 --port 4200",
     "dev": "npm run start",
+    "dev:hosted": "npm run prepare:frontend && ng serve --configuration hosted --host 127.0.0.1 --port 4200",
     "validate:content": "node tools/validate-content.mjs",
     "prepare:frontend": "npm run validate:content && node tools/prepare-frontend.mjs",
     "build": "node tools/build.mjs",

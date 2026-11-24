@@ -1,0 +1,295 @@
+<button
+  type="button"
+  class="assistant-launcher"
+  [hidden]="session.opened()"
+  aria-haspopup="dialog"
+  aria-controls="portfolio-assistant"
+  [attr.aria-expanded]="session.opened()"
+  (click)="session.open()"
+>
+  <span class="launcher-mark"><app-icon name="sparkle" /></span>
+  <span class="launcher-copy"
+    ><strong>{{ session.copy.title }}</strong
+    ><span>{{ session.pending() ? 'Finding an answer…' : session.copy.launcherLabel }}</span></span
+  >
+  <span class="launcher-dot" [class.is-thinking]="session.pending()" aria-hidden="true"></span>
+</button>
+
+<dialog
+  #dialog
+  id="portfolio-assistant"
+  class="assistant-dialog"
+  [class.has-evidence]="selection()"
+  aria-labelledby="assistant-title"
+  aria-describedby="assistant-description"
+  (close)="closed()"
+  (click)="backdrop($event)"
+>
+  <header class="assistant-header">
+    <div class="assistant-identity"
+      ><span class="assistant-mark" aria-hidden="true"><app-icon name="sparkle" /></span
+      ><div
+        ><h2 #heading id="assistant-title" tabindex="-1"
+          >{{ session.copy.title }}<span class="rag-label">PORTFOLIO AI</span></h2
+        ><p id="assistant-description">Grounded answers. Inspectable evidence.</p></div
+      ></div
+    >
+    <div class="window-actions">
+      <button
+        type="button"
+        class="new-chat"
+        (click)="reset()"
+        [disabled]="!session.turns().length && !session.draft()"
+        ><app-icon name="refresh" /><span>New chat</span></button
+      >
+      <button
+        type="button"
+        class="icon-button minimize-button"
+        aria-label="Minimize assistant; keep this conversation"
+        title="Minimize"
+        (click)="session.minimize()"
+        ><app-icon name="minimize"
+      /></button>
+      <button
+        type="button"
+        class="icon-button"
+        aria-label="Close assistant; keep this conversation"
+        title="Close"
+        (click)="session.minimize()"
+        ><app-icon name="close"
+      /></button>
+    </div>
+  </header>
+  <div class="assistant-body" [class.sources-open]="selection()">
+    <div class="chat-main">
+      <div class="conversation" tabindex="0" aria-label="Questions and answers">
+        @if (!session.turns().length) {
+          <div class="welcome">
+            <p class="welcome-eyebrow"
+              ><span class="tiny-orbit" aria-hidden="true"></span> BUILT TO SHOW ITS WORK</p
+            >
+            <h3>{{ session.copy.welcome }}</h3>
+            <p class="welcome-description">{{ session.copy.welcomeDescription }}</p>
+            <div class="question-grid" aria-label="Suggested questions">
+              @for (suggestion of session.copy.suggestions; track suggestion.label) {
+                <button
+                  type="button"
+                  [disabled]="session.pending() || !!session.retryWait()"
+                  (click)="suggest(suggestion.question)"
+                  ><span class="suggestion-label">{{ suggestion.label }}</span
+                  ><span>{{ suggestion.question }}</span
+                  ><span class="suggestion-arrow" aria-hidden="true">↗</span></button
+                >
+              }
+            </div>
+            <details class="under-the-hood">
+              <summary
+                ><span>How this assistant is built</span
+                ><span class="hood-tags">RAG / LANGCHAIN / GEMINI</span></summary
+              >
+              <ol class="pipeline">
+                @for (step of session.copy.pipeline; track step.label; let i = $index) {
+                  <li
+                    ><span class="step-number">{{ '0' + (i + 1) }}</span
+                    ><div
+                      ><h4>{{ step.label }}</h4
+                      ><p>{{ step.detail }}</p></div
+                    ></li
+                  >
+                }
+              </ol>
+              <p class="delivery-note">{{ session.copy.deliveryNote }}</p>
+              <p class="privacy-note">{{ session.copy.privacyNote }}</p>
+            </details>
+            <p class="welcome-boundary"
+              >Questions about the portfolio only. When the evidence is missing, this assistant says
+              so.</p
+            >
+          </div>
+        }
+        @for (turn of session.turns(); track turn.id) {
+          <section
+            class="chat-turn"
+            [id]="'assistant-turn-' + turn.id"
+            [attr.aria-label]="'Question ' + turn.id"
+          >
+            <div class="question-row"
+              ><span class="speaker-label">YOU</span
+              ><p class="user-question">{{ turn.question }}</p></div
+            >
+            <div class="answer-row">
+              <span class="answer-avatar" aria-hidden="true"><app-icon name="sparkle" /></span>
+              <div class="answer-content">
+                <p class="answer-label">AYUSH’S PORTFOLIO <span>RAG ASSISTANT</span></p>
+                @switch (turn.state) {
+                  @case ('pending') {
+                    <div class="thinking"
+                      ><span class="thinking-dots" aria-hidden="true"><i></i><i></i><i></i></span
+                      ><span>Searching the portfolio. Connecting the dots.</span></div
+                    >
+                    <p class="thinking-note"
+                      >Retrieval + Gemini generation. Free-tier requests can take a little
+                      longer.</p
+                    >
+                  }
+                  @case ('error') {
+                    @if (turn.error; as error) {
+                      <div class="answer-error"
+                        ><h4>{{ error.title }}</h4
+                        ><p>{{ error.message }}</p>
+                        @if (error.availability) {
+                          <div class="budget-note"
+                            ><strong>{{ session.copy.availabilityTitle }}</strong
+                            ><p>{{ session.copy.availabilityNote }}</p></div
+                          >
+                        }
+                        <button
+                          type="button"
+                          class="retry-button"
+                          [disabled]="session.pending() || !!session.retryWait()"
+                          (click)="session.retry(turn)"
+                          ><app-icon name="refresh" />{{
+                            session.retryWait()
+                              ? 'Retry in ' + session.retryWait() + 's'
+                              : 'Retry this question'
+                          }}</button
+                        >
+                      </div>
+                    }
+                  }
+                  @case ('cancelled') {
+                    <p class="cancelled-note">Stopped waiting for this answer.</p
+                    ><button
+                      type="button"
+                      class="retry-button"
+                      [disabled]="session.pending() || !!session.retryWait()"
+                      (click)="session.retry(turn)"
+                      ><app-icon name="refresh" />Try this question again</button
+                    >
+                  }
+                  @case ('answered') {
+                    @if (turn.response; as response) {
+                      @if (insufficient(response)) {
+                        <div class="no-evidence"
+                          ><span class="boundary-label">OUTSIDE THE DOCUMENTED PORTFOLIO</span
+                          ><h4>The evidence stops here.</h4
+                          ><app-chat-answer [text]="response.answer" /><p
+                            >This assistant uses a strict portfolio-only RAG pipeline and is
+                            instructed to decline unsupported personal or professional claims. Try a
+                            specific question about the listed experience or projects.</p
+                          ></div
+                        >
+                      } @else {
+                        <app-chat-answer [text]="response.answer" />
+                        <div class="answer-sources"
+                          ><p
+                            ><app-icon name="source" /> Sources
+                            <span>Open one to inspect the actual chunks</span></p
+                          ><div class="citation-list">
+                            @for (
+                              citation of response.citations;
+                              track citation.document_id;
+                              let i = $index
+                            ) {
+                              <button
+                                type="button"
+                                class="citation"
+                                [attr.aria-label]="
+                                  'Inspect source ' + (i + 1) + ': ' + citation.title
+                                "
+                                [attr.aria-pressed]="
+                                  selection()?.response === response &&
+                                  selection()?.citation?.document_id === citation.document_id
+                                "
+                                (click)="inspect(response, citation, i, $event)"
+                                ><span class="citation-number">{{ i + 1 }}</span
+                                ><span class="citation-copy"
+                                  ><strong>{{ citation.title }}</strong
+                                  ><span>{{ citation.section || 'Portfolio' }}</span></span
+                                ><span class="citation-chevron" aria-hidden="true">↗</span></button
+                              >
+                            }
+                          </div></div
+                        >
+                      }
+                      <div class="answer-tools"
+                        ><button type="button" (click)="copyAnswer(turn.id, response.answer)"
+                          ><app-icon [name]="copied() === turn.id ? 'check' : 'copy'" />{{
+                            copied() === turn.id ? 'Copied' : 'Copy answer'
+                          }}</button
+                        ><span [title]="response.content_hash"
+                          >SNAPSHOT {{ response.content_hash.slice(0, 8) }}</span
+                        ></div
+                      >
+                    }
+                  }
+                }
+              </div>
+            </div>
+          </section>
+        }
+        @if (session.turns().length) {
+          <p class="transcript-note"
+            >This conversation stays in this tab’s memory. Each question is answered
+            independently.</p
+          >
+        }
+      </div>
+      <form class="composer" (submit)="submit($event)">
+        <label for="assistant-question">Your question</label>
+        <div class="composer-input">
+          <textarea
+            #questionInput
+            id="assistant-question"
+            name="question"
+            rows="2"
+            maxlength="500"
+            [value]="session.draft()"
+            (input)="session.draft.set(questionInput.value)"
+            (keydown)="keydown($event)"
+            [placeholder]="session.copy.placeholder"
+            aria-describedby="composer-hint composer-counter"
+          ></textarea>
+          @if (session.pending()) {
+            <button
+              type="button"
+              class="send-button stop-button"
+              aria-label="Stop waiting for this answer"
+              title="Stop waiting"
+              (click)="session.stop()"
+              ><app-icon name="stop"
+            /></button>
+          } @else {
+            <button
+              type="submit"
+              class="send-button"
+              [disabled]="!canSend()"
+              aria-label="Send question"
+              title="Send question"
+              ><app-icon name="send"
+            /></button>
+          }
+        </div>
+        <div class="composer-meta"
+          ><p id="composer-hint"
+            >Ask a complete question. <span>Enter to send · Shift + Enter for a new line</span></p
+          ><span id="composer-counter">{{ session.draft().length }}/500</span></div
+        >
+      </form>
+    </div>
+    @if (selection(); as evidence) {
+      <app-source-evidence
+        [selection]="evidence"
+        (closed)="closeEvidence()"
+        (selected)="selection.set($event)"
+      />
+    }
+  </div>
+  <footer class="assistant-footer"
+    ><span><span class="footer-dot" aria-hidden="true"></span> GEMINI + CHROMA + FASTAPI</span
+    ><span>Built to cite. Allowed to say “I don’t know.”</span></footer
+  >
+  <p class="visually-hidden" role="status" aria-live="polite" aria-atomic="true">{{
+    session.announcement()
+  }}</p>
+</dialog>
