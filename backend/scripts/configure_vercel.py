@@ -64,6 +64,22 @@ def main() -> None:
         raise RuntimeError(
             "BACKEND_PRODUCTION_URL is not a production alias of the selected Vercel project."
         )
+    if environment_file := os.environ.get("GITHUB_ENV"):
+        bypass = next(
+            (
+                secret
+                for secret, metadata in configured.get("protectionBypass", {}).items()
+                if metadata.get("scope") == "automation-bypass"
+            ),
+            None,
+        )
+        if not bypass or any(character.isspace() for character in bypass):
+            raise RuntimeError(
+                "Create a Protection Bypass for Automation secret in the Vercel project's Deployment Protection settings before deploying."
+            )
+        print(f"::add-mask::{bypass}")
+        with Path(environment_file).open("a", encoding="utf-8") as output:
+            output.write(f"VERCEL_AUTOMATION_BYPASS_SECRET={bypass}\n")
     print(
         json.dumps(
             {

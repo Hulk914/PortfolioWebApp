@@ -10,25 +10,40 @@ import time
 from pathlib import Path
 from urllib.error import HTTPError, URLError
 from urllib.parse import urlsplit
-from urllib.request import Request, urlopen
+from urllib.request import HTTPRedirectHandler, Request, build_opener
 
 from app.models import ChatResponse
 from app.release import RELEASE_DIR, ReleaseManifest
+
+
+class NoRedirect(HTTPRedirectHandler):
+    def redirect_request(self, request, response, code, message, headers, new_url):
+        # A deployment check must not forward its bypass secret to another origin.
+        return None
 
 
 def request_json(
     base_url: str, path: str, *, body: dict | None = None, via_cli: bool = False
 ):
     data = json.dumps(body).encode() if body is not None else None
-    if not via_cli:
+    bypass = os.environ.get("VERCEL_AUTOMATION_BYPASS_SECRET") if via_cli else None
+    if not via_cli or bypass:
+        headers = {"Content-Type": "application/json"} if data else {}
+        if bypass:
+            if not (urlsplit(base_url).hostname or "").endswith(".vercel.app"):
+                raise RuntimeError("Protected checks require a Vercel deployment URL.")
+            headers["x-vercel-protection-bypass"] = bypass
         request = Request(
             base_url + path,
             data=data,
-            headers={"Content-Type": "application/json"} if data else {},
+            headers=headers,
             method="POST" if data else "GET",
         )
-        with urlopen(request, timeout=150) as response:
-            return json.load(response)
+        try:
+            with build_opener(NoRedirect).open(request, timeout=150) as response:
+                return json.load(response)
+        except HTTPError as error:
+            raise RuntimeError(f"Hosted {path} returned HTTP {error.code}.") from None
     executable = shutil.which("vercel")
     prefix = [executable] if executable else []
     if not prefix:
@@ -68,7 +83,7 @@ def request_json(
         if process.returncode:
             # CLI stderr can contain authentication details; never echo it into CI.
             raise RuntimeError(
-                "Hosted request failed. Check Vercel function logs and deployment protection."
+                f"Vercel curl failed with exit code {process.returncode}. Check deployment protection or provide VERCEL_AUTOMATION_BYPASS_SECRET."
             )
         return json.loads(output.read_text(encoding="utf-8"))
 
@@ -99,11 +114,17 @@ def main() -> None:
         try:
             readiness = request_json(base_url, "/api/health", via_cli=args.protected)
             break
-        except (OSError, URLError, ValueError, RuntimeError, subprocess.TimeoutExpired):
+        except (
+            OSError,
+            URLError,
+            ValueError,
+            RuntimeError,
+            subprocess.TimeoutExpired,
+        ) as error:
             if attempt == 2:
                 raise RuntimeError(
                     "Hosted readiness failed; the release was not verified."
-                ) from None
+                ) from error
             time.sleep(3)
     if readiness.get("status") != "ok" or not readiness.get("rag_index_loaded"):
         raise RuntimeError("Hosted Chroma is not ready.")

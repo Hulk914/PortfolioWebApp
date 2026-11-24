@@ -373,8 +373,13 @@ need their own Vercel Preview variables if you want to query them.
 
 The project configuration step applies root directory `backend`, preset
 `fastapi`, and protection that leaves stable production aliases public while
-protecting previews and unique deployment URLs. CLI-authenticated checks can
-access the protected candidate. `git.deploymentEnabled=false` disables automatic
+protecting previews and unique deployment URLs. The configuration step retrieves
+the project's existing automation bypass into a masked, job-local environment
+variable. Candidate checks send it in an HTTP header; the final public health
+check sends no bypass. If the project's bypass is revoked, create a replacement
+under **Deployment Protection -> Protection Bypass for Automation**. No extra
+GitHub secret is needed. Local verification can still use CLI authentication.
+`git.deploymentEnabled=false` disables automatic
 Vercel Git deployments so this artifact-dependent workflow controls releases.
 The job uses the `vercel-production` GitHub environment; any protection rules you
 add there still apply.
