@@ -1,14 +1,16 @@
 app-assistant-spotlight {
   display: block;
-  margin-top: 40px;
+  width: min(1080px, calc(100% - 48px));
+  margin: 32px auto 0;
+  padding-bottom: 56px;
 }
 app-assistant-spotlight .spotlight {
   position: relative;
   display: grid;
   grid-template-columns: 1.1fr 1fr;
-  gap: 54px;
+  gap: 36px;
   align-items: center;
-  padding: 36px 40px;
+  padding: 28px 32px;
   border: 1px solid rgba(125, 228, 189, 0.28);
   border-radius: 16px;
   background:
@@ -19,7 +21,7 @@ app-assistant-spotlight .spotlight::before {
   content: '';
   position: absolute;
   top: 0;
-  left: 40px;
+  left: 32px;
   width: 80px;
   height: 2px;
   background: var(--accent);
@@ -41,8 +43,8 @@ app-assistant-spotlight .live-dot {
   box-shadow: 0 0 14px #7de4bd55;
 }
 app-assistant-spotlight h2 {
-  margin: 12px 0 10px;
-  font-size: clamp(24px, 3vw, 32px);
+  margin: 10px 0 8px;
+  font-size: clamp(22px, 2.6vw, 28px);
   font-weight: 580;
   line-height: 1.2;
   letter-spacing: -0.045em;
@@ -62,8 +64,8 @@ app-assistant-spotlight .spotlight-cta {
   align-items: center;
   gap: 10px;
   min-height: 44px;
-  margin-top: 20px;
-  padding: 11px 16px;
+  margin-top: 16px;
+  padding: 10px 14px;
   color: #0b231b;
   background: var(--accent);
   border: 0;
@@ -93,7 +95,7 @@ app-assistant-spotlight .demo-question {
   width: 100%;
   align-items: center;
   gap: 12px;
-  padding: 17px;
+  padding: 14px;
   border: 1px solid var(--line);
   border-radius: 10px;
   color: var(--text);
@@ -129,8 +131,8 @@ app-assistant-spotlight .mini-pipeline {
   list-style: none;
   justify-content: space-between;
   gap: 10px;
-  margin-top: 19px;
-  padding-top: 17px;
+  margin-top: 15px;
+  padding-top: 14px;
   border-top: 1px solid var(--line);
 }
 app-assistant-spotlight .mini-pipeline li {
@@ -148,7 +150,7 @@ app-assistant-spotlight .demo-footnote {
   display: flex;
   gap: 7px;
   align-items: center;
-  margin-top: 17px;
+  margin-top: 13px;
   color: var(--muted);
   font-size: 10px;
 }
@@ -156,10 +158,15 @@ app-assistant-spotlight .demo-footnote app-icon {
   transform: scale(0.75);
 }
 @media (max-width: 800px) {
+  app-assistant-spotlight {
+    width: 100%;
+    margin-top: 24px;
+    padding-bottom: 40px;
+  }
   app-assistant-spotlight .spotlight {
     grid-template-columns: 1fr;
-    gap: 30px;
-    padding: 28px;
+    gap: 24px;
+    padding: 24px;
   }
   app-assistant-spotlight .spotlight-copy > p:not(.spotlight-eyebrow) {
     max-width: none;
@@ -167,7 +174,7 @@ app-assistant-spotlight .demo-footnote app-icon {
 }
 @media (max-width: 480px) {
   app-assistant-spotlight .spotlight {
-    padding: 24px 20px;
+    padding: 22px 20px;
     border-radius: 12px;
   }
   app-assistant-spotlight .demo-footnote {
