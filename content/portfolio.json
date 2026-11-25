@@ -100,7 +100,7 @@
     {
       "id": "applied-ai-agents",
       "label": "Applied AI & agents",
-      "description": "LLM APIs, LangChain, LangSmith, RAG, embeddings, vector databases, semantic search, agents, tool calling, MCP, evaluations & guardrails."
+      "description": "LLM APIs, LangChain, LangGraph, LangSmith, RAG, embeddings, vector databases, semantic search, agents, tool calling, MCP, evaluations & guardrails."
     },
     {
       "id": "delivery-engineering-quality",
@@ -1539,6 +1539,329 @@
                 },
                 {
                   "text": " Less manual work. More thoughtful replies."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "langgraph-reflection-agent",
+      "slug": "langgraph-reflection-agent",
+      "groupId": "ai-projects",
+      "titleId": "reflection-agent-title",
+      "title": "LangGraph Reflection Agent",
+      "eyebrow": "Agentic AI",
+      "kind": "Learning Project",
+      "statusDot": true,
+      "subtitle": "Iterative LLM refinement through stateful feedback loops.",
+      "summary": "An educational Python implementation exploring how LLM-generated content can be refined through iterative critique. Uses LangGraph to orchestrate generation, reflection, message history, conditional routing, and bounded revision cycles.",
+      "technologies": ["Python", "LangGraph", "LangChain", "Gemini", "Prompt Engineering"],
+      "links": [
+        {
+          "label": "Explore Reflection Agent",
+          "url": "https://github.com/Hulk914/langgraph-reflection-agent",
+          "external": true
+        }
+      ],
+      "detailClass": "project-card agent-card",
+      "details": [
+        {
+          "tag": "div",
+          "className": "project-copy",
+          "children": [
+            {
+              "tag": "h5",
+              "children": [
+                {
+                  "text": "Understanding Reflection-Based AI Workflows"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "Instead of accepting the first LLM response as final, this project explores a reflection pattern where one prompt generates content, another critiques it, and subsequent generation uses the feedback to revise the result. A simple tweet-refinement example makes this stateful workflow easy to follow."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "workflow agent-implementation",
+          "labelledBy": "reflection-workflow-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "reflection-workflow-title",
+              "children": [
+                {
+                  "text": "Generate → Critique → Revise → Repeat"
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "agent-flow",
+              "label": "Reflection workflow with a conditional exit",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Start: user request"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Generate or revise"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Check message count"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "End if count > 6"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-loop-note",
+              "children": [
+                {
+                  "text": "Continue branch: if the count is 6 or fewer, Reflect critiques the draft and returns to Generate with the feedback. Every generation is followed by this check; there is no automatic quality score."
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Generate: Gemini produces an initial draft from the user request."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Reflect: A separate prompt critiques clarity, style, length, and potential engagement."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Revise: The generation chain uses accumulated message history and feedback to revise the draft."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Conditional routing: After generation, LangGraph ends if the message count exceeds six; otherwise it returns to reflection."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-loop-note",
+              "children": [
+                {
+                  "text": "With one initial user message, the configured bound permits four drafts and three critiques. Extra iterations do not measure or guarantee improved quality."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "workflow agent-implementation",
+          "labelledBy": "reflection-implementation-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "reflection-implementation-title",
+              "children": [
+                {
+                  "text": "State, prompts & control flow"
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "StateGraph"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " defines generation and reflection nodes. "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "MessagesState"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " accumulates messages through its reducer."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Separate "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "ChatPromptTemplate"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " templates and "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "MessagesPlaceholder"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " compose LangChain runnable chains for writing and critique."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Both chains share one Gemini model via "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "ChatGoogleGenerativeAI"
+                        }
+                      ]
+                    },
+                    {
+                      "text": ", using different prompts for each role."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "The reflection node records model-generated critique as a "
+                    },
+                    {
+                      "tag": "code",
+                      "children": [
+                        {
+                          "text": "HumanMessage"
+                        }
+                      ]
+                    },
+                    {
+                      "text": " for the next revision. This is automated feedback, with no human approval step."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Conditional edges route generation to reflection or END; reflection always routes back to generation."
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-scope",
+              "children": [
+                {
+                  "text": "Reflection happens during inference; it does not retrain the model. History is scoped to one run, without persistent checkpoints."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "agent-conclusion",
+          "children": [
+            {
+              "tag": "p",
+              "className": "agent-takeaway",
+              "children": [
+                {
+                  "text": "LLM reflection introduces feedback into the generation process. LangGraph provides the state and control flow needed to orchestrate those iterations."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-scope",
+              "children": [
+                {
+                  "text": "Iterative critique can help guide revisions, but more iterations don't automatically guarantee better output. Reliable AI systems still require evaluation, explicit stopping conditions, and human judgment."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-scope",
+              "children": [
+                {
+                  "text": "Validation scope: the repository documents development checks with mocked responses for message accumulation, routing, and termination. It has no committed automated test suite, and live Gemini execution after the prompt fix was not verified by those checks. This is a compact learning example, with no measured quality improvement or deployed interactive app."
                 }
               ]
             }
