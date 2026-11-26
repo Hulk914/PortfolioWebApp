@@ -1870,6 +1870,271 @@
       ]
     },
     {
+      "id": "reflexion-ai-research-agent",
+      "slug": "reflexion-ai-research-agent",
+      "groupId": "ai-projects",
+      "titleId": "reflexion-agent-title",
+      "title": "Reflexion AI Research Agent",
+      "eyebrow": "Agentic AI",
+      "kind": "Learning Project",
+      "statusDot": true,
+      "subtitle": "Research-driven LLM refinement with LangGraph, Gemini & Tavily.",
+      "summary": "A Python-based AI research agent that drafts answers, critiques information gaps, generates targeted web searches, and revises responses using retrieved evidence. Built with LangGraph, Gemini, Tavily, and Pydantic to explore structured outputs and stateful agent orchestration.",
+      "technologies": [
+        "Python",
+        "LangGraph",
+        "LangChain",
+        "Gemini",
+        "Tavily",
+        "Pydantic"
+      ],
+      "links": [
+        {
+          "label": "Explore Reflexion Agent",
+          "url": "https://github.com/Hulk914/langgraph-reflexion-agent",
+          "external": true
+        }
+      ],
+      "detailClass": "project-card agent-card",
+      "details": [
+        {
+          "tag": "div",
+          "className": "project-copy",
+          "children": [
+            {
+              "tag": "h5",
+              "children": [
+                {
+                  "text": "From Self-Critique to Research-Driven Refinement"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "This project explores a Reflexion-style workflow where an LLM drafts an answer, identifies potential gaps, researches additional information through an external search tool, and revises its response using the results."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "The earlier LangGraph Reflection Agent focuses on generation and critique. This implementation adds structured search queries, external research through Tavily, and research-informed revisions."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "workflow agent-implementation",
+          "labelledBy": "reflexion-workflow-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "reflexion-workflow-title",
+              "children": [
+                {
+                  "text": "Draft → Critique → Research → Revise → Repeat or Finish"
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "agent-flow",
+              "label": "Research workflow: draft and search-query generation occur in the draft node, followed by research and revision.",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Start: draft answer + critique"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Generate search queries"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Research: Tavily web search"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Revise answer"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-loop-note",
+              "children": [
+                {
+                  "text": "Continue research? Yes: return to Tavily web search with the revised search queries. No: finish with the final answer."
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Draft & self-critique: Gemini produces an initial answer, missing information, unnecessary information, and suggested search queries in a structured tool call."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Research: Tavily executes the generated queries in a batch, with up to five results per query. ToolMessage observations return the results to the shared graph state."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Revise: The revision chain uses the previous answer, reflection feedback, and retrieved research. Its prompt requests numbered citations and a references section; citation correctness is not programmatically verified."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Conditional looping: After revision, LangGraph counts ToolMessage objects. It finishes when that count exceeds MAX_ITERATIONS (currently 2); otherwise it returns to research. This is neither an automatic quality score nor a direct count of revision passes."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "workflow agent-implementation",
+          "labelledBy": "reflexion-concepts-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "reflexion-concepts-title",
+              "children": [
+                {
+                  "text": "Engineering Concepts Demonstrated"
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "LangGraph state management: Shared message state carries the conversation, structured model responses, and tool observations between graph nodes."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Structured outputs with Pydantic: Schemas define the answer, missing and superfluous information, search queries, and revision references. Schema fields guide output structure without validating factual correctness."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Tool integration: A LangGraph ToolNode connects structured answer and revision tool calls to batched Tavily web searches."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Prompt engineering: Separate drafting and revision instructions guide self-critique, targeted research, and evidence-informed answer refinement."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Conditional routing: Graph edges connect draft, research, and revision; the ToolMessage count controls the research loop and termination."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Dependency and configuration management: uv manages dependencies, and python-dotenv loads local Gemini and Tavily API configuration."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "agent-conclusion",
+          "children": [
+            {
+              "tag": "p",
+              "className": "agent-takeaway",
+              "children": [
+                {
+                  "text": "Reflection identifies potential gaps. Research supplies additional evidence. LangGraph orchestrates the feedback loop."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-scope",
+              "children": [
+                {
+                  "text": "Combining self-critique with web research provides an opportunity to improve an answer through additional context. However, multiple iterations do not guarantee correctness, and generated references still require validation."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "className": "agent-scope",
+              "children": [
+                {
+                  "text": "Scope: An educational command-line research agent, with its research question currently configured in source code. It demonstrates a Reflexion-style research loop rather than a production-ready system. No live execution, benchmarks, or measured accuracy, latency, or cost improvements are claimed."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "core-python-field-guide",
       "slug": "core-python-field-guide",
       "groupId": "python-projects",

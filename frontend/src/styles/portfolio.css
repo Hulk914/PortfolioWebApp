@@ -828,7 +828,7 @@ img {
   gap: 10px;
   margin-bottom: 30px;
 }
-.project-group-nav a {
+.project-group-nav button {
   display: flex;
   align-items: center;
   gap: 14px;
@@ -838,11 +838,26 @@ img {
   border-radius: 8px;
   color: var(--text);
   background: rgba(18, 25, 26, 0.8);
+  font-family: inherit;
   font-size: 14px;
+  cursor: pointer;
 }
-.project-group-nav a:hover {
+.project-group-nav button:hover,
+.project-group-nav button[aria-pressed='true'] {
   border-color: var(--accent);
   color: var(--accent);
+}
+.project-group-nav button[aria-pressed='true'] {
+  background: rgba(125, 228, 189, 0.1);
+}
+.project-group-nav button:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 4px;
+}
+.project-filter-status {
+  margin: -16px 0 24px;
+  color: var(--muted);
+  font-size: 14px;
 }
 .project-group-nav span {
   color: var(--accent);

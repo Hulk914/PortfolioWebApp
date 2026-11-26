@@ -51,6 +51,10 @@ Array order controls display order. Employment dates use `YYYY-MM`; use a null
 editing copy. Add `relatedProjectIds` only when an employer/project relationship
 is supported by the source information.
 
+The category controls filter the list to one group at a time; **All** restores
+every group. Labels, counts, and filter options come from `projectGroups` and
+`projects`, so adding a project needs no category-specific UI or route edits.
+
 During `npm run dev`, imported JSON changes rebuild the UI. Assets are served
 from `frontend/src/assets/` directly; refresh the browser after replacing a file.
 Production builds regenerate metadata and copy public assets. The Angular app uses this JSON as its only professional-content source.
@@ -67,6 +71,16 @@ first. This updates the runner's index, not your laptop or an already running AP
 Successful ingestion packages the matching content/schema/index, deploys it to
 Vercel, checks a grounded answer, and promotes the backend. Local databases are
 still separate. See [backend setup](../backend/README.md).
+
+For a normal project addition, edit `portfolio.json`, validate/build the frontend,
+and run `uv run --locked ingest --dry-run` from `backend/` to check extraction
+without model calls or database writes. No vector files need manual edits. After
+you push to `main`, the existing workflow embeds new or changed chunks, reuses
+unchanged embeddings from its cached index when available, and deploys the
+matching backend snapshot. A cache miss rebuilds the index. The workflow needs
+the configured Gemini and Vercel Actions secrets; no manual production reindex
+is needed. For a local index refresh only, use `uv run --locked ingest` with a
+local Gemini key configured (see the backend setup guide).
 
 ## Assistant presentation
 
