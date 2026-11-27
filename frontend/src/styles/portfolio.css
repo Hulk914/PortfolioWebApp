@@ -1392,6 +1392,137 @@ img {
   }
 }
 
+/* ArchLens uses the shared project disclosure and workflow surfaces. */
+.archlens-card {
+  grid-template-columns: minmax(0, 1fr);
+  gap: 32px;
+  padding-top: 24px;
+}
+.archlens-section + .archlens-section {
+  padding-top: 28px;
+  border-top: 1px solid var(--line);
+}
+.archlens-card p,
+.archlens-card .summary-highlights {
+  margin-top: 16px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.archlens-card h6 {
+  font-size: 1.125rem;
+  font-weight: 550;
+  line-height: 1.4;
+}
+.archlens-card strong {
+  color: var(--text);
+  font-weight: 550;
+}
+.archlens-card code {
+  overflow-wrap: anywhere;
+  font-family: var(--mono);
+  font-size: 0.9em;
+}
+.archlens-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+  margin-top: 22px;
+}
+.archlens-panel,
+.archlens-branch {
+  min-width: 0;
+  align-self: stretch;
+}
+.archlens-grid > :last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+.archlens-system {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr);
+  gap: 24px;
+  margin-top: 24px;
+}
+.archlens-main-flow,
+.archlens-branches {
+  min-width: 0;
+}
+.archlens-branches {
+  display: grid;
+  align-content: start;
+  gap: 16px;
+}
+.archlens-branch {
+  border-style: dashed;
+}
+.archlens-branch h6 {
+  color: var(--accent);
+}
+.archlens-card .archlens-flow {
+  margin-top: 18px;
+}
+.archlens-card .archlens-flow li {
+  padding: 14px 16px;
+  font-size: 1rem;
+  text-align: left;
+  overflow-wrap: anywhere;
+}
+.archlens-flow strong,
+.archlens-flow span {
+  display: block;
+}
+.archlens-flow span {
+  margin-top: 6px;
+  color: var(--muted);
+}
+.archlens-worker {
+  margin-top: 24px;
+  border-color: rgba(125, 228, 189, 0.35);
+}
+.archlens-result {
+  margin-top: 24px;
+  padding: 20px;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 7px 7px 0;
+  background: rgba(125, 228, 189, 0.05);
+}
+.archlens-stages {
+  columns: 2;
+  column-gap: 40px;
+  padding-left: 24px;
+  margin-top: 20px;
+  color: var(--muted);
+  font-size: 1rem;
+  line-height: 1.8;
+}
+.archlens-stages li {
+  break-inside: avoid;
+  padding: 0 0 8px 4px;
+}
+.archlens-stages li::marker {
+  color: var(--accent);
+}
+.archlens-conclusion {
+  padding: 16px 20px;
+  border-left: 2px solid var(--accent);
+  border-radius: 0 7px 7px 0;
+  background: rgba(125, 228, 189, 0.05);
+}
+.archlens-conclusion p {
+  margin-top: 0;
+  color: var(--text);
+  font-size: 1.125rem;
+}
+@media (max-width: 800px) {
+  .archlens-grid,
+  .archlens-system {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .archlens-stages {
+    columns: 1;
+  }
+}
+
 /* Personal details and closing contact */
 .personal-grid {
   display: grid;

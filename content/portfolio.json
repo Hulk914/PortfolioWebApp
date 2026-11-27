@@ -293,6 +293,1214 @@
   ],
   "projects": [
     {
+      "id": "archlens",
+      "slug": "archlens",
+      "groupId": "ai-projects",
+      "titleId": "archlens-title",
+      "title": "ArchLens",
+      "eyebrow": "Fullstack AI / Architecture Engineering",
+      "kind": "Flagship Project · New · Local PoC",
+      "statusDot": false,
+      "subtitle": "AI-Assisted Architecture Discovery & Governance",
+      "summary": "An end-to-end Angular and FastAPI application that transforms public GitHub repositories into evidence-backed architecture models. Combines deterministic code analysis, NetworkX dependency graphs, FINOS CALM validation, governance checks, and optional AI-assisted architecture insights.",
+      "technologies": [
+        "Angular",
+        "Python",
+        "FastAPI",
+        "LangGraph",
+        "NetworkX",
+        "FINOS CALM",
+        "Gemini",
+        "Docker"
+      ],
+      "links": [
+        {
+          "label": "Explore ArchLens on GitHub",
+          "url": "https://github.com/Hulk914/calm-repo-scanner",
+          "external": true
+        }
+      ],
+      "detailClass": "project-card archlens-card",
+      "details": [
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-problem-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-problem-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "Understanding Software Architecture from Real Code"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "Understanding an unfamiliar repository requires examining dependency manifests, application configurations, source declarations, and deployment definitions. Architecture diagrams can become outdated, while purely LLM-generated representations may introduce unsupported assumptions."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "ArchLens explores an evidence-first approach to repository architecture discovery, machine-readable architecture documentation, and governance. I built the Angular dashboard, FastAPI API, background processing, and analysis workflow as one working local proof of concept."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-capabilities-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-capabilities-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "What ArchLens Does"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "className": "archlens-grid",
+              "children": [
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Deterministic Architecture Discovery"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Static analysis and structured parsers identify supported components, frameworks, dependencies, runtime communication indicators, data-access and deployment relationships, with file and line evidence. A recognized static declaration does not prove observed runtime behavior."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Evidence-Backed Dependency Graph"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "A NetworkX MultiDiGraph models components and categorized relationships with repository, commit, file, and line provenance. Traversal and selected cycle analysis distinguish package dependencies from runtime communication, data access, and deployment relationships."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Architecture as Code with FINOS CALM"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Supported architecture information maps into machine-readable FINOS CALM JSON, validated with the official schema and CLI. Validation reports and locally generated diagrams make the model inspectable. Schema validity and architectural governance compliance are separate results."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Architecture Governance"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Six deterministic rules cover direct frontend-to-database access, circular architectural dependencies, insecure external communication, potential credential exposure, required architecture layers, and insufficient architectural evidence. Rules respect the selected profile and available static evidence; these checks are not a comprehensive security audit."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Optional AI-Assisted Architecture Analysis"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Gemini supports evidence-constrained relationship enrichment, advisory review, and architecture Q&A using graph facts and scan-isolated ChromaDB retrieval. Accepted AI relationships remain INFERRED and cannot override confirmed deterministic evidence or formal governance results."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "tag": "strong",
+                  "children": [
+                    {
+                      "text": "Missing evidence is not success. "
+                    }
+                  ]
+                },
+                {
+                  "text": "Governance reports PASS, FAIL, UNKNOWN, or NOT_APPLICABLE. Compliance and verification coverage are calculated separately; unknown findings never count as passes, and non-applicable rules are excluded."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-architecture-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-architecture-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "From Repository to Architecture Model"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "The API admits a scan; an RQ worker executes it in the background. The overview below separates request admission from analysis and shows where optional integrations join the workflow."
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "className": "archlens-system",
+              "role": "group",
+              "label": "ArchLens asynchronous system architecture with guarded optional AI branches",
+              "children": [
+                {
+                  "tag": "div",
+                  "className": "archlens-main-flow",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Request admission"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "ol",
+                      "className": "rag-flow archlens-flow",
+                      "label": "Scan request admission, separate from background execution",
+                      "children": [
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "strong",
+                              "children": [
+                                {
+                                  "text": "Public GitHub repository"
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "children": [
+                                {
+                                  "text": "A user submits a repository in the Angular + TypeScript dashboard."
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "strong",
+                              "children": [
+                                {
+                                  "text": "FastAPI + Pydantic"
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "children": [
+                                {
+                                  "text": "Validate the request, create durable scan state, and enqueue the scan ID in RQ / Valkey."
+                                }
+                              ]
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "li",
+                          "children": [
+                            {
+                              "tag": "strong",
+                              "children": [
+                                {
+                                  "text": "HTTP 202 Accepted"
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "span",
+                              "children": [
+                                {
+                                  "text": "Return after successful queue admission. The browser receives a scan ID while analysis runs independently."
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "className": "workflow archlens-worker",
+                      "children": [
+                        {
+                          "tag": "h6",
+                          "children": [
+                            {
+                              "text": "Background execution · RQ worker + LangGraph"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "ol",
+                          "className": "rag-flow archlens-flow",
+                          "label": "Background worker overview; optional branch entry points are described alongside",
+                          "children": [
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "strong",
+                                  "children": [
+                                    {
+                                      "text": "Repository retrieval & inventory"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tag": "span",
+                                  "children": [
+                                    {
+                                      "text": "Fetch supported public source without executing repository code."
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "strong",
+                                  "children": [
+                                    {
+                                      "text": "Deterministic discovery & graph"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tag": "span",
+                                  "children": [
+                                    {
+                                      "text": "Extract static evidence and construct the categorized NetworkX graph."
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "strong",
+                                  "children": [
+                                    {
+                                      "text": "FINOS CALM generation & validation"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tag": "span",
+                                  "children": [
+                                    {
+                                      "text": "After the optional enrichment branch or deterministic fallback, generate CALM and run official validation. Invalid schema can take one bounded representational repair and revalidation."
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "strong",
+                                  "children": [
+                                    {
+                                      "text": "Architecture governance"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tag": "span",
+                                  "children": [
+                                    {
+                                      "text": "Evaluate the six rules; keep schema validity, compliance, and evidence coverage separate."
+                                    }
+                                  ]
+                                }
+                              ]
+                            },
+                            {
+                              "tag": "li",
+                              "children": [
+                                {
+                                  "tag": "strong",
+                                  "children": [
+                                    {
+                                      "text": "Diagrams & result persistence"
+                                    }
+                                  ]
+                                },
+                                {
+                                  "tag": "span",
+                                  "children": [
+                                    {
+                                      "text": "After optional advisory review or its bypass, generate available architecture/workflow diagrams and persist results, findings, and artifact metadata."
+                                    }
+                                  ]
+                                }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "className": "archlens-result",
+                      "children": [
+                        {
+                          "tag": "strong",
+                          "children": [
+                            {
+                              "text": "Angular results dashboard"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "Signals manage client state. A multiplexed WebSocket carries committed progress snapshots through the API; REST reconciliation and polling fallback recover missed updates. Results and artifacts are read from persisted state."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "archlens-branches",
+                  "children": [
+                    {
+                      "tag": "div",
+                      "className": "workflow archlens-branch",
+                      "children": [
+                        {
+                          "tag": "h6",
+                          "children": [
+                            {
+                              "text": "Guarded branch · before CALM"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "After graph construction: AI enabled for this scan and globally configured? If yes, index evidence in ChromaDB. Enrich only when chunks were indexed and enrichment is enabled; otherwise take deterministic fallback. Both paths rejoin at CALM generation."
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "LangGraph + Gemini + ChromaDB. Provider failures retain deterministic results and record optional-feature warnings."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "className": "workflow archlens-branch",
+                      "children": [
+                        {
+                          "tag": "h6",
+                          "children": [
+                            {
+                              "text": "Guarded branch · after governance"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "Run Gemini advisory review only when scan AI is enabled, the provider is configured, and architecture review is enabled. Otherwise proceed directly to diagrams; both paths rejoin there."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "className": "workflow archlens-panel",
+                      "children": [
+                        {
+                          "tag": "h6",
+                          "children": [
+                            {
+                              "text": "Shared local persistence"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "SQLite with WAL holds durable scans, revisions, findings, and artifact metadata. API and workers share artifact storage through local Docker volumes. Valkey holds queue state, notifications, and shared coordination."
+                            }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "div",
+                      "className": "workflow archlens-branch",
+                      "children": [
+                        {
+                          "tag": "h6",
+                          "children": [
+                            {
+                              "text": "Optional observability"
+                            }
+                          ]
+                        },
+                        {
+                          "tag": "p",
+                          "children": [
+                            {
+                              "text": "LangSmith instruments workflow, retrieval, questions, and model interactions. Tracing is independent of deterministic processing; successful live trace ingestion remains unverified."
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-langgraph-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-langgraph-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "LangGraph Beyond Chatbots"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "A real compiled LangGraph "
+                },
+                {
+                  "tag": "code",
+                  "children": [
+                    {
+                      "text": "StateGraph"
+                    }
+                  ]
+                },
+                {
+                  "text": " coordinates the architecture analysis lifecycle. It defines explicit stages and conditional routing, with deadline checks, persistent stage progress, bounded correction, and deterministic fallback when optional AI is unavailable."
+                }
+              ]
+            },
+            {
+              "tag": "ol",
+              "className": "archlens-stages",
+              "label": "Workflow stages; optional stages follow the guards in the architecture overview",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Repository retrieval"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "File inventory"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Deterministic architecture discovery"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Dependency graph construction"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Optional context indexing"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Optional AI enrichment, or deterministic fallback"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "CALM generation"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "CALM validation"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "One representational repair and revalidation only for invalid schema"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Governance evaluation"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Optional AI architecture review"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Diagram generation"
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "text": "Result persistence"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "This stage inventory is not a claim that every scan executes every node. AI stages use the guards shown above. Repair preserves discovered topology and original diagnostics. Governance can still run on graph evidence when CALM is invalid or unavailable; CALM-dependent results remain separate. Generated workflow diagrams come from the compiled graph. Persistent scan progress does not provide durable LangGraph checkpoint recovery."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-implementation-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-implementation-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "Fullstack Engineering Highlights"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "className": "archlens-grid",
+              "children": [
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Asynchronous Processing"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "FastAPI returns HTTP 202 after successful queue admission. RQ workers execute expensive repository scans outside the HTTP request lifecycle, while Valkey supplies queue state, Pub/Sub notifications, and shared coordination."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Real-Time Dashboard"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Angular Signals own application state. One multiplexed WebSocket carries revisioned scan progress; revision checks, REST reconciliation, bounded reconnects, and polling fallback handle missed or disconnected updates."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Durable Local Results"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "SQLite with WAL and short transactions persists scan state, findings, and artifact registrations. Shared local volumes keep API and worker state consistent. This is a deliberate single-user PoC choice, without a claim of horizontal production scalability."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Docker-Based Execution"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Docker Compose runs the Angular frontend, FastAPI API, Linux RQ workers, Valkey, and ChromaDB, with shared local persistence. The project has no publicly deployed application."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "tag": "strong",
+                  "children": [
+                    {
+                      "text": "Generated artifacts, when available: "
+                    }
+                  ]
+                },
+                {
+                  "text": "dependency graph JSON, evidence records, CALM architecture JSON, validation reports, governance findings, architecture diagrams, LangGraph workflow diagrams, and optional AI enrichment/review results. Availability depends on scan completion, validation, rendering, and enabled integrations."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-decisions-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-decisions-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "Why I Designed It This Way"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "className": "archlens-grid",
+              "children": [
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Deterministic Evidence Before AI"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Inspectable repository facts support findings. AI can add constrained inferences and advisory explanations while confirmed evidence remains authoritative."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "NetworkX Instead of a Graph Database"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "In-process graph modeling, traversal, and selected cycle analysis meet the single-user scope without the operational cost of Neo4j or another graph service."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "CALM Instead of Only Diagrams"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "A standardized, machine-readable model can be validated and versioned. It provides a foundation for future governance workflows beyond a visual snapshot."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "RQ and Valkey for Background Work"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Independent workers keep scans outside HTTP lifetimes. Queue state and notifications coordinate progress without making a browser connection responsible for execution."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "SQLite for the Current Scope"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Durable local storage with WAL and shared volumes keeps operational complexity low. Multi-user distributed persistence would require a different design."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "LangGraph for Explicit Orchestration"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Named stages and conditional execution make analysis inspectable and bounded. Representational repair has a single attempt; interrupted scans do not resume from durable graph checkpoints."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Separate Compliance and Coverage"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "A high compliance score with little evidence can create false confidence. Unknown outcomes reduce coverage rather than becoming automatic passes."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-ai-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-ai-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "Optional AI, RAG & LangSmith"
+                }
+              ]
+            },
+            {
+              "tag": "div",
+              "className": "archlens-grid",
+              "children": [
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "Graph-Enhanced Architecture Q&A"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "NetworkX answers supported structural questions; ChromaDB retrieves semantic context isolated to the current scan; optional Gemini synthesizes broader evidence-grounded explanations with Pydantic structured outputs. This is graph-enhanced RAG using NetworkX and ChromaDB, distinct from Microsoft GraphRAG."
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "tag": "div",
+                  "className": "workflow archlens-panel",
+                  "children": [
+                    {
+                      "tag": "h6",
+                      "children": [
+                        {
+                          "text": "LangSmith Observability"
+                        }
+                      ]
+                    },
+                    {
+                      "tag": "p",
+                      "children": [
+                        {
+                          "text": "Optional instrumentation covers workflow execution, retrieval, architecture questions, and model interactions. Sanitized payload handling avoids unnecessarily exposing sensitive inputs and outputs. Instrumentation is implemented; successful live trace ingestion has not been observed."
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "Gemini has encountered provider rate limits. Successful full live enrichment, embedding-backed semantic answers, and advisory review are not claimed verified. Deterministic discovery, CALM, governance, artifacts, and graph-based factual Q&A remain useful when AI is unavailable."
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "section",
+          "className": "archlens-section",
+          "labelledBy": "archlens-validation-title",
+          "children": [
+            {
+              "tag": "h5",
+              "id": "archlens-validation-title",
+              "className": "project-detail-title",
+              "children": [
+                {
+                  "text": "Project Status & Validation"
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "tag": "strong",
+                  "children": [
+                    {
+                      "text": "Working local proof of concept. "
+                    }
+                  ]
+                },
+                {
+                  "text": "The ArchLens handover documents manual verification of Angular production builds, backend startup and API availability, Linux Docker image builds, worker execution, public GitHub scan completion, official CALM validation, artifact generation, governance findings, real-time progress display, and browser result inspection."
+                }
+              ]
+            },
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "These are documented observations, not comprehensive automated test coverage or production benchmarks. Full failure-path testing, successful live Gemini flows, and LangSmith export remain unverified."
+                }
+              ]
+            },
+            {
+              "tag": "ul",
+              "className": "summary-highlights",
+              "children": [
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Current scope: "
+                        }
+                      ]
+                    },
+                    {
+                      "text": "public GitHub repositories, bounded static language/framework coverage, local Docker execution, single-user persistence, and optional AI and tracing."
+                    }
+                  ]
+                },
+                {
+                  "tag": "li",
+                  "children": [
+                    {
+                      "tag": "strong",
+                      "children": [
+                        {
+                          "text": "Deferred: "
+                        }
+                      ]
+                    },
+                    {
+                      "text": "production deployment and enterprise authorization; private-repository authentication; automatic commit-to-commit architecture drift, GitHub webhooks, and CI/CD policy gates; cross-repository Neo4j storage and distributed persistence; durable LangGraph checkpoint recovery; comprehensive security auditing and production scalability benchmarks."
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "tag": "div",
+          "className": "agent-conclusion archlens-conclusion",
+          "children": [
+            {
+              "tag": "p",
+              "children": [
+                {
+                  "text": "AI can enhance engineering judgment, but it shouldn’t replace verifiable evidence."
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "rag-deep-dive",
       "slug": "rag-deep-dive",
       "groupId": "ai-projects",
